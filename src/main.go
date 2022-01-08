@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	log.Println("Hello")
+	log.Println("hello")
 
 	r := mux.NewRouter()
 	hub := models.Hub{

@@ -20,20 +20,21 @@ func RogueLikeHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 	conn, err := upgrader.Upgrade(w, r, nil)
 	defer conn.Close()
 	if err != nil {
-		log.Println("Error during connection upgrade:", err)
+		log.Println("error during connection upgrade:", err)
 		return
 	}
 
+	client := &models.Client{}
 	for {
 		message := models.WSMessage{}
 		err = conn.ReadJSON(&message)
 		if err != nil {
 			if errors.Is(err.(*websocket.CloseError), err) {
-				log.Println("Connection closed")
+				log.Println("connection closed")
 				quit <- true
 				return
 			} else {
-				log.Println("Could not read message:", err)
+				log.Println("could not read message:", err)
 				continue
 			}
 		}
@@ -43,7 +44,7 @@ func RogueLikeHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 			data := models.UserJoinsMessage{}
 			err := json.Unmarshal(message.Data, &data)
 			if err != nil {
-				log.Println("Error during unmarshall:", err)
+				log.Println("error during unmarshall:", err)
 				break
 			}
 
@@ -66,5 +67,14 @@ func RogueLikeHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 			}
 			hub.Register <- client
 		}
+
+		go func() {
+			for {
+				select {
+				case <-quit:
+					hub.Unregister <- client
+				}
+			}
+		}()
 	}
 }
