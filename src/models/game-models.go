@@ -5,6 +5,7 @@ type TileSet string
 
 var (
 	Warrior SpriteName = "warrior"
+	Templar SpriteName = "templar"
 )
 
 var (

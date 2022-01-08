@@ -34,6 +34,19 @@ func (s *GameService) createSprites() {
 			XOffset:      0,
 			YOffset:      -1,
 		},
+		{
+			Name:         models.Templar,
+			TileSet:      models.Sprites,
+			SpriteX:      54,
+			SpriteY:      9,
+			SpriteWidth:  8,
+			SpriteHeight: 9,
+			HP:           100,
+			MoveRange:    1,
+			AttackRange:  1,
+			XOffset:      0,
+			YOffset:      -1,
+		},
 	}
 }
 
