@@ -39,7 +39,7 @@ func (hub *Hub) createSprites() {
 	hub.Sprites = []Sprite{
 		{
 			Name:         Warrior,
-			Image:        "characters",
+			TileSet:      Characters,
 			SpriteX:      0,
 			SpriteY:      0,
 			SpriteWidth:  8,

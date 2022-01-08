@@ -1,14 +1,19 @@
 package models
 
 type SpriteName string
+type TileSet string
 
 var (
 	Warrior SpriteName = "warrior"
 )
 
+var (
+	Characters TileSet = "characters"
+)
+
 type Sprite struct {
 	Name         SpriteName `json:"name"`
-	Image        string     `json:"image"`
+	TileSet      TileSet    `json:"tileSet"`
 	SpriteX      int        `json:"spriteX"`
 	SpriteY      int        `json:"spriteY"`
 	SpriteWidth  int        `json:"spriteWidth"`
