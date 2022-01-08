@@ -36,6 +36,7 @@ func (s *GameService) createSprites() {
 }
 
 func (s *GameService) Start() {
+	s.createSprites()
 	for {
 		select {
 		case client := <-s.Hub.Register:
@@ -43,6 +44,7 @@ func (s *GameService) Start() {
 			s.Hub.Clients[client] = true
 		case client := <-s.Hub.Unregister:
 			if _, ok := s.Hub.Clients[client]; ok {
+				log.Println("unregistering client")
 				delete(s.Hub.Clients, client)
 			}
 		case <-s.Hub.Broadcast:
