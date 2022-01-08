@@ -47,6 +47,22 @@ func (s *GameService) Start() {
 			}
 		case <-s.Hub.Broadcast:
 			log.Println("broadcasting")
+
+			var players []*models.Player
+			for client := range s.Hub.Clients {
+				players = append(players, client.Player)
+			}
+
+			for client := range s.Hub.Clients {
+				err := client.Conn.WriteJSON(models.BroadcastMessage{
+					Type:    models.Broadcast,
+					Players: players,
+				})
+				if err != nil {
+					log.Println("could not send message:", err)
+					continue
+				}
+			}
 		}
 	}
 }
