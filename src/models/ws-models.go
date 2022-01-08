@@ -32,9 +32,27 @@ type Hub struct {
 	Clients    map[*Client]bool
 	Register   chan *Client
 	Unregister chan *Client
+	Sprites    []Sprite
+}
+
+func (hub *Hub) createSprites() {
+	hub.Sprites = []Sprite{
+		{
+			Name:         Warrior,
+			Image:        "characters",
+			SpriteX:      0,
+			SpriteY:      0,
+			SpriteWidth:  8,
+			SpriteHeight: 8,
+			HP:           100,
+			MoveRange:    1,
+			AttackRange:  1,
+		},
+	}
 }
 
 func (hub *Hub) Start() {
+	hub.createSprites()
 	for {
 		select {
 		case client := <-hub.Register:
@@ -45,21 +63,5 @@ func (hub *Hub) Start() {
 				delete(hub.Clients, client)
 			}
 		}
-	}
-}
-
-func (hub *Hub) createSprites() []Sprite {
-	return []Sprite{
-		{
-			Name:         "warrior",
-			Image:        "",
-			SpriteX:      0,
-			SpriteY:      0,
-			SpriteWidth:  8,
-			SpriteHeight: 8,
-			HP:           100,
-			MoveRange:    1,
-			AttackRange:  1,
-		},
 	}
 }
