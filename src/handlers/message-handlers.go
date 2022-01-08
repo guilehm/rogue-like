@@ -3,9 +3,11 @@ package handlers
 import (
 	"encoding/json"
 	"log"
+	"math/rand"
 	"rogue-like/models"
 	"rogue-like/services"
 	"rogue-like/settings"
+	"time"
 
 	"github.com/gorilla/websocket"
 )
@@ -48,12 +50,9 @@ func handleUserJoins(
 		log.Println("error during unmarshall:", err)
 		return err
 	}
-	// TODO: sprite should not be hardcoded
-	sprite, err := s.GetSprite(models.Templar)
-	if err != nil {
-		log.Println(err.Error())
-		return err
-	}
+
+	rand.Seed(time.Now().UnixNano())
+	sprite := s.Hub.Sprites[rand.Int()%len(s.Hub.Sprites)]
 
 	client.Hub = s.Hub
 	client.Conn = conn
