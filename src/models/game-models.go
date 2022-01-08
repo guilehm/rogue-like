@@ -9,6 +9,7 @@ var (
 
 var (
 	Characters TileSet = "characters"
+	Background TileSet = "background"
 )
 
 type Sprite struct {

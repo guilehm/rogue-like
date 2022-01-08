@@ -24,8 +24,8 @@ func (s *GameService) createSprites() {
 		{
 			Name:         models.Warrior,
 			TileSet:      models.Characters,
-			SpriteX:      0,
-			SpriteY:      0,
+			SpriteX:      8 * 7,
+			SpriteY:      8,
 			SpriteWidth:  8,
 			SpriteHeight: 8,
 			HP:           100,
