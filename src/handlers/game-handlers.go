@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"encoding/json"
 	"errors"
 	"log"
 	"net/http"
@@ -42,31 +41,11 @@ func RogueLikeHandler(s *services.GameService, w http.ResponseWriter, r *http.Re
 
 		switch message.MessageType {
 		case models.UserJoins:
-			data := models.UserJoinsMessage{}
-			err := json.Unmarshal(message.Data, &data)
-			if err != nil {
-				log.Println("error during unmarshall:", err)
-				break
-			}
-
-			// TODO: sprite should not be hardcoded
-			sprite, err := s.GetSprite(models.Warrior)
+			err := handleUserJoins(s, conn, message)
 			if err != nil {
 				log.Println(err.Error())
 				break
 			}
-
-			client := &models.Client{
-				Hub:  s.Hub,
-				Conn: conn,
-				Player: &models.Player{
-					Sprite:    sprite,
-					Health:    sprite.HP,
-					PositionX: 0,
-					PositionY: 0,
-				},
-			}
-			s.Hub.Register <- client
 		}
 
 		go func() {
