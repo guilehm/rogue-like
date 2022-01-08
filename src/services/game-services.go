@@ -23,14 +23,16 @@ func (s *GameService) createSprites() {
 	s.Hub.Sprites = []models.Sprite{
 		{
 			Name:         models.Warrior,
-			TileSet:      models.Characters,
-			SpriteX:      8 * 7,
-			SpriteY:      8,
+			TileSet:      models.Sprites,
+			SpriteX:      63,
+			SpriteY:      9,
 			SpriteWidth:  8,
-			SpriteHeight: 8,
+			SpriteHeight: 9,
 			HP:           100,
 			MoveRange:    1,
 			AttackRange:  1,
+			XOffset:      0,
+			YOffset:      -1,
 		},
 	}
 }
