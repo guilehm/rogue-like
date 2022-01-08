@@ -20,7 +20,7 @@ var (
 )
 
 type KeyDownMessage struct {
-	Key KeyName `json:"key"`
+	Key string `json:"data"`
 }
 
 type UserJoinsMessage struct {

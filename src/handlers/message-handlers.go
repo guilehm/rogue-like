@@ -11,14 +11,14 @@ import (
 )
 
 func handleKeyDown(client *models.Client, message models.WSMessage) error {
-	data := models.KeyDownMessage{}
-	err := json.Unmarshal(message.Data, &data)
+	key := ""
+	err := json.Unmarshal(message.Data, &key)
 	if err != nil {
 		log.Println("error during unmarshall:", err)
 		return err
 	}
 
-	switch data.Key {
+	switch key {
 	case models.ArrowLeft:
 		player := &client.Player
 		(*player).PositionX -= settings.MoveStep

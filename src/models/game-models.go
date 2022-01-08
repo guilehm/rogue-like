@@ -2,7 +2,6 @@ package models
 
 type SpriteName string
 type TileSet string
-type KeyName string
 
 var (
 	Warrior SpriteName = "warrior"
@@ -14,10 +13,10 @@ var (
 )
 
 var (
-	ArrowLeft  KeyName = "ArrowLeft"
-	ArrowUp    KeyName = "ArrowUp"
-	ArrowRight KeyName = "ArrowRight"
-	ArrowDown  KeyName = "ArrowDown"
+	ArrowLeft  = "ArrowLeft"
+	ArrowUp    = "ArrowUp"
+	ArrowRight = "ArrowRight"
+	ArrowDown  = "ArrowDown"
 )
 
 type Sprite struct {
