@@ -2,6 +2,7 @@ package models
 
 type SpriteName string
 type TileSet string
+type KeyName string
 
 var (
 	Warrior SpriteName = "warrior"
@@ -9,9 +10,14 @@ var (
 )
 
 var (
-	// Characters TileSet = "characters"
-	// Background TileSet = "background"
 	Sprites TileSet = "sprites"
+)
+
+var (
+	ArrowLeft  KeyName = "ArrowLeft"
+	ArrowUp    KeyName = "ArrowUp"
+	ArrowRight KeyName = "ArrowRight"
+	ArrowDown  KeyName = "ArrowDown"
 )
 
 type Sprite struct {

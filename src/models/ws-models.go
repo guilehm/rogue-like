@@ -16,7 +16,12 @@ type WSMessage struct {
 var (
 	UserJoins WSMessageType = "user-joins"
 	Broadcast WSMessageType = "broadcast"
+	KeyDown   WSMessageType = "key-down"
 )
+
+type KeyDownMessage struct {
+	Key KeyName `json:"key"`
+}
 
 type UserJoinsMessage struct {
 	Sprite string `json:"sprite"`
