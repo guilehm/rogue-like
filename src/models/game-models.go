@@ -7,6 +7,7 @@ var (
 	Warrior SpriteName = "warrior"
 	Templar SpriteName = "templar"
 	Archer  SpriteName = "archer"
+	Mage    SpriteName = "mage"
 )
 
 var (
