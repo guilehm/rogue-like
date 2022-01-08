@@ -8,8 +8,9 @@ var (
 )
 
 var (
-	Characters TileSet = "characters"
-	Background TileSet = "background"
+	// Characters TileSet = "characters"
+	// Background TileSet = "background"
+	Sprites TileSet = "sprites"
 )
 
 type Sprite struct {
@@ -22,6 +23,8 @@ type Sprite struct {
 	HP           int        `json:"hp"`
 	MoveRange    int        `json:"moveRange"`
 	AttackRange  int        `json:"attackRange"`
+	XOffset      int        `json:"xOffset"`
+	YOffset      int        `json:"yOffset"`
 }
 
 type Player struct {
