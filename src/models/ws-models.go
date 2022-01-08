@@ -15,10 +15,16 @@ type WSMessage struct {
 
 var (
 	UserJoins WSMessageType = "user-joins"
+	Broadcast WSMessageType = "broadcast"
 )
 
 type UserJoinsMessage struct {
 	Sprite string `json:"sprite"`
+}
+
+type BroadcastMessage struct {
+	Type    WSMessageType `json:"type"`
+	Players []*Player     `json:"players"`
 }
 
 type Client struct {

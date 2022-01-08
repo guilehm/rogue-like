@@ -36,4 +36,5 @@ func handleUserJoins(s *services.GameService, conn *websocket.Conn, message mode
 		},
 	}
 	s.Hub.Register <- client
+	return nil
 }
