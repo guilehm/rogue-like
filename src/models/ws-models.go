@@ -33,6 +33,7 @@ type Hub struct {
 	Clients    map[*Client]bool
 	Register   chan *Client
 	Unregister chan *Client
+	Broadcast  chan bool
 	Sprites    []Sprite
 }
 
@@ -72,6 +73,8 @@ func (hub *Hub) Start() {
 			if _, ok := hub.Clients[client]; ok {
 				delete(hub.Clients, client)
 			}
+		case <-hub.Broadcast:
+			log.Println("broadcasting")
 		}
 	}
 }
