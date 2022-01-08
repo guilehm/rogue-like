@@ -6,13 +6,14 @@ import (
 	"log"
 	"net/http"
 	"rogue-like/models"
+	"rogue-like/services"
 
 	"github.com/gorilla/websocket"
 )
 
 var upgrader = websocket.Upgrader{}
 
-func RogueLikeHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
+func RogueLikeHandler(s *services.GameService, w http.ResponseWriter, r *http.Request) {
 	// TODO: do not allow all origins
 	upgrader.CheckOrigin = func(r *http.Request) bool { return true }
 
@@ -49,14 +50,14 @@ func RogueLikeHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 			}
 
 			// TODO: sprite should not be hardcoded
-			sprite, err := hub.GetSprite(models.Warrior)
+			sprite, err := s.GetSprite(models.Warrior)
 			if err != nil {
 				log.Println(err.Error())
 				break
 			}
 
 			client := &models.Client{
-				Hub:  hub,
+				Hub:  s.Hub,
 				Conn: conn,
 				Player: &models.Player{
 					Sprite:    sprite,
@@ -65,14 +66,14 @@ func RogueLikeHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 					PositionY: 0,
 				},
 			}
-			hub.Register <- client
+			s.Hub.Register <- client
 		}
 
 		go func() {
 			for {
 				select {
 				case <-quit:
-					hub.Unregister <- client
+					s.Hub.Unregister <- client
 				}
 			}
 		}()
