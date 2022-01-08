@@ -10,3 +10,10 @@ type Sprite struct {
 	MoveRange    int    `json:"moveRange"`
 	AttackRange  int    `json:"attackRange"`
 }
+
+type Player struct {
+	Sprite    Sprite `json:"sprite"`
+	Health    int    `json:"health"`
+	PositionX int    `json:"positionX"`
+	PositionY int    `json:"positionY"`
+}
