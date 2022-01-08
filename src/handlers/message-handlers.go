@@ -9,7 +9,7 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-func handleUserJoins(s *services.GameService, conn *websocket.Conn, message models.WSMessage) error {
+func handleUserJoins(s *services.GameService, conn *websocket.Conn, quit chan bool, message models.WSMessage) error {
 
 	data := models.UserJoinsMessage{}
 	err := json.Unmarshal(message.Data, &data)
@@ -17,7 +17,6 @@ func handleUserJoins(s *services.GameService, conn *websocket.Conn, message mode
 		log.Println("error during unmarshall:", err)
 		return err
 	}
-
 	// TODO: sprite should not be hardcoded
 	sprite, err := s.GetSprite(models.Warrior)
 	if err != nil {
@@ -36,5 +35,15 @@ func handleUserJoins(s *services.GameService, conn *websocket.Conn, message mode
 		},
 	}
 	s.Hub.Register <- client
+
+	go func() {
+		for {
+			select {
+			case <-quit:
+				s.Hub.Unregister <- client
+				s.Hub.Broadcast <- true
+			}
+		}
+	}()
 	return nil
 }

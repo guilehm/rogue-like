@@ -24,7 +24,6 @@ func RogueLikeHandler(s *services.GameService, w http.ResponseWriter, r *http.Re
 		return
 	}
 
-	client := &models.Client{}
 	for {
 		message := models.WSMessage{}
 		err = conn.ReadJSON(&message)
@@ -41,20 +40,13 @@ func RogueLikeHandler(s *services.GameService, w http.ResponseWriter, r *http.Re
 
 		switch message.MessageType {
 		case models.UserJoins:
-			err := handleUserJoins(s, conn, message)
+			err := handleUserJoins(s, conn, quit, message)
 			if err != nil {
 				log.Println(err.Error())
 				break
 			}
+			s.Hub.Broadcast <- true
 		}
 
-		go func() {
-			for {
-				select {
-				case <-quit:
-					s.Hub.Unregister <- client
-				}
-			}
-		}()
 	}
 }
