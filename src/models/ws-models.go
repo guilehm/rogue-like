@@ -2,7 +2,6 @@ package models
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 
 	"github.com/gorilla/websocket"
@@ -13,6 +12,14 @@ type WSMessageType string
 type WSMessage struct {
 	MessageType WSMessageType   `json:"type"`
 	Data        json.RawMessage `json:"data"`
+}
+
+var (
+	UserJoins WSMessageType = "user-joins"
+)
+
+type UserJoinsMessage struct {
+	Sprite string `json:"sprite"`
 }
 
 type Client struct {
@@ -28,7 +35,6 @@ type Hub struct {
 }
 
 func (hub *Hub) Start() {
-	fmt.Println("starting")
 	for {
 		select {
 		case client := <-hub.Register:
@@ -39,5 +45,21 @@ func (hub *Hub) Start() {
 				delete(hub.Clients, client)
 			}
 		}
+	}
+}
+
+func (hub *Hub) createSprites() []Sprite {
+	return []Sprite{
+		{
+			Name:         "warrior",
+			Image:        "",
+			SpriteX:      0,
+			SpriteY:      0,
+			SpriteWidth:  8,
+			SpriteHeight: 8,
+			HP:           100,
+			MoveRange:    1,
+			AttackRange:  1,
+		},
 	}
 }
