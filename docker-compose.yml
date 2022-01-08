@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  goapi:
+    build: .
+    image: rogue-like
+    container_name: rogue_like
+    command: go run main.go
+    volumes:
+      - ./src:/go/src/
+    working_dir: /go/src/
+    environment:
+      PORT: 80
+    ports:
+      - "8080:80"
