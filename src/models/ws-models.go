@@ -2,6 +2,7 @@ package models
 
 import (
 	"encoding/json"
+	"errors"
 	"log"
 
 	"github.com/gorilla/websocket"
@@ -33,6 +34,15 @@ type Hub struct {
 	Register   chan *Client
 	Unregister chan *Client
 	Sprites    []Sprite
+}
+
+func (hub *Hub) GetSprite(name SpriteName) (Sprite, error) {
+	for _, sprite := range hub.Sprites {
+		if sprite.Name == name {
+			return sprite, nil
+		}
+	}
+	return Sprite{}, errors.New("sprite not found")
 }
 
 func (hub *Hub) createSprites() {
