@@ -1,4 +1,4 @@
-module github.com/guilehm/rogue-like
+module rogue-like
 
 go 1.17
 
