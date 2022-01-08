@@ -1,10 +1,19 @@
 package models
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
 
 	"github.com/gorilla/websocket"
 )
+
+type WSMessageType string
+
+type WSMessage struct {
+	MessageType WSMessageType   `json:"type"`
+	Data        json.RawMessage `json:"data"`
+}
 
 type Client struct {
 	Hub    *Hub
