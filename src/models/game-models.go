@@ -10,6 +10,7 @@ var (
 	Templar SpriteName = "templar"
 	Archer  SpriteName = "archer"
 	Mage    SpriteName = "mage"
+	Orc     SpriteName = "orc"
 )
 
 var (
@@ -54,6 +55,16 @@ type Coords struct {
 }
 
 type Player struct {
+	Sprite          Sprite         `json:"sprite"`
+	Health          int            `json:"health"`
+	PositionX       int            `json:"positionX"`
+	PositionY       int            `json:"positionY"`
+	LastPosition    Coords         `json:"lastPosition"`
+	LastInteraction bool           `json:"lastInteraction"`
+	Moves           map[int]Coords `json:"-"`
+}
+
+type Enemy struct {
 	Sprite          Sprite         `json:"sprite"`
 	Health          int            `json:"health"`
 	PositionX       int            `json:"positionX"`
