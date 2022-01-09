@@ -33,6 +33,14 @@ func (s *GameService) createSprites() {
 			HP:           100,
 			MoveRange:    1,
 			AttackRange:  1,
+			Animations: []models.Animation{
+				{
+					SpriteX:      63,
+					SpriteY:      1,
+					SpriteWidth:  8,
+					SpriteHeight: 8,
+				},
+			},
 		},
 		{
 			Name:         models.Templar,
@@ -46,6 +54,14 @@ func (s *GameService) createSprites() {
 			HP:           100,
 			MoveRange:    1,
 			AttackRange:  1,
+			Animations: []models.Animation{
+				{
+					SpriteX:      54,
+					SpriteY:      1,
+					SpriteWidth:  8,
+					SpriteHeight: 8,
+				},
+			},
 		},
 		{
 			Name:         models.Archer,
@@ -59,6 +75,14 @@ func (s *GameService) createSprites() {
 			HP:           100,
 			MoveRange:    1,
 			AttackRange:  1,
+			Animations: []models.Animation{
+				{
+					SpriteX:      18,
+					SpriteY:      1,
+					SpriteWidth:  8,
+					SpriteHeight: 8,
+				},
+			},
 		},
 		{
 			Name:         models.Mage,
@@ -72,6 +96,14 @@ func (s *GameService) createSprites() {
 			HP:           100,
 			MoveRange:    1,
 			AttackRange:  1,
+			Animations: []models.Animation{
+				{
+					SpriteX:      45,
+					SpriteY:      1,
+					SpriteWidth:  8,
+					SpriteHeight: 8,
+				},
+			},
 		},
 	}
 }
@@ -89,8 +121,6 @@ func (s *GameService) Start() {
 				delete(s.Hub.Clients, client)
 			}
 		case <-s.Hub.Broadcast:
-			log.Println("broadcasting")
-
 			var players []*models.Player
 			for client := range s.Hub.Clients {
 				players = append(players, client.Player)
