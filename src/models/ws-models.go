@@ -39,9 +39,10 @@ type Client struct {
 }
 
 type Hub struct {
-	Clients    map[*Client]bool
-	Register   chan *Client
-	Unregister chan *Client
-	Broadcast  chan bool
-	Sprites    []Sprite
+	Clients       map[*Client]bool
+	Register      chan *Client
+	Unregister    chan *Client
+	Broadcast     chan bool
+	PlayerSprites []Sprite
+	EnemySprites  []Sprite
 }

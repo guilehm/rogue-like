@@ -11,7 +11,7 @@ type GameService struct {
 }
 
 func (s *GameService) GetSprite(name models.SpriteName) (models.Sprite, error) {
-	for _, sprite := range s.Hub.Sprites {
+	for _, sprite := range s.Hub.PlayerSprites {
 		if sprite.Name == name {
 			return sprite, nil
 		}

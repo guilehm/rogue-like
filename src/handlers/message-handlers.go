@@ -42,7 +42,7 @@ func handleUserJoins(
 	}
 
 	rand.Seed(time.Now().UnixNano())
-	sprite := s.Hub.Sprites[rand.Int()%len(s.Hub.Sprites)]
+	sprite := s.Hub.PlayerSprites[rand.Int()%len(s.Hub.PlayerSprites)]
 
 	client.Hub = s.Hub
 	client.Conn = conn

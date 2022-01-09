@@ -17,11 +17,12 @@ func main() {
 	r := mux.NewRouter()
 	service := services.GameService{
 		Hub: &models.Hub{
-			Clients:    make(map[*models.Client]bool),
-			Register:   make(chan *models.Client),
-			Unregister: make(chan *models.Client),
-			Broadcast:  make(chan bool),
-			Sprites:    []models.Sprite{},
+			Clients:       make(map[*models.Client]bool),
+			Register:      make(chan *models.Client),
+			Unregister:    make(chan *models.Client),
+			Broadcast:     make(chan bool),
+			PlayerSprites: []models.Sprite{},
+			EnemySprites:  []models.Sprite{},
 		},
 	}
 	go service.Start()
