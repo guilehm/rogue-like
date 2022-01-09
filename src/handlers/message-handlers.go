@@ -50,18 +50,19 @@ func handleUserJoins(
 		Health:          enemySprite.HP,
 		PositionX:       8 * 7,
 		PositionY:       8 * 9,
-		LastPosition:    models.Coords{},
+		LastPosition:    models.Coords{PositionX: 8 * 7, PositionY: 8 * 9},
 		LastInteraction: false,
 		Moves:           nil,
 	})
 	client.Hub = s.Hub
 	client.Conn = conn
 	client.Player = &models.Player{
-		Sprite:    sprite,
-		Health:    sprite.HP,
-		PositionX: 0,
-		PositionY: 0,
-		Moves:     make(map[int]models.Coords),
+		Sprite:       sprite,
+		Health:       sprite.HP,
+		PositionX:    0,
+		PositionY:    0,
+		LastPosition: models.Coords{PositionX: 0, PositionY: 0},
+		Moves:        make(map[int]models.Coords),
 	}
 
 	go func() {
