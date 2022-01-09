@@ -54,12 +54,12 @@ type Coords struct {
 }
 
 type Player struct {
-	Sprite       Sprite `json:"sprite"`
-	Health       int    `json:"health"`
-	PositionX    int    `json:"positionX"`
-	PositionY    int    `json:"positionY"`
-	LastPosition Coords `json:"lastPosition"`
-	Moves        map[int]Coords
+	Sprite       Sprite         `json:"sprite"`
+	Health       int            `json:"health"`
+	PositionX    int            `json:"positionX"`
+	PositionY    int            `json:"positionY"`
+	LastPosition Coords         `json:"lastPosition"`
+	Moves        map[int]Coords `json:"-"`
 }
 
 func (player *Player) Move(key string) {
