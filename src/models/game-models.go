@@ -26,6 +26,7 @@ type Animation struct {
 	SpriteY      int `json:"spriteY"`
 	SpriteWidth  int `json:"spriteWidth"`
 	SpriteHeight int `json:"spriteHeight"`
+	Period       int `json:"period"`
 }
 
 type Sprite struct {

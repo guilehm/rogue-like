@@ -35,6 +35,7 @@ func (s *GameService) createSprites() {
 			AttackRange:  1,
 			Animations: []models.Animation{
 				{
+					Period:       1000,
 					SpriteX:      63,
 					SpriteY:      1,
 					SpriteWidth:  8,
@@ -56,6 +57,7 @@ func (s *GameService) createSprites() {
 			AttackRange:  1,
 			Animations: []models.Animation{
 				{
+					Period:       1000,
 					SpriteX:      54,
 					SpriteY:      1,
 					SpriteWidth:  8,
@@ -77,6 +79,7 @@ func (s *GameService) createSprites() {
 			AttackRange:  1,
 			Animations: []models.Animation{
 				{
+					Period:       1000,
 					SpriteX:      18,
 					SpriteY:      1,
 					SpriteWidth:  8,
@@ -98,6 +101,7 @@ func (s *GameService) createSprites() {
 			AttackRange:  1,
 			Animations: []models.Animation{
 				{
+					Period:       1000,
 					SpriteX:      45,
 					SpriteY:      1,
 					SpriteWidth:  8,
