@@ -20,7 +20,11 @@ func handleKeyDown(client *models.Client, message models.WSMessage) error {
 	}
 
 	client.Player.Move(key)
-
+	// TODO: only set last interaction if player actually moved
+	for c := range client.Hub.Clients {
+		c.Player.LastInteraction = false
+	}
+	client.Player.LastInteraction = true
 	client.Hub.Broadcast <- true
 
 	return nil
