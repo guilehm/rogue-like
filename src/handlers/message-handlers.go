@@ -6,7 +6,6 @@ import (
 	"math/rand"
 	"rogue-like/models"
 	"rogue-like/services"
-	"rogue-like/settings"
 	"time"
 
 	"github.com/gorilla/websocket"
@@ -48,6 +47,7 @@ func handleUserJoins(
 		Health:    sprite.HP,
 		PositionX: 0,
 		PositionY: 0,
+		Moves:     make(map[int]models.Coords),
 	}
 
 	go func() {
