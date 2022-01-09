@@ -1,5 +1,7 @@
 package models
 
+import "rogue-like/settings"
+
 type SpriteName string
 type TileSet string
 
@@ -46,9 +48,36 @@ type Sprite struct {
 	Animation       Animation  `json:"animation"`
 }
 
+type Coords struct {
+	PositionX int `json:"positionX"`
+	PositionY int `json:"positionY"`
+}
+
 type Player struct {
-	Sprite    Sprite `json:"sprite"`
-	Health    int    `json:"health"`
-	PositionX int    `json:"positionX"`
-	PositionY int    `json:"positionY"`
+	Sprite       Sprite `json:"sprite"`
+	Health       int    `json:"health"`
+	PositionX    int    `json:"positionX"`
+	PositionY    int    `json:"positionY"`
+	LastPosition Coords `json:"lastPosition"`
+	Moves        map[int]Coords
+}
+
+func (player *Player) Move(key string) {
+	player.LastPosition = player.Moves[len(player.Moves)]
+	switch key {
+	case ArrowLeft:
+		player.PositionX -= settings.MoveStep
+	case ArrowUp:
+		player.PositionY -= settings.MoveStep
+	case ArrowRight:
+		player.PositionX += settings.MoveStep
+	case ArrowDown:
+		player.PositionY += settings.MoveStep
+	default:
+		return
+	}
+	player.Moves[len(player.Moves)+1] = Coords{
+		PositionX: player.PositionX,
+		PositionY: player.PositionY,
+	}
 }
