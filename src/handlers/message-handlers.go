@@ -48,7 +48,7 @@ func handleUserJoins(
 	s.Hub.Enemies = append(s.Hub.Enemies, &models.Enemy{
 		Sprite:          enemySprite,
 		Health:          enemySprite.HP,
-		PositionX:       8 * 7,
+		PositionX:       rand.Intn(14) * 8,
 		PositionY:       8 * 9,
 		LastPosition:    models.Coords{PositionX: 8 * 7, PositionY: 8 * 9},
 		LastInteraction: false,
