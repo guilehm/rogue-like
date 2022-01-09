@@ -21,18 +21,26 @@ var (
 	ArrowDown  = "ArrowDown"
 )
 
+type Animation struct {
+	SpriteX      int `json:"spriteX"`
+	SpriteY      int `json:"spriteY"`
+	SpriteWidth  int `json:"spriteWidth"`
+	SpriteHeight int `json:"spriteHeight"`
+}
+
 type Sprite struct {
-	Name         SpriteName `json:"name"`
-	TileSet      TileSet    `json:"tileSet"`
-	SpriteX      int        `json:"spriteX"`
-	SpriteY      int        `json:"spriteY"`
-	SpriteWidth  int        `json:"spriteWidth"`
-	SpriteHeight int        `json:"spriteHeight"`
-	HP           int        `json:"hp"`
-	MoveRange    int        `json:"moveRange"`
-	AttackRange  int        `json:"attackRange"`
-	XOffset      int        `json:"xOffset"`
-	YOffset      int        `json:"yOffset"`
+	Name         SpriteName  `json:"name"`
+	TileSet      TileSet     `json:"tileSet"`
+	SpriteX      int         `json:"spriteX"`
+	SpriteY      int         `json:"spriteY"`
+	SpriteWidth  int         `json:"spriteWidth"`
+	SpriteHeight int         `json:"spriteHeight"`
+	HP           int         `json:"hp"`
+	MoveRange    int         `json:"moveRange"`
+	AttackRange  int         `json:"attackRange"`
+	XOffset      int         `json:"xOffset"`
+	YOffset      int         `json:"yOffset"`
+	Animations   []Animation `json:"animations"`
 }
 
 type Player struct {
