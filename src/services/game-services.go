@@ -20,7 +20,29 @@ func (s *GameService) GetSprite(name models.SpriteName) (models.Sprite, error) {
 }
 
 func (s *GameService) createSprites() {
-	s.Hub.Sprites = []models.Sprite{
+	s.Hub.EnemySprites = []models.Sprite{
+		{
+			Name:            models.Orc,
+			TileSet:         models.Sprites,
+			SpriteX:         0,
+			SpriteY:         27,
+			SpriteWidth:     8,
+			SpriteHeight:    9,
+			XOffset:         0,
+			YOffset:         -1,
+			HP:              100,
+			MoveRange:       1,
+			AttackRange:     1,
+			AnimationPeriod: 200,
+			Animation: models.Animation{
+				SpriteX:      0,
+				SpriteY:      19,
+				SpriteWidth:  8,
+				SpriteHeight: 8,
+			},
+		},
+	}
+	s.Hub.PlayerSprites = []models.Sprite{
 		{
 			Name:            models.Warrior,
 			TileSet:         models.Sprites,
