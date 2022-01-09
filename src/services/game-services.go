@@ -34,13 +34,11 @@ func (s *GameService) createSprites() {
 			MoveRange:       1,
 			AttackRange:     1,
 			AnimationPeriod: 1000,
-			Animations: []models.Animation{
-				{
-					SpriteX:      63,
-					SpriteY:      1,
-					SpriteWidth:  8,
-					SpriteHeight: 8,
-				},
+			Animation: models.Animation{
+				SpriteX:      63,
+				SpriteY:      1,
+				SpriteWidth:  8,
+				SpriteHeight: 8,
 			},
 		},
 		{
@@ -56,13 +54,11 @@ func (s *GameService) createSprites() {
 			MoveRange:       1,
 			AttackRange:     1,
 			AnimationPeriod: 1000,
-			Animations: []models.Animation{
-				{
-					SpriteX:      54,
-					SpriteY:      1,
-					SpriteWidth:  8,
-					SpriteHeight: 8,
-				},
+			Animation: models.Animation{
+				SpriteX:      54,
+				SpriteY:      1,
+				SpriteWidth:  8,
+				SpriteHeight: 8,
 			},
 		},
 		{
@@ -78,13 +74,11 @@ func (s *GameService) createSprites() {
 			MoveRange:       1,
 			AttackRange:     1,
 			AnimationPeriod: 1000,
-			Animations: []models.Animation{
-				{
-					SpriteX:      18,
-					SpriteY:      1,
-					SpriteWidth:  8,
-					SpriteHeight: 8,
-				},
+			Animation: models.Animation{
+				SpriteX:      18,
+				SpriteY:      1,
+				SpriteWidth:  8,
+				SpriteHeight: 8,
 			},
 		},
 		{
@@ -100,13 +94,11 @@ func (s *GameService) createSprites() {
 			MoveRange:       1,
 			AttackRange:     1,
 			AnimationPeriod: 1000,
-			Animations: []models.Animation{
-				{
-					SpriteX:      45,
-					SpriteY:      1,
-					SpriteWidth:  8,
-					SpriteHeight: 8,
-				},
+			Animation: models.Animation{
+				SpriteX:      45,
+				SpriteY:      1,
+				SpriteWidth:  8,
+				SpriteHeight: 8,
 			},
 		},
 	}
