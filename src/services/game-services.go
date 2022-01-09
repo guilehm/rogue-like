@@ -144,10 +144,16 @@ func (s *GameService) Start() {
 				players = append(players, client.Player)
 			}
 
+			var enemies []*models.Enemy
+			for _, enemy := range s.Hub.Enemies {
+				enemies = append(enemies, enemy)
+			}
+
 			for client := range s.Hub.Clients {
 				err := client.Conn.WriteJSON(models.BroadcastMessage{
 					Type:    models.Broadcast,
 					Players: players,
+					Enemies: enemies,
 				})
 				if err != nil {
 					log.Println("could not send message:", err)
