@@ -43,7 +43,17 @@ func handleUserJoins(
 
 	rand.Seed(time.Now().UnixNano())
 	sprite := s.Hub.PlayerSprites[rand.Int()%len(s.Hub.PlayerSprites)]
+	enemySprite := s.Hub.EnemySprites[rand.Int()%len(s.Hub.EnemySprites)]
 
+	s.Hub.Enemies = append(s.Hub.Enemies, &models.Enemy{
+		Sprite:          enemySprite,
+		Health:          enemySprite.HP,
+		PositionX:       8 * 7,
+		PositionY:       8 * 9,
+		LastPosition:    models.Coords{},
+		LastInteraction: false,
+		Moves:           nil,
+	})
 	client.Hub = s.Hub
 	client.Conn = conn
 	client.Player = &models.Player{
