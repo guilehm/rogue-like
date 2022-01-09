@@ -20,20 +20,7 @@ func handleKeyDown(client *models.Client, message models.WSMessage) error {
 		return err
 	}
 
-	switch key {
-	case models.ArrowLeft:
-		player := &client.Player
-		(*player).PositionX -= settings.MoveStep
-	case models.ArrowUp:
-		player := &client.Player
-		(*player).PositionY -= settings.MoveStep
-	case models.ArrowRight:
-		player := &client.Player
-		(*player).PositionX += settings.MoveStep
-	case models.ArrowDown:
-		player := &client.Player
-		(*player).PositionY += settings.MoveStep
-	}
+	client.Player.Move(key)
 
 	client.Hub.Broadcast <- true
 
