@@ -26,22 +26,24 @@ type Animation struct {
 	SpriteY      int `json:"spriteY"`
 	SpriteWidth  int `json:"spriteWidth"`
 	SpriteHeight int `json:"spriteHeight"`
-	Period       int `json:"period"`
+	XOffset      int `json:"xOffset"`
+	YOffset      int `json:"yOffset"`
 }
 
 type Sprite struct {
-	Name         SpriteName  `json:"name"`
-	TileSet      TileSet     `json:"tileSet"`
-	SpriteX      int         `json:"spriteX"`
-	SpriteY      int         `json:"spriteY"`
-	SpriteWidth  int         `json:"spriteWidth"`
-	SpriteHeight int         `json:"spriteHeight"`
-	HP           int         `json:"hp"`
-	MoveRange    int         `json:"moveRange"`
-	AttackRange  int         `json:"attackRange"`
-	XOffset      int         `json:"xOffset"`
-	YOffset      int         `json:"yOffset"`
-	Animations   []Animation `json:"animations"`
+	Name            SpriteName  `json:"name"`
+	TileSet         TileSet     `json:"tileSet"`
+	SpriteX         int         `json:"spriteX"`
+	SpriteY         int         `json:"spriteY"`
+	SpriteWidth     int         `json:"spriteWidth"`
+	SpriteHeight    int         `json:"spriteHeight"`
+	HP              int         `json:"hp"`
+	MoveRange       int         `json:"moveRange"`
+	AttackRange     int         `json:"attackRange"`
+	XOffset         int         `json:"xOffset"`
+	YOffset         int         `json:"yOffset"`
+	AnimationPeriod int         `json:"animationPeriod"`
+	Animations      []Animation `json:"animations"`
 }
 
 type Player struct {
