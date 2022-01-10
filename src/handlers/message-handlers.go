@@ -49,14 +49,17 @@ func handleUserJoins(
 	sprite := s.Hub.PlayerSprites[rand.Int()%len(s.Hub.PlayerSprites)]
 	enemySprite := s.Hub.EnemySprites[rand.Int()%len(s.Hub.EnemySprites)]
 
-	s.Hub.Enemies = append(s.Hub.Enemies, &models.Enemy{
+	pX := rand.Intn(14) * 8
+	s.Hub.Enemies = append(s.Hub.Enemies, &models.Player{
 		Sprite:          enemySprite,
 		Health:          enemySprite.HP,
-		PositionX:       rand.Intn(14) * 8,
+		PositionX:       pX,
 		PositionY:       8 * 9,
-		LastPosition:    models.Coords{PositionX: 8 * 7, PositionY: 8 * 9},
+		LastPosition:    models.Coords{PositionX: pX, PositionY: 8 * 9},
 		LastInteraction: false,
-		Moves:           nil,
+		Moves: map[int]models.Coords{
+			1: {PositionX: pX, PositionY: 8 * 9},
+		},
 	})
 	client.Hub = s.Hub
 	client.Conn = conn
