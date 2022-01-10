@@ -30,7 +30,7 @@ type UserJoinsMessage struct {
 type BroadcastMessage struct {
 	Type    WSMessageType `json:"type"`
 	Players []*Player     `json:"players"`
-	Enemies []*Enemy      `json:"enemies"`
+	Enemies []*Player     `json:"enemies"`
 }
 
 type Client struct {
@@ -46,5 +46,5 @@ type Hub struct {
 	Broadcast     chan bool
 	PlayerSprites []Sprite
 	EnemySprites  []Sprite
-	Enemies       []*Enemy
+	Enemies       []*Player
 }

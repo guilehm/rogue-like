@@ -144,7 +144,7 @@ func (s *GameService) Start() {
 				players = append(players, client.Player)
 			}
 
-			var enemies []*models.Enemy
+			var enemies []*models.Player
 			for _, enemy := range s.Hub.Enemies {
 				enemies = append(enemies, enemy)
 			}
