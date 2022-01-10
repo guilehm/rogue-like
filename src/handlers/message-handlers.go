@@ -25,8 +25,12 @@ func handleKeyDown(client *models.Client, message models.WSMessage) error {
 		c.Player.LastInteraction = false
 	}
 	client.Player.LastInteraction = true
-	client.Hub.Broadcast <- true
 
+	for _, e := range client.Hub.Enemies {
+		// TODO: create logic here
+		e.Move(models.ArrowUp)
+	}
+	client.Hub.Broadcast <- true
 	return nil
 }
 
