@@ -1,6 +1,8 @@
 package models
 
-import "rogue-like/settings"
+import (
+	"rogue-like/settings"
+)
 
 type SpriteName string
 type TileSet string
@@ -55,16 +57,6 @@ type Coords struct {
 }
 
 type Player struct {
-	Sprite          Sprite         `json:"sprite"`
-	Health          int            `json:"health"`
-	PositionX       int            `json:"positionX"`
-	PositionY       int            `json:"positionY"`
-	LastPosition    Coords         `json:"lastPosition"`
-	LastInteraction bool           `json:"lastInteraction"`
-	Moves           map[int]Coords `json:"-"`
-}
-
-type Enemy struct {
 	Sprite          Sprite         `json:"sprite"`
 	Health          int            `json:"health"`
 	PositionX       int            `json:"positionX"`
