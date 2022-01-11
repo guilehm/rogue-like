@@ -53,10 +53,6 @@ func handleUserJoins(
 		Health:    enemySprite.HP,
 		PositionX: pX,
 		PositionY: 8 * 9,
-		// LastPosition: models.Coords{PositionX: pX, PositionY: 8 * 9},
-		// Moves: map[int]models.Coords{
-		// 	1: {PositionX: pX, PositionY: 8 * 9},
-		// },
 	})
 	client.Hub = s.Hub
 	client.Conn = conn
@@ -65,8 +61,6 @@ func handleUserJoins(
 		Health:    sprite.HP,
 		PositionX: 0,
 		PositionY: 0,
-		// LastPosition: models.Coords{PositionX: 0, PositionY: 0},
-		// Moves:        make(map[int]models.Coords),
 	}
 
 	go func() {
