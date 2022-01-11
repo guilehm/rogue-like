@@ -61,13 +61,10 @@ type Player struct {
 	Health    int    `json:"health"`
 	PositionX int    `json:"positionX"`
 	PositionY int    `json:"positionY"`
-	// LastPosition Coords         `json:"lastPosition"`
-	// Moves        map[int]Coords `json:"-"`
 }
 
 func (player *Player) Move(key string) {
 	// TODO: return a boolean if player actually moved
-	// player.LastPosition = player.Moves[len(player.Moves)]
 	switch key {
 	case ArrowLeft:
 		player.PositionX -= settings.MoveStep
@@ -80,8 +77,4 @@ func (player *Player) Move(key string) {
 	default:
 		return
 	}
-	// player.Moves[len(player.Moves)+1] = Coords{
-	// 	PositionX: player.PositionX,
-	// 	PositionY: player.PositionY,
-	// }
 }
