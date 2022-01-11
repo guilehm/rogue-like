@@ -1,3 +1,4 @@
 package settings
 
-const MoveStep = 8
+const MoveStep = 1
+const MoveRange = 8
