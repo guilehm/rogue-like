@@ -47,12 +47,12 @@ func handleUserJoins(
 	sprite := s.Hub.PlayerSprites[rand.Int()%len(s.Hub.PlayerSprites)]
 	enemySprite := s.Hub.EnemySprites[rand.Int()%len(s.Hub.EnemySprites)]
 
-	pX := rand.Intn(14) * 8
+	pX := rand.Intn(10) * 8
 	s.Hub.Enemies = append(s.Hub.Enemies, &models.Player{
 		Sprite:    enemySprite,
 		Health:    enemySprite.HP,
 		PositionX: pX,
-		PositionY: 8 * 9,
+		PositionY: 8 * 4,
 	})
 	client.Hub = s.Hub
 	client.Conn = conn
