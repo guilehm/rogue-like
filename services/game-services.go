@@ -19,7 +19,7 @@ func (s *GameService) GetSprite(name models.SpriteName) (models.Sprite, error) {
 	return models.Sprite{}, errors.New("sprite not found")
 }
 
-func (s *GameService) createSprites() {
+func (s *GameService) CreateSprites() {
 	s.Hub.EnemySprites = []models.Sprite{
 		{
 			Name:            models.Orc,
@@ -174,7 +174,6 @@ func (s *GameService) spawnEnemies() {
 }
 
 func (s *GameService) Start() {
-	s.createSprites()
 	for {
 		select {
 		case client := <-s.Hub.Register:

@@ -25,6 +25,7 @@ func main() {
 			EnemySprites:  []models.Sprite{},
 		},
 	}
+	service.CreateSprites()
 	go service.Start()
 
 	r.HandleFunc("/ws/rogue/", func(w http.ResponseWriter, r *http.Request) {
