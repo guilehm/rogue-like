@@ -57,6 +57,7 @@ func handleUserJoins(
 	client.Hub = s.Hub
 	client.Conn = conn
 	client.Player = &models.Player{
+		ID:        data.ID,
 		Sprite:    sprite,
 		Health:    sprite.HP,
 		PositionX: 0,

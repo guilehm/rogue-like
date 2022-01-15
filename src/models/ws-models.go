@@ -24,6 +24,7 @@ type KeyDownMessage struct {
 }
 
 type UserJoinsMessage struct {
+	ID     int    `json:"id"`
 	Sprite string `json:"sprite"`
 }
 
