@@ -58,6 +58,13 @@ type Coords struct {
 	PositionY int `json:"positionY"`
 }
 
+type Area struct {
+	PosStartX int
+	PosEndX   int
+	PosStartY int
+	PosEndY   int
+}
+
 type Player struct {
 	ID        int    `json:"id"`
 	Sprite    Sprite `json:"sprite"`
