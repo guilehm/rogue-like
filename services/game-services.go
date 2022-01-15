@@ -186,14 +186,15 @@ func (s *GameService) Start() {
 				delete(s.Hub.Clients, client)
 			}
 		case <-s.Hub.Broadcast:
-			var players []*models.Player
+			var players []models.Player
+
 			for client := range s.Hub.Clients {
-				players = append(players, client.Player)
+				players = append(players, *client.Player)
 			}
 
-			var enemies []*models.Player
+			var enemies []models.Player
 			for _, enemy := range s.Hub.Enemies {
-				enemies = append(enemies, enemy)
+				enemies = append(enemies, *enemy)
 			}
 
 			for client := range s.Hub.Clients {
