@@ -5,7 +5,7 @@ services:
     build: .
     image: rogue-like
     container_name: rogue_like
-    command: go run main.go --race
+    command: go run -race main.go
     volumes:
       - ./src:/go/src/
     working_dir: /go/src/
