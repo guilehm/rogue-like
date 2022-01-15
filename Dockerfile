@@ -1,6 +1,6 @@
 FROM golang:1.17-alpine
 
-ADD ./src /go/src
+ADD . /go/src
 
 WORKDIR /go/src
 

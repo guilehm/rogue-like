@@ -7,7 +7,7 @@ services:
     container_name: rogue_like
     command: go run -race main.go
     volumes:
-      - ./src:/go/src/
+      - .:/go/src/
     working_dir: /go/src/
     environment:
       PORT: 80
