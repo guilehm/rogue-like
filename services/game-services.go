@@ -41,6 +41,26 @@ func (s *GameService) createSprites() {
 				SpriteHeight: 8,
 			},
 		},
+		{
+			Name:            models.OrcKing,
+			TileSet:         models.Sprites,
+			SpriteX:         27,
+			SpriteY:         27,
+			SpriteWidth:     8,
+			SpriteHeight:    9,
+			XOffset:         0,
+			YOffset:         -1,
+			HP:              120,
+			MoveRange:       1,
+			AttackRange:     1,
+			AnimationPeriod: 200,
+			Animation: models.Animation{
+				SpriteX:      27,
+				SpriteY:      19,
+				SpriteWidth:  8,
+				SpriteHeight: 8,
+			},
+		},
 	}
 	s.Hub.PlayerSprites = []models.Sprite{
 		{
