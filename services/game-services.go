@@ -169,7 +169,7 @@ func (s *GameService) createSprites() {
 func (s *GameService) spawnEnemies() {
 	var areas []models.Area
 	for _, enemy := range s.Hub.Enemies {
-		areas = append(areas, *enemy.Area())
+		areas = append(areas, enemy.GetArea())
 	}
 }
 
