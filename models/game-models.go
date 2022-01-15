@@ -8,11 +8,13 @@ type SpriteName string
 type TileSet string
 
 var (
-	Warrior SpriteName = "warrior"
-	Templar SpriteName = "templar"
-	Archer  SpriteName = "archer"
-	Mage    SpriteName = "mage"
-	Orc     SpriteName = "orc"
+	Warrior  SpriteName = "warrior"
+	Templar  SpriteName = "templar"
+	Archer   SpriteName = "archer"
+	Mage     SpriteName = "mage"
+	Orc      SpriteName = "orc"
+	OrcKing  SpriteName = "orc-king"
+	DarkMage SpriteName = "dark-mage"
 )
 
 var (
