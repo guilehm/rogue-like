@@ -65,7 +65,7 @@ func (s *GameService) createSprites() {
 			Name:            models.DarkMage,
 			TileSet:         models.Sprites,
 			SpriteX:         27,
-			SpriteY:         27,
+			SpriteY:         45,
 			SpriteWidth:     8,
 			SpriteHeight:    9,
 			XOffset:         0,
