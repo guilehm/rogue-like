@@ -30,8 +30,8 @@ type UserJoinsMessage struct {
 
 type BroadcastMessage struct {
 	Type    WSMessageType `json:"type"`
-	Players []*Player     `json:"players"`
-	Enemies []*Player     `json:"enemies"`
+	Players []Player      `json:"players"`
+	Enemies []Player      `json:"enemies"`
 }
 
 type Client struct {
