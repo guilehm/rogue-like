@@ -73,6 +73,15 @@ type Player struct {
 	PositionY int    `json:"positionY"`
 }
 
+func (player *Player) GetArea() Area {
+	return Area{
+		PosStartX: player.PositionX,
+		PosEndX:   player.PositionX + player.Sprite.SpriteWidth,
+		PosStartY: player.PositionY,
+		PosEndY:   player.PositionY + player.Sprite.SpriteHeight,
+	}
+}
+
 func (player *Player) Move(key string) {
 	// TODO: return a boolean if player actually moved
 	switch key {
