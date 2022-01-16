@@ -186,7 +186,6 @@ func (s *GameService) Start() {
 			}
 		case <-s.Hub.Broadcast:
 			var players []models.Player
-
 			for client := range s.Hub.Clients {
 				players = append(players, *client.Player)
 			}
