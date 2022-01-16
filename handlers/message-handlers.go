@@ -20,6 +20,10 @@ func handleKeyDown(client *models.Client, message models.WSMessage) error {
 		return err
 	}
 
+	x := client.Player.PositionX
+	y := client.Player.PositionY
+
+MakeMovement:
 	for m := 0; m < settings.MoveRange; m += settings.MoveStep {
 		client.Player.Move(key)
 		// for _, e := range client.Hub.Enemies {
@@ -28,6 +32,18 @@ func handleKeyDown(client *models.Client, message models.WSMessage) error {
 		// }
 		client.Hub.Broadcast <- true
 		time.Sleep(time.Duration(client.Player.Sprite.AnimationPeriod) * time.Millisecond / settings.MoveRange / 4)
+
+		if m >= 4 {
+			for _, enemy := range client.Hub.Enemies {
+				cx, cy := client.Player.GetCollisionsTo(*enemy, 0)
+				if cx && cy {
+					client.Player.PositionX = x
+					client.Player.PositionY = y
+					client.Hub.Broadcast <- true
+					break MakeMovement
+				}
+			}
+		}
 	}
 	return nil
 }
