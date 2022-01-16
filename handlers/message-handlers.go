@@ -22,10 +22,10 @@ func handleKeyDown(client *models.Client, message models.WSMessage) error {
 
 	for m := 0; m < settings.MoveRange; m += settings.MoveStep {
 		client.Player.Move(key)
-		for _, e := range client.Hub.Enemies {
-			// TODO: create logic here
-			e.Move(models.ArrowUp)
-		}
+		// for _, e := range client.Hub.Enemies {
+		// 	// TODO: create logic here
+		// 	e.Move(models.ArrowUp)
+		// }
 		client.Hub.Broadcast <- true
 		time.Sleep(time.Duration(client.Player.Sprite.AnimationPeriod) * time.Millisecond / settings.MoveRange / 4)
 	}
