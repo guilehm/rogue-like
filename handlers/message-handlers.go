@@ -64,6 +64,7 @@ func handleUserJoins(
 
 	pX := rand.Intn(10) * 8
 	s.Hub.Enemies = append(s.Hub.Enemies, &models.Player{
+		ID:        int(time.Now().UnixNano()),
 		Sprite:    enemySprite,
 		Health:    enemySprite.HP,
 		PositionX: pX,
