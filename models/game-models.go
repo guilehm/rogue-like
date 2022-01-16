@@ -105,10 +105,10 @@ func (player *Player) GetCollisionsTo(player2 Player, offset int) (bool, bool) {
 		player.PositionY,
 		player2.PositionX,
 		player2.PositionY,
-		player.Sprite.SpriteWidth,
-		player.Sprite.SpriteHeight,
-		player2.Sprite.SpriteWidth,
-		player2.Sprite.SpriteHeight,
+		player.Sprite.SpriteWidth+player.Sprite.XOffset,
+		player.Sprite.SpriteHeight+player.Sprite.YOffset,
+		player2.Sprite.SpriteWidth+player2.Sprite.XOffset,
+		player2.Sprite.SpriteHeight+player2.Sprite.YOffset,
 		offset,
 	)
 }
