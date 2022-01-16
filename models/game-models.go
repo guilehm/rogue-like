@@ -112,3 +112,18 @@ func (player *Player) GetCollisionsTo(player2 Player, offset int) (bool, bool) {
 		offset,
 	)
 }
+
+func OppositeKey(key string) string {
+	switch key {
+	case ArrowLeft:
+		return ArrowRight
+	case ArrowUp:
+		return ArrowDown
+	case ArrowRight:
+		return ArrowLeft
+	case ArrowDown:
+		return ArrowUp
+	default:
+		return ""
+	}
+}
