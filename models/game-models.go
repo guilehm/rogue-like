@@ -1,6 +1,7 @@
 package models
 
 import (
+	"rogue-like/helpers"
 	"rogue-like/settings"
 )
 
@@ -96,4 +97,18 @@ func (player *Player) Move(key string) {
 	default:
 		return
 	}
+}
+
+func (player *Player) GetCollisionsTo(player2 Player, offset int) (bool, bool) {
+	return helpers.HasCollision(
+		player.PositionX,
+		player.PositionY,
+		player2.PositionX,
+		player2.PositionY,
+		player.Sprite.SpriteWidth,
+		player.Sprite.SpriteHeight,
+		player2.Sprite.SpriteWidth,
+		player2.Sprite.SpriteHeight,
+		offset,
+	)
 }
