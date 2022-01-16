@@ -167,6 +167,7 @@ func (s *GameService) CreateSprites() {
 }
 
 func (s *GameService) spawnEnemies() {
+	// TODO: create logic to spawn enemies
 	var areas []models.Area
 	for _, enemy := range s.Hub.Enemies {
 		areas = append(areas, enemy.GetArea())
