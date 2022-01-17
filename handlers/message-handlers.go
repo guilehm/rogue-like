@@ -31,7 +31,7 @@ MakeMovement:
 		time.Sleep(time.Duration(client.Player.Sprite.AnimationPeriod) * time.Millisecond / settings.MoveRange / 4)
 
 		overlap := 5
-		if m >= overlap {
+		if m >= overlap && !client.Player.Dead {
 		CheckOverlap:
 			for _, enemy := range client.Hub.Enemies {
 				if enemy.Dead {
