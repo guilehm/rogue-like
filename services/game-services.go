@@ -33,7 +33,7 @@ func (s *GameService) CreateSprites() {
 			HP:              100,
 			MoveRange:       1,
 			AttackRange:     1,
-			AnimationPeriod: 400,
+			AnimationPeriod: 650,
 			Animation: models.Animation{
 				SpriteX:      0,
 				SpriteY:      19,
