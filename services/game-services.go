@@ -31,7 +31,7 @@ func (s *GameService) CreateSprites() {
 			XOffset:         0,
 			YOffset:         -1,
 			HP:              100,
-			MoveRange:       1,
+			Damage:          40,
 			AttackRange:     1,
 			AnimationPeriod: 650,
 			Animation: models.Animation{
@@ -51,7 +51,7 @@ func (s *GameService) CreateSprites() {
 			XOffset:         0,
 			YOffset:         -1,
 			HP:              120,
-			MoveRange:       1,
+			Damage:          60,
 			AttackRange:     1,
 			AnimationPeriod: 1000,
 			Animation: models.Animation{
@@ -71,7 +71,7 @@ func (s *GameService) CreateSprites() {
 			XOffset:         0,
 			YOffset:         -1,
 			HP:              80,
-			MoveRange:       1,
+			Damage:          70,
 			AttackRange:     1,
 			AnimationPeriod: 800,
 			Animation: models.Animation{
@@ -92,8 +92,8 @@ func (s *GameService) CreateSprites() {
 			SpriteHeight:    9,
 			XOffset:         0,
 			YOffset:         -1,
-			HP:              100,
-			MoveRange:       1,
+			HP:              140,
+			Damage:          35,
 			AttackRange:     1,
 			AnimationPeriod: 800,
 			Animation: models.Animation{
@@ -113,7 +113,7 @@ func (s *GameService) CreateSprites() {
 			XOffset:         0,
 			YOffset:         -1,
 			HP:              100,
-			MoveRange:       1,
+			Damage:          45,
 			AttackRange:     1,
 			AnimationPeriod: 1000,
 			Animation: models.Animation{
@@ -132,8 +132,8 @@ func (s *GameService) CreateSprites() {
 			SpriteHeight:    8,
 			XOffset:         0,
 			YOffset:         0,
-			HP:              100,
-			MoveRange:       1,
+			HP:              60,
+			Damage:          65,
 			AttackRange:     1,
 			AnimationPeriod: 600,
 			Animation: models.Animation{
@@ -152,8 +152,8 @@ func (s *GameService) CreateSprites() {
 			SpriteHeight:    9,
 			XOffset:         0,
 			YOffset:         -1,
-			HP:              100,
-			MoveRange:       1,
+			HP:              50,
+			Damage:          75,
 			AttackRange:     1,
 			AnimationPeriod: 750,
 			Animation: models.Animation{
