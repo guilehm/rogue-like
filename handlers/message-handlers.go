@@ -40,8 +40,7 @@ MakeMovement:
 				cx, cy := client.Player.GetCollisionsTo(*enemy, 0)
 				if cx && cy {
 					// TODO: create function to deal with damages
-					enemy.Health -= client.Player.Sprite.Damage
-					client.Player.Health -= enemy.Sprite.Damage / 2
+					client.Player.Attack(enemy)
 					for mb := overlap; mb >= 0; mb -= settings.MoveStep {
 						client.Player.Move(models.OppositeKey(key))
 						client.Hub.Broadcast <- true
