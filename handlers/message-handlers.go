@@ -32,7 +32,11 @@ MakeMovement:
 
 		overlap := 5
 		if m >= overlap {
+		CheckOverlap:
 			for _, enemy := range client.Hub.Enemies {
+				if enemy.Dead {
+					continue CheckOverlap
+				}
 				cx, cy := client.Player.GetCollisionsTo(*enemy, 0)
 				if cx && cy {
 					// TODO: create function to deal with damages
