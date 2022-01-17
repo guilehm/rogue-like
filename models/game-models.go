@@ -77,6 +77,20 @@ type Player struct {
 	Health    int    `json:"health"`
 	PositionX int    `json:"positionX"`
 	PositionY int    `json:"positionY"`
+	Dead      bool   `json:"dead"`
+}
+
+func (player *Player) Attack(enemy *Player) {
+	enemy.Health -= player.Sprite.Damage
+	player.Health -= enemy.Sprite.Damage / 2
+	if enemy.Health <= 0 {
+		enemy.Health = 0
+		enemy.Dead = true
+	}
+	if player.Health <= 0 {
+		player.Health = 0
+		player.Dead = true
+	}
 }
 
 func (player *Player) GetArea() Area {
