@@ -134,13 +134,13 @@ func (player *Player) GetCollisionsTo(player2 Player, offset int) (bool, bool) {
 
 func OppositeKey(key string) string {
 	switch key {
-	case ArrowLeft:
+	case ArrowLeft, KeyA:
 		return ArrowRight
-	case ArrowUp:
+	case ArrowUp, KeyW:
 		return ArrowDown
-	case ArrowRight:
+	case ArrowRight, KeyD:
 		return ArrowLeft
-	case ArrowDown:
+	case ArrowDown, KeyS:
 		return ArrowUp
 	default:
 		return ""
