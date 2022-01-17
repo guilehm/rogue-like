@@ -27,6 +27,10 @@ var (
 	ArrowUp    = "ArrowUp"
 	ArrowRight = "ArrowRight"
 	ArrowDown  = "ArrowDown"
+	KeyA       = "a"
+	KeyW       = "w"
+	KeyD       = "d"
+	KeyS       = "s"
 )
 
 type Animation struct {
@@ -87,13 +91,13 @@ func (player *Player) GetArea() Area {
 func (player *Player) Move(key string) {
 	// TODO: return a boolean if player actually moved
 	switch key {
-	case ArrowLeft:
+	case ArrowLeft, KeyA:
 		player.PositionX -= settings.MoveStep
-	case ArrowUp:
+	case ArrowUp, KeyW:
 		player.PositionY -= settings.MoveStep
-	case ArrowRight:
+	case ArrowRight, KeyD:
 		player.PositionX += settings.MoveStep
-	case ArrowDown:
+	case ArrowDown, KeyS:
 		player.PositionY += settings.MoveStep
 	default:
 		return
