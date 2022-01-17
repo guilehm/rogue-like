@@ -30,11 +30,13 @@ MakeMovement:
 		client.Hub.Broadcast <- true
 		time.Sleep(time.Duration(client.Player.Sprite.AnimationPeriod) * time.Millisecond / settings.MoveRange / 4)
 
-		if m >= 5 {
+		overlap := 5
+		if m >= overlap {
 			for _, enemy := range client.Hub.Enemies {
 				cx, cy := client.Player.GetCollisionsTo(*enemy, 0)
 				if cx && cy {
-					for mb := 5; mb >= 0; mb -= settings.MoveStep {
+					enemy.Health -= 10
+					for mb := overlap; mb >= 0; mb -= settings.MoveStep {
 						client.Player.Move(models.OppositeKey(key))
 						client.Hub.Broadcast <- true
 						time.Sleep(time.Duration(client.Player.Sprite.AnimationPeriod) * time.Millisecond / settings.MoveRange / 8)
