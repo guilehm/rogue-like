@@ -193,6 +193,9 @@ func (s *GameService) Start() {
 
 			var enemies []models.Player
 			for _, enemy := range s.Hub.Enemies {
+				if enemy.Dead {
+					continue
+				}
 				enemies = append(enemies, *enemy)
 			}
 
