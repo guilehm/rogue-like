@@ -20,6 +20,16 @@ func (s *GameService) GetSprite(name models.SpriteName) (models.Sprite, error) {
 }
 
 func (s *GameService) CreateSprites() {
+	s.Hub.DropSprites = []*models.DropSprite{
+		{
+			Name:         models.HealthPotion,
+			TileSet:      models.Sprites,
+			SpriteX:      98,
+			SpriteY:      90,
+			SpriteWidth:  4,
+			SpriteHeight: 5,
+		},
+	}
 	s.Hub.EnemySprites = []models.Sprite{
 		{
 			Name:            models.Orc,
