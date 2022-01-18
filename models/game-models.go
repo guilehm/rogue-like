@@ -157,6 +157,21 @@ func (player *Player) GetCollisionsTo(player2 Player, offset int) (bool, bool) {
 	)
 }
 
+func (player *Player) FoundDrop(drop Drop) bool {
+	cx, cy := helpers.HasCollision(
+		player.PositionX,
+		player.PositionY,
+		drop.PositionX,
+		drop.PositionY,
+		player.Sprite.SpriteWidth+player.Sprite.XOffset,
+		player.Sprite.SpriteHeight+player.Sprite.YOffset,
+		drop.Sprite.SpriteWidth+drop.Sprite.XOffset,
+		drop.Sprite.SpriteHeight+drop.Sprite.YOffset,
+		0,
+	)
+	return cx && cy
+}
+
 func OppositeKey(key string) string {
 	switch key {
 	case ArrowLeft, KeyA:
