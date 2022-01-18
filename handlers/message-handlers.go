@@ -57,7 +57,7 @@ MakeMovement:
 					client.Player.Attack(enemy)
 					if enemy.Dead {
 						client.Hub.Drops = append(client.Hub.Drops, &models.Drop{
-							// TODO: Drop Sprite should not be hardcoded
+							// TODO: Drops should not be hardcoded
 							Sprite:    *client.Hub.DropSprites[0],
 							PositionX: enemy.PositionX,
 							PositionY: enemy.PositionY,

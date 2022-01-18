@@ -4,16 +4,26 @@ import (
 	"errors"
 	"log"
 	"rogue-like/models"
+	"time"
 )
 
 type GameService struct {
 	Hub *models.Hub
 }
 
-func (s *GameService) GetSprite(name models.SpriteName) (models.Sprite, error) {
-	for _, sprite := range s.Hub.PlayerSprites {
-		if sprite.Name == name {
-			return sprite, nil
+func (s *GameService) GetSprite(name models.SpriteName, kind string) (models.Sprite, error) {
+	if kind == "player" {
+		for _, sprite := range s.Hub.PlayerSprites {
+			if sprite.Name == name {
+				return sprite, nil
+			}
+		}
+	}
+	if kind == "enemy" {
+		for _, sprite := range s.Hub.EnemySprites {
+			if sprite.Name == name {
+				return sprite, nil
+			}
 		}
 	}
 	return models.Sprite{}, errors.New("sprite not found")
