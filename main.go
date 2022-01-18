@@ -26,7 +26,10 @@ func main() {
 		},
 	}
 	service.CreateSprites()
+	service.CreateEnemies()
 	go service.Start()
+	go service.RespawnEnemies()
+	go service.IncreasePlayersHealth()
 
 	r.HandleFunc("/ws/rogue/", func(w http.ResponseWriter, r *http.Request) {
 		handlers.RogueLikeHandler(&service, w, r)
