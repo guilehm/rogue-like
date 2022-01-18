@@ -30,6 +30,13 @@ func (s *GameService) CreateSprites() {
 			SpriteHeight: 5,
 			XOffset:      2,
 			YOffset:      2,
+			Consume: func(drop *models.Drop, player *models.Player) {
+				drop.Consumed = true
+				player.Health += 20
+				if player.Health >= player.Sprite.HP {
+					player.Health = player.Sprite.HP
+				}
+			},
 		},
 	}
 	s.Hub.EnemySprites = []models.Sprite{
