@@ -181,8 +181,8 @@ func (s *GameService) CreateSprites() {
 			SpriteHeight:    9,
 			XOffset:         0,
 			YOffset:         -1,
-			HP:              50,
-			Damage:          75,
+			HP:              70,
+			Damage:          65,
 			AttackRange:     1,
 			AnimationPeriod: 750,
 			Animation: models.Animation{
