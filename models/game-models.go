@@ -5,8 +5,13 @@ import (
 	"rogue-like/settings"
 )
 
+type DropName string
 type SpriteName string
 type TileSet string
+
+var (
+	HealthPotion DropName = "health-potion"
+)
 
 var (
 	Warrior  SpriteName = "warrior"
