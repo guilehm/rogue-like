@@ -48,4 +48,6 @@ type Hub struct {
 	PlayerSprites []Sprite
 	EnemySprites  []Sprite
 	Enemies       []*Player
+	DropSprites   []*DropSprite
+	Drops         []*Drop
 }
