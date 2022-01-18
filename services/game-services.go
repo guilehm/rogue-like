@@ -4,6 +4,7 @@ import (
 	"errors"
 	"log"
 	"rogue-like/models"
+	"rogue-like/settings"
 	"time"
 )
 
@@ -245,6 +246,25 @@ func (s *GameService) CreateEnemies() {
 			RespawnDelay:     60,
 		},
 	)
+}
+
+func (s *GameService) RespawnEnemies() {
+	for {
+		for _, enemy := range s.Hub.Enemies {
+			if !enemy.Respawn || !enemy.Dead {
+				continue
+			}
+			now := time.Now()
+			if enemy.DeathTime.Add(time.Duration(enemy.RespawnDelay) * time.Second).Before(now) {
+				enemy.Dead = false
+				enemy.Health = enemy.Sprite.HP
+				enemy.PositionX = enemy.RespawnPositionX
+				enemy.PositionY = enemy.RespawnPositionY
+				s.Hub.Broadcast <- true
+			}
+		}
+		time.Sleep(settings.RespawnCheckTime)
+	}
 }
 
 func (s *GameService) spawnEnemies() {
