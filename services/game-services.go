@@ -195,6 +195,58 @@ func (s *GameService) CreateSprites() {
 	}
 }
 
+func (s *GameService) CreateEnemies() {
+	orcSprite, _ := s.GetSprite(models.Orc, "enemy")
+	darkMageSprite, _ := s.GetSprite(models.DarkMage, "enemy")
+	orcKingSprite, _ := s.GetSprite(models.OrcKing, "enemy")
+	s.Hub.Enemies = append(s.Hub.Enemies,
+		&models.Player{
+			ID:               int(time.Now().UnixNano()),
+			Sprite:           orcSprite,
+			Health:           orcSprite.HP,
+			PositionX:        160,
+			PositionY:        56,
+			Respawn:          true,
+			RespawnPositionX: 160,
+			RespawnPositionY: 56,
+			RespawnDelay:     30,
+		},
+		&models.Player{
+			ID:               int(time.Now().UnixNano()),
+			Sprite:           orcSprite,
+			Health:           orcSprite.HP,
+			PositionX:        128,
+			PositionY:        40,
+			Respawn:          true,
+			RespawnPositionX: 128,
+			RespawnPositionY: 40,
+			RespawnDelay:     30,
+		},
+		&models.Player{
+			ID:               int(time.Now().UnixNano()),
+			Sprite:           darkMageSprite,
+			Health:           darkMageSprite.HP,
+			PositionX:        192,
+			PositionY:        72,
+			Respawn:          true,
+			RespawnPositionX: 192,
+			RespawnPositionY: 72,
+			RespawnDelay:     60,
+		},
+		&models.Player{
+			ID:               int(time.Now().UnixNano()),
+			Sprite:           orcKingSprite,
+			Health:           orcKingSprite.HP,
+			PositionX:        72,
+			PositionY:        104,
+			Respawn:          true,
+			RespawnPositionX: 72,
+			RespawnPositionY: 104,
+			RespawnDelay:     60,
+		},
+	)
+}
+
 func (s *GameService) spawnEnemies() {
 	// TODO: create logic to spawn enemies
 	var areas []models.Area
