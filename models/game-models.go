@@ -54,6 +54,8 @@ type DropSprite struct {
 	SpriteY      int      `json:"spriteY"`
 	SpriteWidth  int      `json:"spriteWidth"`
 	SpriteHeight int      `json:"spriteHeight"`
+	XOffset      int      `json:"xOffset"`
+	YOffset      int      `json:"yOffset"`
 }
 
 type Drop struct {

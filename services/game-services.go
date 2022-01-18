@@ -28,6 +28,8 @@ func (s *GameService) CreateSprites() {
 			SpriteY:      90,
 			SpriteWidth:  4,
 			SpriteHeight: 5,
+			XOffset:      2,
+			YOffset:      2,
 		},
 	}
 	s.Hub.EnemySprites = []models.Sprite{
