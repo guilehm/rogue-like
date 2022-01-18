@@ -209,11 +209,20 @@ func (s *GameService) Start() {
 				enemies = append(enemies, *enemy)
 			}
 
+			var drops []models.Drop
+			for _, drop := range s.Hub.Drops {
+				if drop.Consumed {
+					continue
+				}
+				drops = append(drops, *drop)
+			}
+
 			for client := range s.Hub.Clients {
 				err := client.Conn.WriteJSON(models.BroadcastMessage{
 					Type:    models.Broadcast,
 					Players: players,
 					Enemies: enemies,
+					Drops:   drops,
 				})
 				if err != nil {
 					log.Println("could not send message:", err)

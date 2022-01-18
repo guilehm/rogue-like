@@ -32,6 +32,7 @@ type BroadcastMessage struct {
 	Type    WSMessageType `json:"type"`
 	Players []Player      `json:"players"`
 	Enemies []Player      `json:"enemies"`
+	Drops   []Drop        `json:"drops"`
 }
 
 type Client struct {
