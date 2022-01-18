@@ -42,8 +42,15 @@ MakeMovement:
 				}
 				cx, cy := client.Player.GetCollisionsTo(*enemy, 0)
 				if cx && cy {
-					// TODO: create function to deal with damages
 					client.Player.Attack(enemy)
+					if enemy.Dead {
+						client.Hub.Drops = append(client.Hub.Drops, &models.Drop{
+							// TODO: Drop Sprite should not be hardcoded
+							DropSprite: *client.Hub.DropSprites[0],
+							PositionX:  enemy.PositionX,
+							PositionY:  enemy.PositionY,
+						})
+					}
 					for mb := overlap; mb >= 0; mb -= settings.MoveStep {
 						client.Player.Move(models.OppositeKey(key))
 						client.Hub.Broadcast <- true
