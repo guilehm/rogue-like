@@ -20,6 +20,9 @@ func handleKeyDown(client *models.Client, message models.WSMessage) error {
 		return err
 	}
 
+	if client.Player.Dead {
+		return nil
+	}
 MakeMovement:
 	for m := 0; m < settings.MoveRange; m += settings.MoveStep {
 		client.Player.Move(key)
