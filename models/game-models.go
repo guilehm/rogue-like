@@ -105,10 +105,10 @@ type Player struct {
 }
 
 func (player *Player) Attack(enemy *Player) {
-	enemy.Health -= player.Sprite.Damage
-	if enemy.Health%enemy.Sprite.HP >= settings.PercentageToAttackBack {
+	if enemy.Health == enemy.Sprite.HP || enemy.Health%enemy.Sprite.HP >= settings.PercentageToAttackBack {
 		player.Health -= enemy.Sprite.Damage / 2
 	}
+	enemy.Health -= player.Sprite.Damage
 	if enemy.Health <= 0 {
 		enemy.Health = 0
 		enemy.Dead = true
