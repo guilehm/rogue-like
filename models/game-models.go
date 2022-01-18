@@ -112,10 +112,12 @@ func (player *Player) Attack(enemy *Player) {
 	if enemy.Health <= 0 {
 		enemy.Health = 0
 		enemy.Dead = true
+		enemy.DeathTime = time.Now()
 	}
 	if player.Health <= 0 {
 		player.Health = 0
 		player.Dead = true
+		enemy.DeathTime = time.Now()
 	}
 }
 
