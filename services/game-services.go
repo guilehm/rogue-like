@@ -72,6 +72,26 @@ func (s *GameService) CreateSprites() {
 			},
 		},
 		{
+			Name:            models.OrcRed,
+			TileSet:         models.Sprites,
+			SpriteX:         36,
+			SpriteY:         27,
+			SpriteWidth:     8,
+			SpriteHeight:    9,
+			XOffset:         0,
+			YOffset:         -1,
+			HP:              110,
+			Damage:          50,
+			AttackRange:     1,
+			AnimationPeriod: 800,
+			Animation: models.Animation{
+				SpriteX:      36,
+				SpriteY:      19,
+				SpriteWidth:  8,
+				SpriteHeight: 8,
+			},
+		},
+		{
 			Name:            models.OrcKing,
 			TileSet:         models.Sprites,
 			SpriteX:         27,
@@ -200,6 +220,7 @@ func (s *GameService) CreateEnemies() {
 	orcSprite, _ := s.GetSprite(models.Orc, "enemy")
 	darkMageSprite, _ := s.GetSprite(models.DarkMage, "enemy")
 	orcKingSprite, _ := s.GetSprite(models.OrcKing, "enemy")
+	orcRedSprite, _ := s.GetSprite(models.OrcRed, "enemy")
 	s.Hub.Enemies = append(s.Hub.Enemies,
 		&models.Player{
 			ID:               int(time.Now().UnixNano()),
@@ -244,6 +265,28 @@ func (s *GameService) CreateEnemies() {
 			RespawnPositionX: 184,
 			RespawnPositionY: 96,
 			RespawnDelay:     30,
+		},
+		&models.Player{
+			ID:               int(time.Now().UnixNano()),
+			Sprite:           orcSprite,
+			Health:           orcSprite.HP,
+			PositionX:        88,
+			PositionY:        64,
+			Respawn:          true,
+			RespawnPositionX: 88,
+			RespawnPositionY: 64,
+			RespawnDelay:     30,
+		},
+		&models.Player{
+			ID:               int(time.Now().UnixNano()),
+			Sprite:           orcRedSprite,
+			Health:           orcRedSprite.HP,
+			PositionX:        128,
+			PositionY:        104,
+			Respawn:          true,
+			RespawnPositionX: 128,
+			RespawnPositionY: 104,
+			RespawnDelay:     45,
 		},
 		&models.Player{
 			ID:               int(time.Now().UnixNano()),

@@ -20,6 +20,7 @@ var (
 	Archer   SpriteName = "archer"
 	Mage     SpriteName = "mage"
 	Orc      SpriteName = "orc"
+	OrcRed   SpriteName = "orc-red"
 	OrcKing  SpriteName = "orc-king"
 	DarkMage SpriteName = "dark-mage"
 )
