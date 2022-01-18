@@ -39,9 +39,8 @@ MakeMovement:
 					continue
 				}
 				if client.Player.FoundDrop(*drop) {
-					drop.Consumed = true
+					drop.Sprite.Consume(drop, client.Player)
 					// TODO: create logic to consume drops
-					client.Player.Health += 20
 				}
 			}
 		}
