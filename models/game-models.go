@@ -48,14 +48,15 @@ type Animation struct {
 }
 
 type DropSprite struct {
-	Name         DropName `json:"name"`
-	TileSet      TileSet  `json:"tileSet"`
-	SpriteX      int      `json:"spriteX"`
-	SpriteY      int      `json:"spriteY"`
-	SpriteWidth  int      `json:"spriteWidth"`
-	SpriteHeight int      `json:"spriteHeight"`
-	XOffset      int      `json:"xOffset"`
-	YOffset      int      `json:"yOffset"`
+	Name         DropName                         `json:"name"`
+	TileSet      TileSet                          `json:"tileSet"`
+	SpriteX      int                              `json:"spriteX"`
+	SpriteY      int                              `json:"spriteY"`
+	SpriteWidth  int                              `json:"spriteWidth"`
+	SpriteHeight int                              `json:"spriteHeight"`
+	XOffset      int                              `json:"xOffset"`
+	YOffset      int                              `json:"yOffset"`
+	Consume      func(drop *Drop, player *Player) `json:"-"`
 }
 
 type Drop struct {
