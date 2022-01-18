@@ -59,10 +59,10 @@ type DropSprite struct {
 }
 
 type Drop struct {
-	DropSprite DropSprite `json:"sprite"`
-	PositionX  int        `json:"positionX"`
-	PositionY  int        `json:"positionY"`
-	Consumed   bool       `json:"consumed"`
+	Sprite    DropSprite `json:"sprite"`
+	PositionX int        `json:"positionX"`
+	PositionY int        `json:"positionY"`
+	Consumed  bool       `json:"consumed"`
 }
 
 type Sprite struct {

@@ -59,9 +59,9 @@ MakeMovement:
 					if enemy.Dead {
 						client.Hub.Drops = append(client.Hub.Drops, &models.Drop{
 							// TODO: Drop Sprite should not be hardcoded
-							DropSprite: *client.Hub.DropSprites[0],
-							PositionX:  enemy.PositionX,
-							PositionY:  enemy.PositionY,
+							Sprite:    *client.Hub.DropSprites[0],
+							PositionX: enemy.PositionX,
+							PositionY: enemy.PositionY,
 						})
 					}
 					for mb := overlap; mb >= 0; mb -= settings.MoveStep {
