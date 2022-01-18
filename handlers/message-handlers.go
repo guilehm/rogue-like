@@ -33,7 +33,8 @@ MakeMovement:
 		client.Hub.Broadcast <- true
 		time.Sleep(time.Duration(client.Player.Sprite.AnimationPeriod) * time.Millisecond / settings.MoveRange / 4)
 
-		if m == 0 {
+		overlap := 5
+		if m > overlap && m < overlap+2 {
 			for _, drop := range client.Hub.Drops {
 				if drop.Consumed {
 					continue
@@ -45,7 +46,6 @@ MakeMovement:
 			}
 		}
 
-		overlap := 5
 		if m >= overlap && !client.Player.Dead {
 		CheckOverlap:
 			for _, enemy := range client.Hub.Enemies {
