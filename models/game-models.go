@@ -3,6 +3,7 @@ package models
 import (
 	"rogue-like/helpers"
 	"rogue-like/settings"
+	"time"
 )
 
 type DropName string
@@ -96,12 +97,17 @@ type Area struct {
 }
 
 type Player struct {
-	ID        int    `json:"id"`
-	Sprite    Sprite `json:"sprite"`
-	Health    int    `json:"health"`
-	PositionX int    `json:"positionX"`
-	PositionY int    `json:"positionY"`
-	Dead      bool   `json:"dead"`
+	ID               int       `json:"id"`
+	Sprite           Sprite    `json:"sprite"`
+	Health           int       `json:"health"`
+	PositionX        int       `json:"positionX"`
+	PositionY        int       `json:"positionY"`
+	Dead             bool      `json:"dead"`
+	Respawn          bool      `json:"-"`
+	RespawnDelay     int       `json:"-"`
+	RespawnPositionX int       `json:"-"`
+	RespawnPositionY int       `json:"-"`
+	DeathTime        time.Time `json:"-"`
 }
 
 func (player *Player) Attack(enemy *Player) {
