@@ -114,7 +114,7 @@ type Player struct {
 
 func (player *Player) HandleMove(key string, hub *Hub) {
 
-	px, py, err := player.ProjectMove(key)
+	px, py, err := player.ProjectMove(key, hub.MapArea)
 	if err != nil {
 		return
 	}
@@ -243,7 +243,7 @@ func (player *Player) Move(key string) {
 	}
 }
 
-func (player *Player) ProjectMove(key string) (x int, y int, err error) {
+func (player *Player) ProjectMove(key string, mapArea Area) (x int, y int, err error) {
 	x = player.PositionX
 	y = player.PositionY
 	switch key {
@@ -257,12 +257,6 @@ func (player *Player) ProjectMove(key string) (x int, y int, err error) {
 		y += settings.MoveRange
 	}
 
-	mapArea := Area{
-		PosStartX: settings.MapLimitStartX,
-		PosEndX:   settings.MapLimitEndX,
-		PosStartY: settings.MapLimitStartY,
-		PosEndY:   settings.MapLimitEndY,
-	}
 	if x < mapArea.PosStartX || x > mapArea.PosEndX {
 		return x, y, errors.New("map limit")
 	}
