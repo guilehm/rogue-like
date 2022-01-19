@@ -230,6 +230,35 @@ func (player *Player) Move(key string) {
 	}
 }
 
+func (player *Player) ProjectMove(key string) (x int, y int, err error) {
+	x = player.PositionX
+	y = player.PositionY
+	switch key {
+	case ArrowLeft, KeyA:
+		x -= settings.MoveRange
+	case ArrowUp, KeyW:
+		y -= settings.MoveStep
+	case ArrowRight, KeyD:
+		x += settings.MoveStep
+	case ArrowDown, KeyS:
+		y += settings.MoveStep
+	}
+
+	mapArea := Area{
+		PosStartX: settings.MapLimitStartX,
+		PosEndX:   settings.MapLimitEndX,
+		PosStartY: settings.MapLimitStartY,
+		PosEndY:   settings.MapLimitEndY,
+	}
+	if x < mapArea.PosStartX || x > mapArea.PosEndX {
+		return x, y, errors.New("map limit")
+	}
+	if y < mapArea.PosStartY || y > mapArea.PosEndY {
+		return x, y, errors.New("map limit")
+	}
+	return x, y, nil
+}
+
 func (player *Player) GetCollisionsTo(player2 Player, offset int) (bool, bool) {
 	return helpers.HasCollision(
 		player.PositionX,
