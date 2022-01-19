@@ -8,3 +8,5 @@ const PercentageToAttackBack = 20
 const RespawnCheckTime = 1 * time.Second
 const IncreasePlayersHealthValue = 5
 const IncreasePlayersHealthCheckTime = 5 * time.Second
+const ViewAreaOffsetX = 8 * 15
+const ViewAreaOffsetY = 8 * 9
