@@ -250,11 +250,11 @@ func (player *Player) ProjectMove(key string) (x int, y int, err error) {
 	case ArrowLeft, KeyA:
 		x -= settings.MoveRange
 	case ArrowUp, KeyW:
-		y -= settings.MoveStep
+		y -= settings.MoveRange
 	case ArrowRight, KeyD:
-		x += settings.MoveStep
+		x += settings.MoveRange
 	case ArrowDown, KeyS:
-		y += settings.MoveStep
+		y += settings.MoveRange
 	}
 
 	mapArea := Area{
