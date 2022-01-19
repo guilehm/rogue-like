@@ -52,4 +52,5 @@ type Hub struct {
 	DropSprites   []*DropSprite
 	Drops         []*Drop
 	FloorLayer    Layer
+	MapArea       Area
 }
