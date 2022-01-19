@@ -113,6 +113,11 @@ type Player struct {
 
 func (player *Player) HandleMove(key string, hub *Hub) {
 
+	_, _, err := player.ProjectMove(key)
+	if err != nil {
+		return
+	}
+
 MakeMovement:
 	for m := 0; m < settings.MoveRange; m += settings.MoveStep {
 		player.Move(key)
