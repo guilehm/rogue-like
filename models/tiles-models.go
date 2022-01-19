@@ -1,5 +1,7 @@
 package models
 
+import "rogue-like/helpers"
+
 type TileSetData struct {
 	Width  int     `json:"width"`
 	Height int     `json:"height"`
@@ -13,6 +15,22 @@ type Layer struct {
 	Height  int          `json:"height"`
 	Data    []int        `json:"data"`
 	TileMap map[int]Tile `json:"tileMap"`
+}
+
+func (l Layer) GetRowAndColumn(index int) (int, int) {
+	row, column := helpers.Divmod(index, l.Width)
+	return row, column
+}
+
+func (l Layer) CreateTile(index, value int) Tile {
+	row, column := l.GetRowAndColumn(index)
+	tile := Tile{
+		Row:    row,
+		Column: column,
+		Value:  value,
+	}
+	tile.Area = tile.GetTileArea()
+	return tile
 }
 
 type Tile struct {
