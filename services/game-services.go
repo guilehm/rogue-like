@@ -232,7 +232,7 @@ func (s *GameService) createEnemy(name models.SpriteName, px, py, respDelay int)
 		Respawn:          true,
 		RespawnDelay:     respDelay,
 		RespawnPositionX: px,
-		RespawnPositionY: px,
+		RespawnPositionY: py,
 	}
 }
 
