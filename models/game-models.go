@@ -202,6 +202,18 @@ func (player *Player) GetViewArea() Area {
 	}
 }
 
+func (player *Player) CanSee(p Player) bool {
+	va := player.GetViewArea()
+	return helpers.IsInsideViewArea(
+		va.PosStartX,
+		va.PosEndX,
+		va.PosStartY,
+		va.PosEndY,
+		p.PositionX,
+		p.PositionY,
+	)
+}
+
 func (player *Player) Move(key string) {
 	// TODO: return a boolean if player actually moved
 	switch key {

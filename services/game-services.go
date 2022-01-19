@@ -3,7 +3,6 @@ package services
 import (
 	"errors"
 	"log"
-	"rogue-like/helpers"
 	"rogue-like/models"
 	"rogue-like/settings"
 	"time"
@@ -424,32 +423,16 @@ func (s *GameService) Start() {
 			for client := range s.Hub.Clients {
 				// here we filter enemies and players
 				// to decrease the data sent to the frontend
-				viewArea := client.Player.GetViewArea()
-
 				var filteredEnemies []models.Player
 				for _, enemy := range enemies {
-					if helpers.IsInsideViewArea(
-						viewArea.PosStartX,
-						viewArea.PosEndX,
-						viewArea.PosStartY,
-						viewArea.PosEndY,
-						enemy.PositionX,
-						enemy.PositionY,
-					) {
+					if client.Player.CanSee(enemy) {
 						filteredEnemies = append(filteredEnemies, enemy)
 					}
 				}
 
 				var filteredPlayers []models.Player
 				for _, player := range players {
-					if helpers.IsInsideViewArea(
-						viewArea.PosStartX,
-						viewArea.PosEndX,
-						viewArea.PosStartY,
-						viewArea.PosEndY,
-						player.PositionX,
-						player.PositionY,
-					) {
+					if client.Player.CanSee(player) {
 						filteredPlayers = append(filteredPlayers, player)
 					}
 				}
