@@ -1,6 +1,7 @@
 package services
 
 import (
+	"encoding/json"
 	"errors"
 	"log"
 	"rogue-like/models"
@@ -450,4 +451,30 @@ func (s *GameService) Start() {
 			}
 		}
 	}
+}
+
+func (s *GameService) CreateFloorTiles() {
+	// TODO: read json file here
+	layerJson := ``
+	var tm models.TileSetData
+	err := json.Unmarshal([]byte(layerJson), &tm)
+	if err != nil {
+		log.Fatal("could not read tile map")
+	}
+
+	var floor models.Layer
+	for _, layer := range tm.Layers {
+		if layer.Name == "floor" {
+			floor = layer
+			break
+		}
+	}
+	floor.TileMap = make(map[int]models.Tile)
+
+	for index, value := range floor.Data {
+		if value != 0 {
+			floor.TileMap[index] = floor.CreateTile(index, value)
+		}
+	}
+	s.Hub.FloorLayer = floor
 }
