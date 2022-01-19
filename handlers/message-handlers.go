@@ -6,7 +6,6 @@ import (
 	"math/rand"
 	"rogue-like/models"
 	"rogue-like/services"
-	"rogue-like/settings"
 	"time"
 
 	"github.com/gorilla/websocket"
@@ -23,56 +22,7 @@ func handleKeyDown(client *models.Client, message models.WSMessage) error {
 	if client.Player.Dead {
 		return nil
 	}
-MakeMovement:
-	for m := 0; m < settings.MoveRange; m += settings.MoveStep {
-		client.Player.Move(key)
-		// for _, e := range client.Hub.Enemies {
-		// 	// TODO: create logic here
-		// 	e.Move(models.ArrowUp)
-		// }
-		client.Hub.Broadcast <- true
-		time.Sleep(time.Duration(client.Player.Sprite.AnimationPeriod) * time.Millisecond / settings.MoveRange / 4)
-
-		overlap := 5
-		if m > overlap && m < overlap+2 {
-			for _, drop := range client.Hub.Drops {
-				if drop.Consumed {
-					continue
-				}
-				if client.Player.FoundDrop(*drop) {
-					drop.Sprite.Consume(drop, client.Player)
-					// TODO: create logic to consume drops
-				}
-			}
-		}
-
-		if m >= overlap && !client.Player.Dead {
-		CheckOverlap:
-			for _, enemy := range client.Hub.Enemies {
-				if enemy.Dead {
-					continue CheckOverlap
-				}
-				cx, cy := client.Player.GetCollisionsTo(*enemy, 0)
-				if cx && cy {
-					client.Player.Attack(enemy)
-					if enemy.Dead {
-						client.Hub.Drops = append(client.Hub.Drops, &models.Drop{
-							// TODO: Drops should not be hardcoded
-							Sprite:    *client.Hub.DropSprites[0],
-							PositionX: enemy.PositionX,
-							PositionY: enemy.PositionY,
-						})
-					}
-					for mb := overlap; mb >= 0; mb -= settings.MoveStep {
-						client.Player.Move(models.OppositeKey(key))
-						client.Hub.Broadcast <- true
-						time.Sleep(time.Duration(client.Player.Sprite.AnimationPeriod) * time.Millisecond / settings.MoveRange / 8)
-					}
-					break MakeMovement
-				}
-			}
-		}
-	}
+	client.Player.HandleMove(key, client.Hub)
 	return nil
 }
 
