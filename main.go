@@ -27,6 +27,8 @@ func main() {
 	}
 	service.CreateSprites()
 	service.CreateEnemies()
+	service.CreateFloorTiles()
+
 	go service.Start()
 	go service.RespawnEnemies()
 	go service.IncreasePlayersHealth()
