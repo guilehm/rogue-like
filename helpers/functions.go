@@ -1,5 +1,14 @@
 package helpers
 
+func IsInsideViewArea(viewStartX, viewEndX, viewStartY, viewEndY, itemPosX, itemPosY int) bool {
+	if itemPosX >= viewStartX && itemPosX <= viewEndX {
+		if itemPosY >= viewStartY && itemPosY <= viewEndY {
+			return true
+		}
+	}
+	return false
+}
+
 func HasCollision(
 	startXp1, startYp1, startXp2, startYp2, width, height, widthP2, heightP2, offset int,
 ) (bool, bool) {
