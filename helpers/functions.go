@@ -37,3 +37,9 @@ func HasCollision(
 func Divmod(numerator, denominator int) (quotient, remainder int) {
 	return numerator / denominator, numerator % denominator
 }
+
+func GetTileIndexByPositions(posX, posY, layerWidth int) int {
+	column := posX / 8
+	row := posY / 8
+	return (row * layerWidth) + column
+}
