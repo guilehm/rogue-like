@@ -3,7 +3,10 @@ package services
 import (
 	"encoding/json"
 	"errors"
+	"io/ioutil"
 	"log"
+	"net/http"
+	"os"
 	"rogue-like/models"
 	"rogue-like/settings"
 	"time"
@@ -454,10 +457,18 @@ func (s *GameService) Start() {
 }
 
 func (s *GameService) CreateFloorTiles() {
-	// TODO: read json file here
-	layerJson := ``
+
+	endpoint := os.Getenv("TILE_MAP_DATA_ENDPOINT")
+	resp, err := http.Get(endpoint)
+	if err != nil {
+		log.Fatal("could not request tile map")
+	}
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal("could not read tile map response body")
+	}
 	var tsd models.TileSetData
-	err := json.Unmarshal([]byte(layerJson), &tsd)
+	err = json.Unmarshal(body, &tsd)
 	if err != nil {
 		log.Fatal("could not read tile map")
 	}
