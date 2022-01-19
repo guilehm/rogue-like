@@ -269,6 +269,7 @@ func (s *GameService) RespawnEnemies() {
 			}
 			now := time.Now()
 			if enemy.DeathTime.Add(time.Duration(enemy.RespawnDelay) * time.Second).Before(now) {
+				// TODO: check area if it has no collision
 				enemy.Dead = false
 				enemy.Health = enemy.Sprite.HP
 				enemy.PositionX = enemy.RespawnPositionX
