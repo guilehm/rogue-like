@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"fmt"
 	"rogue-like/helpers"
 	"rogue-like/settings"
 	"time"
@@ -16,14 +17,17 @@ var (
 )
 
 var (
-	Warrior  SpriteName = "warrior"
-	Templar  SpriteName = "templar"
-	Archer   SpriteName = "archer"
-	Mage     SpriteName = "mage"
-	MageDark SpriteName = "mage-dark"
-	Orc      SpriteName = "orc"
-	OrcRed   SpriteName = "orc-red"
-	OrcKing  SpriteName = "orc-king"
+	Warrior    SpriteName = "warrior"
+	Templar    SpriteName = "templar"
+	Archer     SpriteName = "archer"
+	Mage       SpriteName = "mage"
+	MageDark   SpriteName = "mage-dark"
+	Orc        SpriteName = "orc"
+	OrcRed     SpriteName = "orc-red"
+	OrcKing    SpriteName = "orc-king"
+	SheepWhite SpriteName = "sheep-white"
+	SheepGrey  SpriteName = "sheep-grey"
+	SheepDark  SpriteName = "sheep-dark"
 )
 
 var (
@@ -176,6 +180,7 @@ MakeMovement:
 			}
 		}
 	}
+	fmt.Println(player.PositionX, player.PositionY)
 }
 
 func (player *Player) UpdateHP(value int) {

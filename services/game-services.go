@@ -135,6 +135,66 @@ func (s *GameService) CreateSprites() {
 				SpriteHeight: 8,
 			},
 		},
+		{
+			Name:            models.SheepWhite,
+			TileSet:         models.Sprites,
+			SpriteX:         36,
+			SpriteY:         45,
+			SpriteWidth:     8,
+			SpriteHeight:    9,
+			XOffset:         0,
+			YOffset:         -1,
+			HP:              140,
+			Damage:          80,
+			AttackRange:     1,
+			AnimationPeriod: 1100,
+			Animation: models.Animation{
+				SpriteX:      36,
+				SpriteY:      37,
+				SpriteWidth:  8,
+				SpriteHeight: 8,
+			},
+		},
+		{
+			Name:            models.SheepGrey,
+			TileSet:         models.Sprites,
+			SpriteX:         54,
+			SpriteY:         45,
+			SpriteWidth:     8,
+			SpriteHeight:    9,
+			XOffset:         0,
+			YOffset:         -1,
+			HP:              160,
+			Damage:          100,
+			AttackRange:     1,
+			AnimationPeriod: 1200,
+			Animation: models.Animation{
+				SpriteX:      54,
+				SpriteY:      37,
+				SpriteWidth:  8,
+				SpriteHeight: 8,
+			},
+		},
+		{
+			Name:            models.SheepDark,
+			TileSet:         models.Sprites,
+			SpriteX:         63,
+			SpriteY:         45,
+			SpriteWidth:     8,
+			SpriteHeight:    9,
+			XOffset:         0,
+			YOffset:         -1,
+			HP:              180,
+			Damage:          120,
+			AttackRange:     1,
+			AnimationPeriod: 1250,
+			Animation: models.Animation{
+				SpriteX:      63,
+				SpriteY:      37,
+				SpriteWidth:  8,
+				SpriteHeight: 8,
+			},
+		},
 	}
 	s.Hub.PlayerSprites = []models.Sprite{
 		{
@@ -221,6 +281,9 @@ func (s *GameService) CreateSprites() {
 }
 
 func (s *GameService) createEnemy(name models.SpriteName, px, py, respDelay int) *models.Player {
+	if px%8 != 0 || py%8 != 0 {
+		log.Fatal("invalid position while creating ", name)
+	}
 	sprite, _ := s.GetSprite(name, "enemy")
 	return &models.Player{
 		ID:               int(time.Now().UnixNano()),
@@ -259,9 +322,10 @@ func (s *GameService) CreateEnemies() {
 		s.createEnemy(models.OrcRed, 216, 304, 45),
 		s.createEnemy(models.MageDark, 232, 272, 60),
 		s.createEnemy(models.OrcKing, 256, 280, 60),
-		s.createEnemy(models.MageDark, 62, 336, 60),
+		s.createEnemy(models.MageDark, 64, 336, 60),
 		s.createEnemy(models.MageDark, 32, 272, 60),
-		s.createEnemy(models.MageDark, 32, 352, 60),
+		s.createEnemy(models.MageDark, 40, 352, 60),
+		s.createEnemy(models.SheepWhite, 32, 352, 50),
 		s.createEnemy(models.OrcRed, 80, 272, 45),
 		s.createEnemy(models.OrcKing, 296, 224, 60),
 		s.createEnemy(models.Orc, 200, 176, 20),
@@ -269,6 +333,7 @@ func (s *GameService) CreateEnemies() {
 		s.createEnemy(models.Orc, 192, 152, 20),
 		s.createEnemy(models.Orc, 264, 176, 20),
 		s.createEnemy(models.OrcKing, 296, 160, 60),
+		s.createEnemy(models.SheepGrey, 352, 24, 30),
 	)
 
 }
