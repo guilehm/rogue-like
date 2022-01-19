@@ -51,4 +51,5 @@ type Hub struct {
 	Enemies       []*Player
 	DropSprites   []*DropSprite
 	Drops         []*Drop
+	FloorLayer    Layer
 }
