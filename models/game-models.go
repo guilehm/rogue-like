@@ -20,10 +20,10 @@ var (
 	Templar  SpriteName = "templar"
 	Archer   SpriteName = "archer"
 	Mage     SpriteName = "mage"
+	MageDark SpriteName = "mage-dark"
 	Orc      SpriteName = "orc"
 	OrcRed   SpriteName = "orc-red"
 	OrcKing  SpriteName = "orc-king"
-	DarkMage SpriteName = "dark-mage"
 )
 
 var (
@@ -114,8 +114,15 @@ type Player struct {
 
 func (player *Player) HandleMove(key string, hub *Hub) {
 
-	_, _, err := player.ProjectMove(key)
+	px, py, err := player.ProjectMove(key)
 	if err != nil {
+		return
+	}
+
+	// find occupied tile
+	idx := helpers.GetTileIndexByPositions(px, py, hub.FloorLayer.Width)
+	_, ok := hub.FloorLayer.TileMap[idx]
+	if ok {
 		return
 	}
 
