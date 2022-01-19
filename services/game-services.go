@@ -112,7 +112,7 @@ func (s *GameService) CreateSprites() {
 			},
 		},
 		{
-			Name:            models.DarkMage,
+			Name:            models.MageDark,
 			TileSet:         models.Sprites,
 			SpriteX:         27,
 			SpriteY:         45,
@@ -218,7 +218,7 @@ func (s *GameService) CreateSprites() {
 
 func (s *GameService) CreateEnemies() {
 	orcSprite, _ := s.GetSprite(models.Orc, "enemy")
-	darkMageSprite, _ := s.GetSprite(models.DarkMage, "enemy")
+	darkMageSprite, _ := s.GetSprite(models.MageDark, "enemy")
 	orcKingSprite, _ := s.GetSprite(models.OrcKing, "enemy")
 	orcRedSprite, _ := s.GetSprite(models.OrcRed, "enemy")
 	s.Hub.Enemies = append(s.Hub.Enemies,

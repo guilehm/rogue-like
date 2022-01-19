@@ -1,6 +1,7 @@
 package models
 
 import (
+	"errors"
 	"rogue-like/helpers"
 	"rogue-like/settings"
 	"time"
