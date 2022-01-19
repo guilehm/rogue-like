@@ -2,7 +2,6 @@ package models
 
 import (
 	"errors"
-	"fmt"
 	"rogue-like/helpers"
 	"rogue-like/settings"
 	"time"
@@ -180,7 +179,6 @@ MakeMovement:
 			}
 		}
 	}
-	fmt.Println(player.PositionX, player.PositionY)
 }
 
 func (player *Player) UpdateHP(value int) {
