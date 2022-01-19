@@ -3,6 +3,7 @@ package services
 import (
 	"errors"
 	"log"
+	"rogue-like/helpers"
 	"rogue-like/models"
 	"rogue-like/settings"
 	"time"
@@ -427,19 +428,29 @@ func (s *GameService) Start() {
 
 				var filteredEnemies []models.Player
 				for _, enemy := range enemies {
-					if enemy.PositionX >= viewArea.PosStartX && enemy.PositionX <= viewArea.PosEndX {
-						if enemy.PositionY >= viewArea.PosStartY && enemy.PositionY <= viewArea.PosEndY {
-							filteredEnemies = append(filteredEnemies, enemy)
-						}
+					if helpers.IsInsideViewArea(
+						viewArea.PosStartX,
+						viewArea.PosEndX,
+						viewArea.PosStartY,
+						viewArea.PosEndY,
+						enemy.PositionX,
+						enemy.PositionY,
+					) {
+						filteredEnemies = append(filteredEnemies, enemy)
 					}
 				}
 
 				var filteredPlayers []models.Player
 				for _, player := range players {
-					if player.PositionX >= viewArea.PosStartX && player.PositionX <= viewArea.PosEndX {
-						if player.PositionY >= viewArea.PosStartY && player.PositionY <= viewArea.PosEndY {
-							filteredPlayers = append(filteredPlayers, player)
-						}
+					if helpers.IsInsideViewArea(
+						viewArea.PosStartX,
+						viewArea.PosEndX,
+						viewArea.PosStartY,
+						viewArea.PosEndY,
+						player.PositionX,
+						player.PositionY,
+					) {
+						filteredPlayers = append(filteredPlayers, player)
 					}
 				}
 
