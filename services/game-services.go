@@ -456,14 +456,14 @@ func (s *GameService) Start() {
 func (s *GameService) CreateFloorTiles() {
 	// TODO: read json file here
 	layerJson := ``
-	var tm models.TileSetData
-	err := json.Unmarshal([]byte(layerJson), &tm)
+	var tsd models.TileSetData
+	err := json.Unmarshal([]byte(layerJson), &tsd)
 	if err != nil {
 		log.Fatal("could not read tile map")
 	}
 
 	var floor models.Layer
-	for _, layer := range tm.Layers {
+	for _, layer := range tsd.Layers {
 		if layer.Name == "floor" {
 			floor = layer
 			break
