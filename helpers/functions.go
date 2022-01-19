@@ -33,3 +33,7 @@ func HasCollision(
 	}
 	return collisionX, collisionY
 }
+
+func Divmod(numerator, denominator int) (quotient, remainder int) {
+	return numerator / denominator, numerator % denominator
+}
