@@ -421,10 +421,32 @@ func (s *GameService) Start() {
 			}
 
 			for client := range s.Hub.Clients {
+				// here we filter enemies and players
+				// to decrease the data sent to the frontend
+				viewArea := client.Player.GetViewArea()
+
+				var filteredEnemies []models.Player
+				for _, enemy := range enemies {
+					if enemy.PositionX >= viewArea.PosStartX && enemy.PositionX <= viewArea.PosEndX {
+						if enemy.PositionY >= viewArea.PosStartY && enemy.PositionY <= viewArea.PosEndY {
+							filteredEnemies = append(filteredEnemies, enemy)
+						}
+					}
+				}
+
+				var filteredPlayers []models.Player
+				for _, player := range players {
+					if player.PositionX >= viewArea.PosStartX && player.PositionX <= viewArea.PosEndX {
+						if player.PositionY >= viewArea.PosStartY && player.PositionY <= viewArea.PosEndY {
+							filteredPlayers = append(filteredPlayers, player)
+						}
+					}
+				}
+
 				err := client.Conn.WriteJSON(models.BroadcastMessage{
 					Type:    models.Broadcast,
-					Players: players,
-					Enemies: enemies,
+					Players: filteredPlayers,
+					Enemies: filteredEnemies,
 					Drops:   drops,
 				})
 				if err != nil {
