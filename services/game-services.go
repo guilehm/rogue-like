@@ -474,18 +474,37 @@ func (s *GameService) CreateFloorTiles() {
 	}
 
 	var floor models.Layer
+	var base models.Layer
 	for _, layer := range tsd.Layers {
 		if layer.Name == "floor" {
 			floor = layer
-			break
+		} else if layer.Name == "base" {
+			base = layer
 		}
 	}
+
 	floor.TileMap = make(map[int]models.Tile)
+	base.TileMap = make(map[int]models.Tile)
 
 	for index, value := range floor.Data {
 		if value != 0 {
 			floor.TileMap[index] = floor.CreateTile(index, value)
 		}
 	}
+
+	keys := make([]int, 0, len(base.Data))
+	for index, value := range base.Data {
+		base.TileMap[index] = base.CreateTile(index, value)
+		keys = append(keys, index)
+	}
+
+	hk := keys[len(keys)-1]
+	mapArea := models.Area{
+		PosStartX: 0,
+		PosEndX:   base.Width*8 - 8,
+		PosStartY: 0,
+		PosEndY:   (hk*8)/base.Width - 8,
+	}
 	s.Hub.FloorLayer = floor
+	s.Hub.MapArea = mapArea
 }
