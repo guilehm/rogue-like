@@ -110,21 +110,23 @@ type Player struct {
 	DeathTime        time.Time `json:"-"`
 }
 
-func (player *Player) Attack(enemy *Player) {
-	if enemy.Health == enemy.Sprite.HP || enemy.Health%enemy.Sprite.HP >= settings.PercentageToAttackBack {
-		player.Health -= enemy.Sprite.Damage / 2
+func (player *Player) UpdateHP(value int) {
+	player.Health += value
+	if player.Health > player.Sprite.HP {
+		player.Health = player.Sprite.HP
 	}
-	enemy.Health -= player.Sprite.Damage
-	if enemy.Health <= 0 {
-		enemy.Health = 0
-		enemy.Dead = true
-		enemy.DeathTime = time.Now()
-	}
-	if player.Health <= 0 {
+	if player.Health < 0 {
 		player.Health = 0
 		player.Dead = true
-		enemy.DeathTime = time.Now()
+		player.DeathTime = time.Now()
 	}
+}
+
+func (player *Player) Attack(enemy *Player) {
+	if enemy.Health == enemy.Sprite.HP || enemy.Health%enemy.Sprite.HP >= settings.PercentageToAttackBack {
+		player.UpdateHP(-enemy.Sprite.Damage / 2)
+	}
+	enemy.UpdateHP(-player.Sprite.Damage)
 }
 
 func (player *Player) GetArea() Area {
