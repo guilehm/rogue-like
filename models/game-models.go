@@ -147,7 +147,7 @@ MakeMovement:
 					player.Attack(enemy)
 					if enemy.Dead {
 						hub.Drops = append(hub.Drops, &Drop{
-							// TODO: Drops should not be hardcoded
+							// TODO: drops should not be hardcoded
 							Sprite:    *hub.DropSprites[0],
 							PositionX: enemy.PositionX,
 							PositionY: enemy.PositionY,
@@ -190,6 +190,15 @@ func (player *Player) GetArea() Area {
 		PosEndX:   player.PositionX + player.Sprite.SpriteWidth,
 		PosStartY: player.PositionY,
 		PosEndY:   player.PositionY + player.Sprite.SpriteHeight,
+	}
+}
+
+func (player *Player) GetViewArea() Area {
+	return Area{
+		PosStartX: player.PositionX - settings.ViewAreaOffsetX,
+		PosEndX:   player.PositionX + settings.ViewAreaOffsetX,
+		PosStartY: player.PositionY - settings.ViewAreaOffsetY,
+		PosEndY:   player.PositionY + settings.ViewAreaOffsetY,
 	}
 }
 
