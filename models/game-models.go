@@ -272,6 +272,8 @@ func (player *Player) ProjectMove(key string, hub *Hub) (x int, y int, err error
 }
 
 func (player *Player) GetClosePlayers(players []*Player, offset int) []*Player {
+	// TODO: check performance by filtering with this function
+	// or using GetClosestPlayer directly using one value for distance squared
 	var closePlayers []*Player
 	for _, p := range players {
 		cx, cy := player.GetCollisionsTo(*p, offset)

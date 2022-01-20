@@ -22,7 +22,7 @@ func handleKeyDown(client *models.Client, message models.WSMessage) error {
 	if client.Player.Dead {
 		return nil
 	}
-	client.Player.HandleMove(key, client.Hub, false)
+	client.Player.HandleMove(key, client.Hub)
 	return nil
 }
 
