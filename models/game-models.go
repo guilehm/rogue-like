@@ -2,7 +2,6 @@ package models
 
 import (
 	"errors"
-	"log"
 	"rogue-like/helpers"
 	"rogue-like/settings"
 	"time"
@@ -116,7 +115,7 @@ type Player struct {
 	DeathTime        time.Time `json:"-"`
 }
 
-func (player *Player) HandleMove(key string, hub *Hub) {
+func (player *Player) HandleMove(key string, hub *Hub, enemyMove bool) {
 
 	_, _, err := player.ProjectMove(key, hub)
 	if err != nil {
@@ -147,8 +146,16 @@ MakeMovement:
 		}
 
 		if m >= overlap && !player.Dead {
+			var opponents []*Player
+			if !enemyMove {
+				opponents = hub.Enemies
+			} else {
+				for c := range hub.Clients {
+					opponents = append(opponents, c.Player)
+				}
+			}
 		CheckOverlap:
-			for _, enemy := range hub.Enemies {
+			for _, enemy := range opponents {
 				if enemy.Dead {
 					continue CheckOverlap
 				}
@@ -173,7 +180,10 @@ MakeMovement:
 			}
 		}
 	}
-	log.Println("DEBUG:", player.PositionX, player.PositionY)
+	if !enemyMove {
+		player.CheckAdjacentEnemies(hub)
+	}
+
 }
 
 func (player *Player) UpdateHP(value int) {
@@ -269,6 +279,29 @@ func (player *Player) ProjectMove(key string, hub *Hub) (x int, y int, err error
 	}
 
 	return x, y, nil
+}
+
+func (player *Player) CheckAdjacentEnemies(hub *Hub) {
+	for _, enemy := range hub.Enemies {
+		cx, cy := player.GetCollisionsTo(*enemy, 1)
+		if cx && cy {
+			if player.PositionX == enemy.PositionX {
+				if player.PositionY < enemy.PositionY {
+					enemy.HandleMove(ArrowUp, hub, true)
+				} else {
+					enemy.HandleMove(ArrowDown, hub, true)
+				}
+				return
+			} else if player.PositionY == enemy.PositionY {
+				if player.PositionX < enemy.PositionX {
+					enemy.HandleMove(ArrowLeft, hub, true)
+				} else {
+					enemy.HandleMove(ArrowRight, hub, true)
+				}
+				return
+			}
+		}
+	}
 }
 
 func (player *Player) GetCollisionsTo(player2 Player, offset int) (bool, bool) {
