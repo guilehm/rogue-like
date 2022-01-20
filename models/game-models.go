@@ -4,6 +4,7 @@ import (
 	"errors"
 	"rogue-like/helpers"
 	"rogue-like/settings"
+	"sort"
 	"time"
 )
 
@@ -270,30 +271,29 @@ func (player *Player) ProjectMove(key string, hub *Hub) (x int, y int, err error
 	return x, y, nil
 }
 
-func (player *Player) CheckAdjacentEnemies(hub *Hub) {
-	for _, enemy := range hub.Enemies {
-		cx, cy := player.GetCollisionsTo(*enemy, 1)
+func (player *Player) GetClosePlayers(players []*Player, offset int) []*Player {
+	var closePlayers []*Player
+	for _, p := range players {
+		cx, cy := player.GetCollisionsTo(*p, offset)
 		if cx && cy {
-			if player.PositionX == enemy.PositionX {
-				time.Sleep(1 * time.Second)
-				if player.PositionY < enemy.PositionY {
-					enemy.HandleMove(ArrowUp, hub, true)
-				} else {
-					enemy.HandleMove(ArrowDown, hub, true)
-				}
-				return
-			} else if player.PositionY == enemy.PositionY {
-				time.Sleep(1 * time.Second)
-
-				if player.PositionX < enemy.PositionX {
-					enemy.HandleMove(ArrowLeft, hub, true)
-				} else {
-					enemy.HandleMove(ArrowRight, hub, true)
-				}
-				return
-			}
+			closePlayers = append(closePlayers, p)
 		}
 	}
+	return closePlayers
+}
+
+func (player *Player) GetClosestPlayer(players []*Player) *Player {
+	distancesMap := make(map[int]*Player)
+	keys := make([]int, 0, len(players))
+	for _, p := range players {
+		diffX := player.PositionX - p.PositionX
+		diffY := player.PositionY - p.PositionY
+		key := (diffX * diffX) + (diffY * diffY)
+		distancesMap[key] = p
+		keys = append(keys, key)
+	}
+	sort.Ints(keys)
+	return distancesMap[keys[0]]
 }
 
 func (player *Player) GetCollisionsTo(player2 Player, offset int) (bool, bool) {
