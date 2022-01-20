@@ -47,7 +47,7 @@ func (s *GameService) CreateSprites() {
 			YOffset:      2,
 			Consume: func(drop *models.Drop, player *models.Player) {
 				drop.Consumed = true
-				player.Health += 10
+				player.Health += 20
 				if player.Health >= player.Sprite.HP {
 					player.Health = player.Sprite.HP
 				}
