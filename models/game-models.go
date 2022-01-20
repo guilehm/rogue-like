@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"log"
 	"rogue-like/helpers"
 	"rogue-like/settings"
 	"time"
@@ -117,15 +118,8 @@ type Player struct {
 
 func (player *Player) HandleMove(key string, hub *Hub) {
 
-	px, py, err := player.ProjectMove(key, hub.MapArea)
+	_, _, err := player.ProjectMove(key, hub)
 	if err != nil {
-		return
-	}
-
-	// find occupied tile
-	idx := helpers.GetTileIndexByPositions(px, py, hub.FloorLayer.Width)
-	_, ok := hub.FloorLayer.TileMap[idx]
-	if ok {
 		return
 	}
 
@@ -179,6 +173,7 @@ MakeMovement:
 			}
 		}
 	}
+	log.Println("DEBUG:", player.PositionX, player.PositionY)
 }
 
 func (player *Player) UpdateHP(value int) {
@@ -246,7 +241,7 @@ func (player *Player) Move(key string) {
 	}
 }
 
-func (player *Player) ProjectMove(key string, mapArea Area) (x int, y int, err error) {
+func (player *Player) ProjectMove(key string, hub *Hub) (x int, y int, err error) {
 	x = player.PositionX
 	y = player.PositionY
 	switch key {
@@ -260,12 +255,19 @@ func (player *Player) ProjectMove(key string, mapArea Area) (x int, y int, err e
 		y += settings.MoveRange
 	}
 
-	if x < mapArea.PosStartX || x > mapArea.PosEndX {
+	if x < hub.MapArea.PosStartX || x > hub.MapArea.PosEndX {
 		return x, y, errors.New("map limit")
 	}
-	if y < mapArea.PosStartY || y > mapArea.PosEndY {
+	if y < hub.MapArea.PosStartY || y > hub.MapArea.PosEndY {
 		return x, y, errors.New("map limit")
 	}
+
+	idx := helpers.GetTileIndexByPositions(x, y, hub.FloorLayer.Width)
+	_, found := hub.FloorLayer.TileMap[idx]
+	if found {
+		return x, y, errors.New("occupied tile")
+	}
+
 	return x, y, nil
 }
 

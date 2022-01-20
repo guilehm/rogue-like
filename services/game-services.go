@@ -316,7 +316,7 @@ func (s *GameService) CreateEnemies() {
 		s.createEnemy(models.OrcKing, 8, 176, 60),
 		s.createEnemy(models.MageDark, 120, 240, 60),
 		s.createEnemy(models.MageDark, 144, 240, 60),
-		s.createEnemy(models.Orc, 160, 264, 20),
+		s.createEnemy(models.Orc, 168, 264, 20),
 		s.createEnemy(models.OrcRed, 184, 288, 45),
 		s.createEnemy(models.OrcRed, 216, 304, 45),
 		s.createEnemy(models.MageDark, 232, 272, 60),
