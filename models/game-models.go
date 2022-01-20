@@ -115,7 +115,7 @@ type Player struct {
 	DeathTime        time.Time `json:"-"`
 }
 
-func (player *Player) HandleMove(key string, hub *Hub, enemyMove bool) {
+func (player *Player) HandleMove(key string, hub *Hub) {
 
 	_, _, err := player.ProjectMove(key, hub)
 	if err != nil {
@@ -133,7 +133,7 @@ MakeMovement:
 		time.Sleep(time.Duration(player.Sprite.AnimationPeriod) * time.Millisecond / settings.MoveRange / 4)
 
 		overlap := 5
-		if m > overlap && m < overlap+2 && !enemyMove {
+		if m > overlap && m < overlap+2 {
 			for _, drop := range hub.Drops {
 				if drop.Consumed {
 					continue
@@ -146,23 +146,15 @@ MakeMovement:
 		}
 
 		if m >= overlap && !player.Dead {
-			var opponents []*Player
-			if !enemyMove {
-				opponents = hub.Enemies
-			} else {
-				for c := range hub.Clients {
-					opponents = append(opponents, c.Player)
-				}
-			}
 		CheckOverlap:
-			for _, enemy := range opponents {
+			for _, enemy := range hub.Enemies {
 				if enemy.Dead {
 					continue CheckOverlap
 				}
 				cx, cy := player.GetCollisionsTo(*enemy, 0)
 				if cx && cy {
 					player.Attack(enemy)
-					if enemy.Dead && !enemyMove {
+					if enemy.Dead {
 						hub.Drops = append(hub.Drops, &Drop{
 							// TODO: drops should not be hardcoded
 							Sprite:    *hub.DropSprites[0],
@@ -179,9 +171,6 @@ MakeMovement:
 				}
 			}
 		}
-	}
-	if !enemyMove {
-		go player.CheckAdjacentEnemies(hub)
 	}
 
 }
