@@ -133,7 +133,7 @@ MakeMovement:
 		time.Sleep(time.Duration(player.Sprite.AnimationPeriod) * time.Millisecond / settings.MoveRange / 4)
 
 		overlap := 5
-		if m > overlap && m < overlap+2 {
+		if m > overlap && m < overlap+2 && !enemyMove {
 			for _, drop := range hub.Drops {
 				if drop.Consumed {
 					continue
@@ -162,7 +162,7 @@ MakeMovement:
 				cx, cy := player.GetCollisionsTo(*enemy, 0)
 				if cx && cy {
 					player.Attack(enemy)
-					if enemy.Dead {
+					if enemy.Dead && !enemyMove {
 						hub.Drops = append(hub.Drops, &Drop{
 							// TODO: drops should not be hardcoded
 							Sprite:    *hub.DropSprites[0],
@@ -181,7 +181,7 @@ MakeMovement:
 		}
 	}
 	if !enemyMove {
-		player.CheckAdjacentEnemies(hub)
+		go player.CheckAdjacentEnemies(hub)
 	}
 
 }
@@ -286,6 +286,7 @@ func (player *Player) CheckAdjacentEnemies(hub *Hub) {
 		cx, cy := player.GetCollisionsTo(*enemy, 1)
 		if cx && cy {
 			if player.PositionX == enemy.PositionX {
+				time.Sleep(1 * time.Second)
 				if player.PositionY < enemy.PositionY {
 					enemy.HandleMove(ArrowUp, hub, true)
 				} else {
@@ -293,6 +294,8 @@ func (player *Player) CheckAdjacentEnemies(hub *Hub) {
 				}
 				return
 			} else if player.PositionY == enemy.PositionY {
+				time.Sleep(1 * time.Second)
+
 				if player.PositionX < enemy.PositionX {
 					enemy.HandleMove(ArrowLeft, hub, true)
 				} else {
