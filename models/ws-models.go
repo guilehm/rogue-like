@@ -68,7 +68,10 @@ func (h *Hub) GetAliveEnemies(excludeId int) []*Player {
 
 func (h *Hub) GetAlivePlayers(excludeId int) []*Player {
 	var players []*Player
-	for _, player := range h.Enemies {
+	for client := range h.Clients {
+		players = append(players, client.Player)
+	}
+	for _, player := range players {
 		if player.ID == excludeId || player.Dead {
 			continue
 		}
