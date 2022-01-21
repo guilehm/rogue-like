@@ -431,10 +431,7 @@ func (s *GameService) FollowPlayers() {
 			}
 			enemy := enemy
 			go func() {
-				var players []*models.Player
-				for c := range s.Hub.Clients {
-					players = append(players, c.Player)
-				}
+				players := s.Hub.GetAlivePlayers(0)
 				closePlayers := enemy.GetClosePlayers(players, enemy.Sprite.SightDistance*8)
 				if len(closePlayers) > 0 {
 					closestPlayer := enemy.GetClosestPlayer(closePlayers)
