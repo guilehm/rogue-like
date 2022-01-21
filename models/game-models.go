@@ -271,6 +271,20 @@ func (player *Player) ProjectMove(key string, hub *Hub) (x int, y int, err error
 	return x, y, nil
 }
 
+func (player *Player) ProjectAndMove(key string, hub *Hub) error {
+	_, _, err := player.ProjectMove(key, hub)
+	if err != nil {
+		return err
+	}
+
+	for m := 0; m < settings.MoveRange; m += settings.MoveStep {
+		player.Move(key)
+		hub.Broadcast <- true
+		time.Sleep(time.Duration(player.Sprite.AnimationPeriod) * time.Millisecond / settings.MoveRange / 4)
+	}
+	return nil
+}
+
 func (player *Player) GetClosePlayers(players []*Player, offset int) []*Player {
 	// TODO: check performance by filtering with this function
 	// or using GetClosestPlayer directly using one value for distance squared
@@ -290,6 +304,7 @@ func (player *Player) GetClosestPlayer(players []*Player) *Player {
 	for _, p := range players {
 		diffX := player.PositionX - p.PositionX
 		diffY := player.PositionY - p.PositionY
+		// TODO: should be absolute here?
 		key := (diffX * diffX) + (diffY * diffY)
 		distancesMap[key] = p
 		keys = append(keys, key)
