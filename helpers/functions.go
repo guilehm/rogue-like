@@ -43,3 +43,10 @@ func GetTileIndexByPositions(posX, posY, layerWidth int) int {
 	row := posY / 8
 	return (row * layerWidth) + column
 }
+
+func Abs(x int) int {
+	if x < 0 {
+		return -x
+	}
+	return x
+}
