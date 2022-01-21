@@ -185,6 +185,22 @@ func (player *Player) UpdateHP(value int) {
 	}
 }
 
+func (player *Player) CanAttack() bool {
+	now := time.Now()
+	if player.LastAttackTime.Add(time.Millisecond * time.Duration(player.Sprite.AttackTimeCooldown)).Before(now) {
+		return true
+	}
+	return false
+}
+
+func (player *Player) CanMove() bool {
+	now := time.Now()
+	if player.LastMoveTime.Add(time.Millisecond * time.Duration(player.Sprite.MoveTimeCooldown)).Before(now) {
+		return true
+	}
+	return false
+}
+
 func (player *Player) Attack(enemy *Player) {
 	if player.Dead || enemy.Dead {
 		return
