@@ -439,19 +439,26 @@ func (s *GameService) FollowPlayers() {
 					closestPlayer := enemy.GetClosestPlayer(closePlayers)
 					key, alternative, attack := getNextMoveKey(enemy, closestPlayer)
 
+					var (
+						opposite1 string
+						opposite2 string
+					)
+					keys := []string{models.ArrowLeft, models.ArrowUp, models.ArrowRight, models.ArrowDown}
+					for _, k := range keys {
+						if k == key || k == alternative || k == opposite1 {
+							continue
+						}
+						if opposite1 == "" {
+							opposite1 = k
+							continue
+						}
+						opposite2 = k
+					}
+
 					nextMoveKey := key
 					if attack {
 						// TODO: attack!!!!
 					} else {
-						x, y, err := enemy.ProjectMove(key, s.Hub)
-						if err != nil {
-							x, y, err = enemy.ProjectMove(alternative, s.Hub)
-							if err != nil {
-								log.Println("could not find a good route")
-								return
-							}
-							nextMoveKey = alternative
-						}
 
 						var enemies []*models.Player
 						for _, e := range s.Hub.Enemies {
@@ -460,10 +467,47 @@ func (s *GameService) FollowPlayers() {
 							}
 							enemies = append(enemies, e)
 						}
-						collision := enemy.HasProjectedCollision(enemies, x, y)
-						if collision {
-							log.Println("found collision, stop moving.")
-							return
+
+						x, y, err := enemy.ProjectMove(key, s.Hub)
+						if err == nil {
+							collision := enemy.HasProjectedCollision(enemies, x, y)
+							if collision {
+								err = errors.New("collision")
+							}
+						}
+						if err != nil {
+							x, y, err = enemy.ProjectMove(alternative, s.Hub)
+							if err == nil {
+								collision := enemy.HasProjectedCollision(enemies, x, y)
+								if collision {
+									err = errors.New("collision")
+								}
+							}
+							nextMoveKey = alternative
+							if err != nil {
+								x, y, err = enemy.ProjectMove(opposite1, s.Hub)
+								if err == nil {
+									collision := enemy.HasProjectedCollision(enemies, x, y)
+									if collision {
+										err = errors.New("collision")
+									}
+								}
+								nextMoveKey = opposite1
+								if err != nil {
+									x, y, err = enemy.ProjectMove(opposite2, s.Hub)
+									if err == nil {
+										collision := enemy.HasProjectedCollision(enemies, x, y)
+										if collision {
+											err = errors.New("collision")
+										}
+									}
+									nextMoveKey = opposite2
+									if err != nil {
+										log.Println("could not find a good route")
+										return
+									}
+								}
+							}
 						}
 						err = enemy.ProjectAndMove(nextMoveKey, s.Hub)
 						if err != nil {
