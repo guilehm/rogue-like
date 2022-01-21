@@ -81,7 +81,8 @@ type Sprite struct {
 	SpriteWidth  int        `json:"spriteWidth"`
 	SpriteHeight int        `json:"spriteHeight"`
 	HP           int        `json:"hp"`
-	// MoveRange       int        `json:"moveRange"`
+
+	SightDistance   int       `json:"-"`
 	AttackRange     int       `json:"attackRange"`
 	Damage          int       `json:"damage"`
 	XOffset         int       `json:"xOffset"`
