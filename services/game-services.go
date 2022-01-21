@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"rogue-like/helpers"
 	"rogue-like/models"
 	"rogue-like/settings"
 	"time"
@@ -370,11 +371,50 @@ func (s *GameService) RespawnEnemies() {
 	}
 }
 
-func (s *GameService) spawnEnemies() {
-	// TODO: create logic to spawn enemies
-	var areas []models.Area
-	for _, enemy := range s.Hub.Enemies {
-		areas = append(areas, enemy.GetArea())
+func (s *GameService) FollowPlayers() {
+	for {
+		for _, enemy := range s.Hub.Enemies {
+			if enemy.Dead {
+				continue
+			}
+			var players []*models.Player
+			for c := range s.Hub.Clients {
+				players = append(players, c.Player)
+			}
+			closePlayers := enemy.GetClosePlayers(players, 3*8)
+			if len(closePlayers) > 0 {
+				closestPlayer := enemy.GetClosestPlayer(closePlayers)
+				diffX := helpers.Abs(enemy.PositionX - closestPlayer.PositionX)
+				diffY := helpers.Abs(enemy.PositionY - closestPlayer.PositionY)
+				if diffX >= diffY {
+					if enemy.PositionX <= closestPlayer.PositionX {
+						err := enemy.ProjectAndMove(models.ArrowRight, s.Hub)
+						if err != nil {
+							continue
+						}
+					} else {
+						err := enemy.ProjectAndMove(models.ArrowLeft, s.Hub)
+						if err != nil {
+							continue
+						}
+					}
+				} else {
+					if enemy.PositionY <= closestPlayer.PositionY {
+						err := enemy.ProjectAndMove(models.ArrowDown, s.Hub)
+						if err != nil {
+							continue
+						}
+					} else {
+						err := enemy.ProjectAndMove(models.ArrowUp, s.Hub)
+						if err != nil {
+							continue
+						}
+					}
+				}
+				s.Hub.Broadcast <- true
+			}
+		}
+		time.Sleep(800 * time.Millisecond)
 	}
 }
 

@@ -32,6 +32,7 @@ func main() {
 	go service.Start()
 	go service.RespawnEnemies()
 	go service.IncreasePlayersHealth()
+	go service.FollowPlayers()
 
 	r.HandleFunc("/ws/rogue/", func(w http.ResponseWriter, r *http.Request) {
 		handlers.RogueLikeHandler(&service, w, r)
