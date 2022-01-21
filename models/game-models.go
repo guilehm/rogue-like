@@ -272,6 +272,21 @@ func (player *Player) ProjectMove(key string, hub *Hub) (x int, y int, err error
 	return x, y, nil
 }
 
+func (player *Player) ProjectCollision(key string, hub *Hub, players []Player) error {
+	x, y, err := player.ProjectMove(key, hub)
+	if err != nil {
+		return err
+	}
+
+	for _, p := range players {
+		cx, cy := player.GetProjectedCollisionTo(p, x, y, 0)
+		if cx && cy {
+			return errors.New("collision")
+		}
+	}
+	return nil
+}
+
 func (player *Player) ProjectAndMove(key string, hub *Hub) error {
 	_, _, err := player.ProjectMove(key, hub)
 	if err != nil {
