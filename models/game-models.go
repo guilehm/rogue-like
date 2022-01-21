@@ -129,10 +129,8 @@ func (player *Player) HandleMove(key string, hub *Hub) {
 	}
 
 	collision, collidedTo := player.HasProjectedCollision(hub.GetAliveEnemies(0), x, y)
-	if collision {
-		err = errors.New("collision")
-	}
 
+	player.LastMoveTime = time.Now()
 MakeMovement:
 	for m := 0; m < settings.MoveRange; m += settings.MoveStep {
 		player.Move(key)
@@ -207,7 +205,9 @@ func (player *Player) Attack(enemy *Player) {
 	}
 	if enemy.Health == enemy.Sprite.HP || enemy.Health%enemy.Sprite.HP >= settings.PercentageToAttackBack {
 		player.UpdateHP(-enemy.Sprite.Damage / 2)
+		enemy.LastAttackTime = time.Now()
 	}
+	player.LastAttackTime = time.Now()
 	enemy.UpdateHP(-player.Sprite.Damage)
 }
 
@@ -308,6 +308,7 @@ func (player *Player) ProjectAndMove(key string, hub *Hub) error {
 		return err
 	}
 
+	player.LastMoveTime = time.Now()
 	for m := 0; m < settings.MoveRange; m += settings.MoveStep {
 		player.Move(key)
 		hub.Broadcast <- true
