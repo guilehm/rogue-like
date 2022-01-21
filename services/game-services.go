@@ -68,6 +68,7 @@ func (s *GameService) CreateSprites() {
 			HP:              100,
 			Damage:          40,
 			AttackRange:     1,
+			SightDistance:   2,
 			AnimationPeriod: 650,
 			Animation: models.Animation{
 				SpriteX:      0,
@@ -88,6 +89,7 @@ func (s *GameService) CreateSprites() {
 			HP:              110,
 			Damage:          50,
 			AttackRange:     1,
+			SightDistance:   3,
 			AnimationPeriod: 800,
 			Animation: models.Animation{
 				SpriteX:      36,
@@ -108,6 +110,7 @@ func (s *GameService) CreateSprites() {
 			HP:              120,
 			Damage:          60,
 			AttackRange:     1,
+			SightDistance:   2,
 			AnimationPeriod: 1000,
 			Animation: models.Animation{
 				SpriteX:      27,
@@ -128,6 +131,7 @@ func (s *GameService) CreateSprites() {
 			HP:              80,
 			Damage:          70,
 			AttackRange:     1,
+			SightDistance:   3,
 			AnimationPeriod: 800,
 			Animation: models.Animation{
 				SpriteX:      27,
@@ -148,6 +152,7 @@ func (s *GameService) CreateSprites() {
 			HP:              140,
 			Damage:          80,
 			AttackRange:     1,
+			SightDistance:   4,
 			AnimationPeriod: 1100,
 			Animation: models.Animation{
 				SpriteX:      36,
@@ -168,6 +173,7 @@ func (s *GameService) CreateSprites() {
 			HP:              160,
 			Damage:          100,
 			AttackRange:     1,
+			SightDistance:   4,
 			AnimationPeriod: 1200,
 			Animation: models.Animation{
 				SpriteX:      54,
@@ -188,6 +194,7 @@ func (s *GameService) CreateSprites() {
 			HP:              180,
 			Damage:          120,
 			AttackRange:     1,
+			SightDistance:   5,
 			AnimationPeriod: 1250,
 			Animation: models.Animation{
 				SpriteX:      63,
@@ -210,6 +217,7 @@ func (s *GameService) CreateSprites() {
 			HP:              140,
 			Damage:          35,
 			AttackRange:     1,
+			SightDistance:   2,
 			AnimationPeriod: 800,
 			Animation: models.Animation{
 				SpriteX:      63,
@@ -230,6 +238,7 @@ func (s *GameService) CreateSprites() {
 			HP:              100,
 			Damage:          45,
 			AttackRange:     1,
+			SightDistance:   2,
 			AnimationPeriod: 1000,
 			Animation: models.Animation{
 				SpriteX:      54,
@@ -250,6 +259,7 @@ func (s *GameService) CreateSprites() {
 			HP:              60,
 			Damage:          65,
 			AttackRange:     1,
+			SightDistance:   2,
 			AnimationPeriod: 600,
 			Animation: models.Animation{
 				SpriteX:      18,
@@ -270,6 +280,7 @@ func (s *GameService) CreateSprites() {
 			HP:              70,
 			Damage:          65,
 			AttackRange:     1,
+			SightDistance:   2,
 			AnimationPeriod: 750,
 			Animation: models.Animation{
 				SpriteX:      45,
@@ -388,7 +399,7 @@ func (s *GameService) FollowPlayers() {
 					closestPlayer := enemy.GetClosestPlayer(closePlayers)
 					diffX := helpers.Abs(enemy.PositionX - closestPlayer.PositionX)
 					diffY := helpers.Abs(enemy.PositionY - closestPlayer.PositionY)
-					fmt.Println("dffX", diffX, "diffY", diffY)
+
 					if (diffX <= 8 && diffY == 0) || (diffY <= 8 && diffX == 0) {
 						// TODO: attack!!!!!!!!
 						return
