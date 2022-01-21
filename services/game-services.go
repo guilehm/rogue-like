@@ -437,41 +437,38 @@ func (s *GameService) FollowPlayers() {
 				closePlayers := enemy.GetClosePlayers(players, enemy.Sprite.SightDistance*8)
 				if len(closePlayers) > 0 {
 					closestPlayer := enemy.GetClosestPlayer(closePlayers)
-					diffX := helpers.Abs(enemy.PositionX - closestPlayer.PositionX)
-					diffY := helpers.Abs(enemy.PositionY - closestPlayer.PositionY)
+					key, alternative, attack := getNextMoveKey(enemy, closestPlayer)
 
-					if (diffX <= 8 && diffY == 0) || (diffY <= 8 && diffX == 0) {
-						// TODO: attack!!!!!!!!
-						return
-					}
-					if diffX > diffY {
-						// move X axis
-						// TODO: handle errors to choose another position
-						if enemy.PositionX <= closestPlayer.PositionX {
-							err := enemy.ProjectAndMove(models.ArrowRight, s.Hub)
-							if err != nil {
-								return
-							}
-						} else {
-							err := enemy.ProjectAndMove(models.ArrowLeft, s.Hub)
-							if err != nil {
-								return
-							}
-						}
-					} else if diffX == diffY {
-						// move X or Y axis
+					nextMoveKey := key
+					if attack {
+						// TODO: attack!!!!
 					} else {
-						// move Y axis
-						if enemy.PositionY <= closestPlayer.PositionY {
-							err := enemy.ProjectAndMove(models.ArrowDown, s.Hub)
+						x, y, err := enemy.ProjectMove(key, s.Hub)
+						if err != nil {
+							x, y, err = enemy.ProjectMove(alternative, s.Hub)
 							if err != nil {
+								log.Println("could not find a good route")
 								return
 							}
-						} else {
-							err := enemy.ProjectAndMove(models.ArrowUp, s.Hub)
-							if err != nil {
-								return
+							nextMoveKey = alternative
+						}
+
+						var enemies []*models.Player
+						for _, e := range s.Hub.Enemies {
+							if e.ID == enemy.ID {
+								continue
 							}
+							enemies = append(enemies, e)
+						}
+						collision := enemy.HasProjectedCollision(enemies, x, y)
+						if collision {
+							log.Println("found collision, stop moving.")
+							return
+						}
+						err = enemy.ProjectAndMove(nextMoveKey, s.Hub)
+						if err != nil {
+							log.Println("Error while moving ", err)
+							return
 						}
 					}
 					s.Hub.Broadcast <- true
