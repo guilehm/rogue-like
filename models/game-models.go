@@ -262,9 +262,6 @@ func (player *Player) MoveAndAttack(enemy *Player, key string, hub *Hub) {
 	if player.Dead || enemy.Dead {
 		return
 	}
-	if !player.CanAttack() {
-		return
-	}
 	if key == "" {
 		key, _, _ = player.GetNextMoveKey(enemy)
 	}
