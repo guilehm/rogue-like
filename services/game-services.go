@@ -483,7 +483,6 @@ func (s *GameService) FollowPlayers() {
 							return
 						}
 					}
-					s.Hub.Broadcast <- true
 				}
 			}()
 		}
