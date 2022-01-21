@@ -463,17 +463,10 @@ func (s *GameService) FollowPlayers() {
 						// TODO: attack!!!!
 					} else {
 
-						var enemies []*models.Player
-						for _, e := range s.Hub.Enemies {
-							if e.ID == enemy.ID {
-								continue
-							}
-							enemies = append(enemies, e)
-						}
-
+						enemies := s.Hub.GetAliveEnemies(enemy.ID)
 						x, y, err := enemy.ProjectMove(key, s.Hub)
 						if err == nil {
-							collision := enemy.HasProjectedCollision(enemies, x, y)
+							collision, _ := enemy.HasProjectedCollision(enemies, x, y)
 							if collision {
 								err = errors.New("collision")
 							}
@@ -481,7 +474,7 @@ func (s *GameService) FollowPlayers() {
 						if err != nil {
 							x, y, err = enemy.ProjectMove(alternative, s.Hub)
 							if err == nil {
-								collision := enemy.HasProjectedCollision(enemies, x, y)
+								collision, _ := enemy.HasProjectedCollision(enemies, x, y)
 								if collision {
 									err = errors.New("collision")
 								}
@@ -490,7 +483,7 @@ func (s *GameService) FollowPlayers() {
 							if err != nil {
 								x, y, err = enemy.ProjectMove(opposite1, s.Hub)
 								if err == nil {
-									collision := enemy.HasProjectedCollision(enemies, x, y)
+									collision, _ := enemy.HasProjectedCollision(enemies, x, y)
 									if collision {
 										err = errors.New("collision")
 									}
@@ -499,7 +492,7 @@ func (s *GameService) FollowPlayers() {
 								if err != nil {
 									x, y, err = enemy.ProjectMove(opposite2, s.Hub)
 									if err == nil {
-										collision := enemy.HasProjectedCollision(enemies, x, y)
+										collision, _ := enemy.HasProjectedCollision(enemies, x, y)
 										if collision {
 											err = errors.New("collision")
 										}

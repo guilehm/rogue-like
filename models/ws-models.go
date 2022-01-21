@@ -54,3 +54,25 @@ type Hub struct {
 	FloorLayer    Layer
 	MapArea       Area
 }
+
+func (h *Hub) GetAliveEnemies(excludeId int) []*Player {
+	var enemies []*Player
+	for _, enemy := range h.Enemies {
+		if enemy.ID == excludeId || enemy.Dead {
+			continue
+		}
+		enemies = append(enemies, enemy)
+	}
+	return enemies
+}
+
+func (h *Hub) GetAlivePlayers(excludeId int) []*Player {
+	var players []*Player
+	for _, player := range h.Enemies {
+		if player.ID == excludeId || player.Dead {
+			continue
+		}
+		players = append(players, player)
+	}
+	return players
+}
