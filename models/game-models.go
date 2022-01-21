@@ -82,13 +82,15 @@ type Sprite struct {
 	SpriteHeight int        `json:"spriteHeight"`
 	HP           int        `json:"hp"`
 
-	SightDistance   int       `json:"-"`
-	AttackRange     int       `json:"attackRange"`
-	Damage          int       `json:"damage"`
-	XOffset         int       `json:"xOffset"`
-	YOffset         int       `json:"yOffset"`
-	AnimationPeriod int       `json:"animationPeriod"`
-	Animation       Animation `json:"animation"`
+	SightDistance      int       `json:"-"`
+	AttackRange        int       `json:"attackRange"`
+	Damage             int       `json:"damage"`
+	XOffset            int       `json:"xOffset"`
+	YOffset            int       `json:"yOffset"`
+	AnimationPeriod    int       `json:"animationPeriod"`
+	Animation          Animation `json:"animation"`
+	AttackTimeCooldown int       `json:"-"`
+	MoveTimeCooldown   int       `json:"-"`
 }
 
 type Coords struct {
@@ -115,6 +117,8 @@ type Player struct {
 	RespawnPositionX int       `json:"-"`
 	RespawnPositionY int       `json:"-"`
 	DeathTime        time.Time `json:"-"`
+	LastAttackTime   time.Time `json:"-"`
+	LastMoveTime     time.Time `json:"-"`
 }
 
 func (player *Player) HandleMove(key string, hub *Hub) {
