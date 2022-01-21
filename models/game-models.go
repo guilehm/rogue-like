@@ -119,18 +119,19 @@ type Player struct {
 
 func (player *Player) HandleMove(key string, hub *Hub) {
 
-	_, _, err := player.ProjectMove(key, hub)
+	x, y, err := player.ProjectMove(key, hub)
 	if err != nil {
 		return
+	}
+
+	collision, collidedTo := player.HasProjectedCollision(hub.GetAliveEnemies(0), x, y)
+	if collision {
+		err = errors.New("collision")
 	}
 
 MakeMovement:
 	for m := 0; m < settings.MoveRange; m += settings.MoveStep {
 		player.Move(key)
-		// for _, e := range hub.Enemies {
-		// 	// TODO: create logic here
-		// 	e.Move(ArrowUp)
-		// }
 		hub.Broadcast <- true
 		time.Sleep(time.Duration(player.Sprite.AnimationPeriod) * time.Millisecond / settings.MoveRange / 4)
 
@@ -142,37 +143,29 @@ MakeMovement:
 				}
 				if player.FoundDrop(*drop) {
 					drop.Sprite.Consume(drop, player)
-					// TODO: create logic to consume drops
 				}
 			}
 		}
 
-		if m >= overlap && !player.Dead {
-		CheckOverlap:
-			for _, enemy := range hub.Enemies {
-				if enemy.Dead {
-					continue CheckOverlap
-				}
-				cx, cy := player.GetCollisionsTo(*enemy, 0)
-				if cx && cy {
-					player.Attack(enemy)
-					if enemy.Dead {
-						hub.Drops = append(hub.Drops, &Drop{
-							// TODO: drops should not be hardcoded
-							Sprite:    *hub.DropSprites[0],
-							PositionX: enemy.PositionX,
-							PositionY: enemy.PositionY,
-						})
-					}
-					for mb := overlap; mb >= 0; mb -= settings.MoveStep {
-						player.Move(OppositeKey(key))
-						hub.Broadcast <- true
-						time.Sleep(time.Duration(player.Sprite.AnimationPeriod) * time.Millisecond / settings.MoveRange / 8)
-					}
-					break MakeMovement
-				}
+		if collision && m >= overlap {
+			player.Attack(collidedTo)
+			if collidedTo.Dead {
+				hub.Drops = append(hub.Drops, &Drop{
+					// TODO: drops should not be hardcoded
+					Sprite:    *hub.DropSprites[0],
+					PositionX: collidedTo.PositionX,
+					PositionY: collidedTo.PositionY,
+				})
 			}
+			hub.Broadcast <- true
+			for mb := overlap; mb >= 0; mb -= settings.MoveStep {
+				player.Move(OppositeKey(key))
+				hub.Broadcast <- true
+				time.Sleep(time.Duration(player.Sprite.AnimationPeriod) * time.Millisecond / settings.MoveRange / 8)
+			}
+			break MakeMovement
 		}
+
 	}
 }
 
