@@ -328,14 +328,14 @@ func (player *Player) GetClosestPlayer(players []*Player) *Player {
 	return distancesMap[keys[0]]
 }
 
-func (player *Player) HasProjectedCollision(players []*Player, x, y int) bool {
+func (player *Player) HasProjectedCollision(players []*Player, x, y int) (bool, *Player) {
 	for _, p := range players {
 		cx, cy := player.GetProjectedCollisionTo(*p, x, y, 0)
 		if cx && cy {
-			return true
+			return true, p
 		}
 	}
-	return false
+	return false, &Player{}
 }
 
 func (player *Player) GetProjectedCollisionTo(player2 Player, x, y, offset int) (bool, bool) {
