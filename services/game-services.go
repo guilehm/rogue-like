@@ -404,7 +404,8 @@ func (s *GameService) FollowPlayers() {
 						// TODO: attack!!!!!!!!
 						return
 					}
-					if diffX >= diffY {
+					if diffX > diffY {
+						// move X axis
 						// TODO: handle errors to choose another position
 						if enemy.PositionX <= closestPlayer.PositionX {
 							err := enemy.ProjectAndMove(models.ArrowRight, s.Hub)
@@ -417,7 +418,10 @@ func (s *GameService) FollowPlayers() {
 								return
 							}
 						}
+					} else if diffX == diffY {
+						// move X or Y axis
 					} else {
+						// move Y axis
 						if enemy.PositionY <= closestPlayer.PositionY {
 							err := enemy.ProjectAndMove(models.ArrowDown, s.Hub)
 							if err != nil {
@@ -434,6 +438,8 @@ func (s *GameService) FollowPlayers() {
 				}
 			}()
 		}
+		// TODO: this time should be as low as possible
+		// monsters may have different time delay to move
 		time.Sleep(800 * time.Millisecond)
 	}
 }
