@@ -445,6 +445,8 @@ func (s *GameService) FollowPlayers() {
 						opposite2 string
 					)
 					keys := []string{models.ArrowLeft, models.ArrowUp, models.ArrowRight, models.ArrowDown}
+					rand.Seed(time.Now().UnixNano())
+					rand.Shuffle(len(keys), func(i, j int) { keys[i], keys[j] = keys[j], keys[i] })
 					for _, k := range keys {
 						if k == key || k == alternative || k == opposite1 {
 							continue
