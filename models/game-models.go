@@ -174,7 +174,6 @@ MakeMovement:
 			}
 		}
 	}
-
 }
 
 func (player *Player) UpdateHP(value int) {
@@ -327,6 +326,21 @@ func (player *Player) GetClosestPlayer(players []*Player) *Player {
 	}
 	sort.Ints(keys)
 	return distancesMap[keys[0]]
+}
+
+func (player *Player) GetProjectedCollisionTo(player2 Player, x, y, offset int) (bool, bool) {
+	return helpers.HasCollision(
+		x,
+		y,
+		player2.PositionX,
+		player2.PositionY,
+		player.Sprite.SpriteWidth+player.Sprite.XOffset,
+		player.Sprite.SpriteHeight+player.Sprite.YOffset,
+		player2.Sprite.SpriteWidth+player2.Sprite.XOffset,
+		player2.Sprite.SpriteHeight+player2.Sprite.YOffset,
+		offset,
+	)
+
 }
 
 func (player *Player) GetCollisionsTo(player2 Player, offset int) (bool, bool) {
