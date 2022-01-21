@@ -395,7 +395,7 @@ func (s *GameService) FollowPlayers() {
 				closePlayers := enemy.GetClosePlayers(players, enemy.Sprite.SightDistance*8)
 				if len(closePlayers) > 0 {
 					closestPlayer := enemy.GetClosestPlayer(closePlayers)
-					key, alternative, attack := getNextMoveKey(enemy, closestPlayer)
+					key, alternative, attack := enemy.GetNextMoveKey(closestPlayer)
 
 					var (
 						opposite1 string
@@ -417,11 +417,10 @@ func (s *GameService) FollowPlayers() {
 
 					nextMoveKey := key
 					if attack {
-						// TODO: attack!!!!
+						enemy.MoveAndAttack(closestPlayer, "", s.Hub)
 					} else {
-
 						enemies := s.Hub.GetAliveEnemies(enemy.ID)
-						x, y, err := enemy.ProjectMove(key, s.Hub)
+						x, y, err := enemy.ProjectMove(nextMoveKey, s.Hub)
 						if err == nil {
 							collision, _ := enemy.HasProjectedCollision(enemies, x, y)
 							if collision {
