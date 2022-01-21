@@ -382,6 +382,46 @@ func (s *GameService) RespawnEnemies() {
 	}
 }
 
+func getNextMoveKey(p1, p2 *models.Player) (key, alternative string, attack bool) {
+	// p1 is following p2
+
+	diffX := helpers.Abs(p1.PositionX - p2.PositionX)
+	diffY := helpers.Abs(p1.PositionY - p2.PositionY)
+
+	if (diffX <= 8 && diffY == 0) || (diffY <= 8 && diffX == 0) {
+		attack = true
+	}
+
+	if diffX >= diffY {
+		// TODO: checking >= for now. create condition for == to move X or Y
+		// move X axis
+		if p1.PositionY <= p2.PositionY {
+			alternative = models.ArrowDown
+		} else {
+			alternative = models.ArrowUp
+		}
+
+		if p1.PositionX <= p2.PositionX {
+			key = models.ArrowRight
+		} else {
+			key = models.ArrowLeft
+		}
+	} else {
+		// move Y axis
+		if p1.PositionX <= p2.PositionX {
+			alternative = models.ArrowRight
+		} else {
+			alternative = models.ArrowLeft
+		}
+		if p1.PositionY <= p2.PositionY {
+			key = models.ArrowDown
+		} else {
+			key = models.ArrowUp
+		}
+	}
+	return key, alternative, attack
+}
+
 func (s *GameService) FollowPlayers() {
 	for {
 		for _, enemy := range s.Hub.Enemies {
