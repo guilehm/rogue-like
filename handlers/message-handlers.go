@@ -46,8 +46,8 @@ func handleUserJoins(
 		ID:        data.ID,
 		Sprite:    sprite,
 		Health:    sprite.HP,
-		PositionX: 0,
-		PositionY: 0,
+		PositionX: 8,
+		PositionY: 8,
 	}
 
 	go func() {
