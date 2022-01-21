@@ -181,7 +181,7 @@ func (player *Player) UpdateHP(value int) {
 	if player.Health > player.Sprite.HP {
 		player.Health = player.Sprite.HP
 	}
-	if player.Health < 0 {
+	if player.Health <= 0 {
 		player.Health = 0
 		player.Dead = true
 		player.DeathTime = time.Now()
