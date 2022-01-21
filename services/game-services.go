@@ -377,42 +377,51 @@ func (s *GameService) FollowPlayers() {
 			if enemy.Dead {
 				continue
 			}
-			var players []*models.Player
-			for c := range s.Hub.Clients {
-				players = append(players, c.Player)
-			}
-			closePlayers := enemy.GetClosePlayers(players, 3*8)
-			if len(closePlayers) > 0 {
-				closestPlayer := enemy.GetClosestPlayer(closePlayers)
-				diffX := helpers.Abs(enemy.PositionX - closestPlayer.PositionX)
-				diffY := helpers.Abs(enemy.PositionY - closestPlayer.PositionY)
-				if diffX >= diffY {
-					if enemy.PositionX <= closestPlayer.PositionX {
-						err := enemy.ProjectAndMove(models.ArrowRight, s.Hub)
-						if err != nil {
-							continue
-						}
-					} else {
-						err := enemy.ProjectAndMove(models.ArrowLeft, s.Hub)
-						if err != nil {
-							continue
-						}
-					}
-				} else {
-					if enemy.PositionY <= closestPlayer.PositionY {
-						err := enemy.ProjectAndMove(models.ArrowDown, s.Hub)
-						if err != nil {
-							continue
-						}
-					} else {
-						err := enemy.ProjectAndMove(models.ArrowUp, s.Hub)
-						if err != nil {
-							continue
-						}
-					}
+			enemy := enemy
+			go func() {
+				var players []*models.Player
+				for c := range s.Hub.Clients {
+					players = append(players, c.Player)
 				}
-				s.Hub.Broadcast <- true
-			}
+				closePlayers := enemy.GetClosePlayers(players, enemy.Sprite.SightDistance*8)
+				if len(closePlayers) > 0 {
+					closestPlayer := enemy.GetClosestPlayer(closePlayers)
+					diffX := helpers.Abs(enemy.PositionX - closestPlayer.PositionX)
+					diffY := helpers.Abs(enemy.PositionY - closestPlayer.PositionY)
+					fmt.Println("dffX", diffX, "diffY", diffY)
+					if (diffX <= 8 && diffY == 0) || (diffY <= 8 && diffX == 0) {
+						// TODO: attack!!!!!!!!
+						return
+					}
+					if diffX >= diffY {
+						// TODO: handle errors to choose another position
+						if enemy.PositionX <= closestPlayer.PositionX {
+							err := enemy.ProjectAndMove(models.ArrowRight, s.Hub)
+							if err != nil {
+								return
+							}
+						} else {
+							err := enemy.ProjectAndMove(models.ArrowLeft, s.Hub)
+							if err != nil {
+								return
+							}
+						}
+					} else {
+						if enemy.PositionY <= closestPlayer.PositionY {
+							err := enemy.ProjectAndMove(models.ArrowDown, s.Hub)
+							if err != nil {
+								return
+							}
+						} else {
+							err := enemy.ProjectAndMove(models.ArrowUp, s.Hub)
+							if err != nil {
+								return
+							}
+						}
+					}
+					s.Hub.Broadcast <- true
+				}
+			}()
 		}
 		time.Sleep(800 * time.Millisecond)
 	}
