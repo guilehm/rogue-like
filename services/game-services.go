@@ -5,6 +5,7 @@ import (
 	"errors"
 	"io/ioutil"
 	"log"
+	"math/rand"
 	"net/http"
 	"os"
 	"rogue-like/helpers"
@@ -68,7 +69,7 @@ func (s *GameService) CreateSprites() {
 			HP:              100,
 			Damage:          40,
 			AttackRange:     1,
-			SightDistance:   2,
+			SightDistance:   3,
 			AnimationPeriod: 650,
 			Animation: models.Animation{
 				SpriteX:      0,
@@ -131,7 +132,7 @@ func (s *GameService) CreateSprites() {
 			HP:              80,
 			Damage:          70,
 			AttackRange:     1,
-			SightDistance:   3,
+			SightDistance:   4,
 			AnimationPeriod: 800,
 			Animation: models.Animation{
 				SpriteX:      27,
