@@ -182,6 +182,9 @@ func (player *Player) UpdateHP(value int) {
 }
 
 func (player *Player) Attack(enemy *Player) {
+	if player.Dead || enemy.Dead {
+		return
+	}
 	if enemy.Health == enemy.Sprite.HP || enemy.Health%enemy.Sprite.HP >= settings.PercentageToAttackBack {
 		player.UpdateHP(-enemy.Sprite.Damage / 2)
 	}
