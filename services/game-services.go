@@ -8,7 +8,6 @@ import (
 	"math/rand"
 	"net/http"
 	"os"
-	"rogue-like/helpers"
 	"rogue-like/models"
 	"rogue-like/settings"
 	"time"
@@ -77,6 +76,8 @@ func (s *GameService) CreateSprites() {
 				SpriteWidth:  8,
 				SpriteHeight: 8,
 			},
+			AttackTimeCooldown: 1000,
+			MoveTimeCooldown:   500,
 		},
 		{
 			Name:            models.OrcRed,
@@ -98,6 +99,8 @@ func (s *GameService) CreateSprites() {
 				SpriteWidth:  8,
 				SpriteHeight: 8,
 			},
+			AttackTimeCooldown: 1000,
+			MoveTimeCooldown:   500,
 		},
 		{
 			Name:            models.OrcKing,
@@ -119,6 +122,8 @@ func (s *GameService) CreateSprites() {
 				SpriteWidth:  8,
 				SpriteHeight: 8,
 			},
+			AttackTimeCooldown: 1000,
+			MoveTimeCooldown:   500,
 		},
 		{
 			Name:            models.MageDark,
@@ -140,6 +145,8 @@ func (s *GameService) CreateSprites() {
 				SpriteWidth:  8,
 				SpriteHeight: 8,
 			},
+			AttackTimeCooldown: 1000,
+			MoveTimeCooldown:   500,
 		},
 		{
 			Name:            models.SheepWhite,
@@ -161,6 +168,8 @@ func (s *GameService) CreateSprites() {
 				SpriteWidth:  8,
 				SpriteHeight: 8,
 			},
+			AttackTimeCooldown: 1000,
+			MoveTimeCooldown:   500,
 		},
 		{
 			Name:            models.SheepGrey,
@@ -182,6 +191,8 @@ func (s *GameService) CreateSprites() {
 				SpriteWidth:  8,
 				SpriteHeight: 8,
 			},
+			AttackTimeCooldown: 1000,
+			MoveTimeCooldown:   500,
 		},
 		{
 			Name:            models.SheepDark,
@@ -203,6 +214,8 @@ func (s *GameService) CreateSprites() {
 				SpriteWidth:  8,
 				SpriteHeight: 8,
 			},
+			AttackTimeCooldown: 1000,
+			MoveTimeCooldown:   500,
 		},
 	}
 	s.Hub.PlayerSprites = []models.Sprite{
@@ -226,6 +239,8 @@ func (s *GameService) CreateSprites() {
 				SpriteWidth:  8,
 				SpriteHeight: 8,
 			},
+			AttackTimeCooldown: 1000,
+			MoveTimeCooldown:   500,
 		},
 		{
 			Name:            models.Templar,
@@ -247,6 +262,8 @@ func (s *GameService) CreateSprites() {
 				SpriteWidth:  8,
 				SpriteHeight: 8,
 			},
+			AttackTimeCooldown: 1000,
+			MoveTimeCooldown:   500,
 		},
 		{
 			Name:            models.Archer,
@@ -268,6 +285,8 @@ func (s *GameService) CreateSprites() {
 				SpriteWidth:  8,
 				SpriteHeight: 8,
 			},
+			AttackTimeCooldown: 1000,
+			MoveTimeCooldown:   500,
 		},
 		{
 			Name:            models.Mage,
@@ -289,6 +308,8 @@ func (s *GameService) CreateSprites() {
 				SpriteWidth:  8,
 				SpriteHeight: 8,
 			},
+			AttackTimeCooldown: 1000,
+			MoveTimeCooldown:   500,
 		},
 	}
 }
