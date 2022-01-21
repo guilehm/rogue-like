@@ -471,9 +471,7 @@ func (s *GameService) FollowPlayers() {
 				}
 			}()
 		}
-		// TODO: this time should be as low as possible
-		// monsters may have different time delay to move
-		time.Sleep(800 * time.Millisecond)
+		time.Sleep(200 * time.Millisecond)
 	}
 }
 
