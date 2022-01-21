@@ -257,6 +257,72 @@ func (player *Player) Move(key string) {
 	}
 }
 
+func (player *Player) MoveAndAttack(enemy *Player, key string, hub *Hub) {
+	player.LastMoveTime = time.Now()
+	if player.Dead || enemy.Dead {
+		return
+	}
+	if !player.CanAttack() {
+		return
+	}
+	if key == "" {
+		key, _, _ = player.GetNextMoveKey(enemy)
+	}
+
+	overlap := 5
+	for m := 0; m < overlap; m += settings.MoveStep {
+		player.Move(key)
+		hub.Broadcast <- true
+		time.Sleep(time.Duration(player.Sprite.AnimationPeriod) * time.Millisecond / settings.MoveRange / 4)
+	}
+	player.Attack(enemy)
+	for mb := overlap; mb > 0; mb -= settings.MoveStep {
+		player.Move(OppositeKey(key))
+		hub.Broadcast <- true
+		time.Sleep(time.Duration(player.Sprite.AnimationPeriod) * time.Millisecond / settings.MoveRange / 8)
+	}
+}
+
+func (player *Player) GetNextMoveKey(enemy *Player) (key, alternative string, attack bool) {
+	// player is following enemy
+
+	diffX := helpers.Abs(player.PositionX - enemy.PositionX)
+	diffY := helpers.Abs(player.PositionY - enemy.PositionY)
+
+	if (diffX <= 8 && diffY == 0) || (diffY <= 8 && diffX == 0) {
+		attack = true
+	}
+
+	if diffX >= diffY {
+		// TODO: checking >= for now. create condition for == to move X or Y
+		// move X axis
+		if player.PositionY <= enemy.PositionY {
+			alternative = ArrowDown
+		} else {
+			alternative = ArrowUp
+		}
+
+		if player.PositionX <= enemy.PositionX {
+			key = ArrowRight
+		} else {
+			key = ArrowLeft
+		}
+	} else {
+		// move Y axis
+		if player.PositionX <= enemy.PositionX {
+			alternative = ArrowRight
+		} else {
+			alternative = ArrowLeft
+		}
+		if player.PositionY <= enemy.PositionY {
+			key = ArrowDown
+		} else {
+			key = ArrowUp
+		}
+	}
+	return key, alternative, attack
+}
+
 func (player *Player) ProjectMove(key string, hub *Hub) (x int, y int, err error) {
 	x = player.PositionX
 	y = player.PositionY
