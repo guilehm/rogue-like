@@ -471,7 +471,7 @@ func (s *GameService) FollowPlayers() {
 				}
 			}()
 		}
-		time.Sleep(200 * time.Millisecond)
+		time.Sleep(settings.FollowCheckTime)
 	}
 }
 
