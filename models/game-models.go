@@ -185,9 +185,10 @@ func (player *Player) Shoot(enemy *Player, p *Projectile, hub *Hub) {
 	stepY := (float64(enemy.PositionY) - p.PositionY) / 10
 
 	for x := 0; x < 10; x++ {
+		// TODO: check if projectile hits something and stop it
 		p.PositionX += stepX
 		p.PositionY += stepY
-		time.Sleep(time.Millisecond * 20)
+		time.Sleep(settings.ProjectileMoveTime)
 		hub.Broadcast <- true
 	}
 	enemy.UpdateHP(-player.Sprite.Damage)

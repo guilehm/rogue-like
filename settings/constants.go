@@ -11,3 +11,4 @@ const IncreasePlayersHealthValue = 10
 const IncreasePlayersHealthCheckTime = 5 * time.Second
 const ViewAreaOffsetX = 8 * 9
 const ViewAreaOffsetY = 8 * 6
+const ProjectileMoveTime = 20 * time.Millisecond
