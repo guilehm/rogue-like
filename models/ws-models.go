@@ -53,7 +53,7 @@ type Hub struct {
 	DropSprites       []DropSprite
 	Drops             []*Drop
 	ProjectileSprites []ProjectileSprite
-	Projectiles       []*Projectile
+	Projectiles       map[*Projectile]bool
 	FloorLayer        Layer
 	MapArea           Area
 }

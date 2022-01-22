@@ -73,6 +73,7 @@ type ProjectileSprite struct {
 }
 
 type Projectile struct {
+	ID        int              `json:"id"`
 	Sprite    ProjectileSprite `json:"sprite"`
 	PositionX float64          `json:"positionX"`
 	PositionY float64          `json:"positionY"`
@@ -153,6 +154,7 @@ type Player struct {
 func (player *Player) CreateProjectileTo(enemy *Player) *Projectile {
 
 	p := &Projectile{
+		ID:        int(time.Now().UnixNano()),
 		Sprite:    player.Sprite.ProjectileSprite,
 		PositionX: float64(player.PositionX),
 		PositionY: float64(player.PositionY),
@@ -166,7 +168,7 @@ func (player *Player) CreateProjectileTo(enemy *Player) *Projectile {
 	return p
 }
 
-func (player *Player) Shoot(enemy *Player, p *Projectile) {
+func (player *Player) Shoot(enemy *Player, p *Projectile, hub *Hub) {
 	// 10 frames
 	stepX := (float64(enemy.PositionX) - p.PositionX) / 10
 	stepY := (float64(enemy.PositionY) - p.PositionY) / 10
@@ -174,8 +176,14 @@ func (player *Player) Shoot(enemy *Player, p *Projectile) {
 	for x := 0; x < 10; x++ {
 		p.PositionX += stepX
 		p.PositionY += stepY
+		time.Sleep(time.Millisecond * 20)
+		hub.Broadcast <- true
 	}
 	enemy.UpdateHP(-player.Sprite.Damage)
+
+	if _, ok := hub.Projectiles[p]; ok {
+		delete(hub.Projectiles, p)
+	}
 }
 
 func (player *Player) HandleMove(key string, hub *Hub) {
