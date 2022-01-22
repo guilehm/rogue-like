@@ -54,7 +54,7 @@ func (s *GameService) CreateSprites() {
 		SpriteWidth:  6,
 		SpriteHeight: 1,
 		XOffset:      0,
-		YOffset:      0,
+		YOffset:      4,
 	}
 	s.Hub.ProjectileSprites = []models.ProjectileSprite{
 		bolt,
