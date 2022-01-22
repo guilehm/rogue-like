@@ -25,11 +25,11 @@ func handleKeyDown(client *models.Client, message models.WSMessage) error {
 
 	if key == models.KeySpace {
 		enemies := client.Hub.GetAliveEnemies(0)
-		client.Player.GetClosePlayers(enemies, client.Player.Sprite.AttackRange*8)
-		if len(enemies) == 0 {
+		closePlayers := client.Player.GetClosePlayers(enemies, client.Player.Sprite.AttackRange*8)
+		if len(closePlayers) == 0 {
 			return nil
 		}
-		enemy := client.Player.GetClosestPlayer(enemies)
+		enemy := client.Player.GetClosestPlayer(closePlayers)
 		p := client.Player.CreateProjectileTo(enemy)
 		client.Hub.Projectiles[p] = true
 		go client.Player.Shoot(
