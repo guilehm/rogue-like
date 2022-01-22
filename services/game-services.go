@@ -35,8 +35,31 @@ func (s *GameService) GetSprite(name models.SpriteName, kind string) (models.Spr
 	return models.Sprite{}, errors.New("sprite not found")
 }
 
+func (s *GameService) GetProjectileSprite(name models.ProjectileName) (models.ProjectileSprite, error) {
+	for _, sprite := range s.Hub.ProjectileSprites {
+		if sprite.Name == name {
+			return sprite, nil
+		}
+	}
+	return models.ProjectileSprite{}, errors.New("sprite not found")
+
+}
+
 func (s *GameService) CreateSprites() {
-	s.Hub.DropSprites = []*models.DropSprite{
+	bolt, _ := s.GetProjectileSprite(models.Bolt)
+	s.Hub.ProjectileSprites = []models.ProjectileSprite{
+		{
+			Name:         models.Bolt,
+			TileSet:      models.Sprites,
+			SpriteX:      73,
+			SpriteY:      91,
+			SpriteWidth:  6,
+			SpriteHeight: 1,
+			XOffset:      0,
+			YOffset:      0,
+		},
+	}
+	s.Hub.DropSprites = []models.DropSprite{
 		{
 			Name:         models.HealthPotion,
 			TileSet:      models.Sprites,
