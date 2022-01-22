@@ -551,6 +551,11 @@ func (s *GameService) Start() {
 				drops = append(drops, *drop)
 			}
 
+			var projectiles []models.Projectile
+			for p := range s.Hub.Projectiles {
+				projectiles = append(projectiles, *p)
+			}
+
 			for client := range s.Hub.Clients {
 				// here we filter enemies and players
 				// to decrease the data sent to the frontend
@@ -569,10 +574,11 @@ func (s *GameService) Start() {
 				}
 
 				err := client.Conn.WriteJSON(models.BroadcastMessage{
-					Type:    models.Broadcast,
-					Players: filteredPlayers,
-					Enemies: filteredEnemies,
-					Drops:   drops,
+					Type:        models.Broadcast,
+					Players:     filteredPlayers,
+					Enemies:     filteredEnemies,
+					Drops:       drops,
+					Projectiles: projectiles,
 				})
 				if err != nil {
 					log.Println("could not send message:", err)
