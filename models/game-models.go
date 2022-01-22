@@ -475,8 +475,7 @@ func (player *Player) GetClosestPlayer(players []*Player) *Player {
 	for _, p := range players {
 		diffX := player.PositionX - p.PositionX
 		diffY := player.PositionY - p.PositionY
-		// TODO: should be absolute here?
-		key := (diffX * diffX) + (diffY * diffY)
+		key := helpers.Abs(diffX*diffX) + helpers.Abs(diffY*diffY)
 		distancesMap[key] = p
 		keys = append(keys, key)
 	}
