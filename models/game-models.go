@@ -17,6 +17,10 @@ var (
 )
 
 var (
+	Bolt ProjectileName = "bolt"
+)
+
+var (
 	Warrior    SpriteName = "warrior"
 	Templar    SpriteName = "templar"
 	Archer     SpriteName = "archer"
