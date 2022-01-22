@@ -55,6 +55,26 @@ type Animation struct {
 	YOffset      int `json:"yOffset"`
 }
 
+type ProjectileSprite struct {
+	Name         ProjectileName `json:"name"`
+	TileSet      TileSet        `json:"tileSet"`
+	SpriteX      int            `json:"spriteX"`
+	SpriteY      int            `json:"spriteY"`
+	SpriteWidth  int            `json:"spriteWidth"`
+	SpriteHeight int            `json:"spriteHeight"`
+	XOffset      int            `json:"xOffset"`
+	YOffset      int            `json:"yOffset"`
+}
+
+type Projectile struct {
+	Sprite    ProjectileSprite `json:"sprite"`
+	PositionX float64          `json:"positionX"`
+	PositionY float64          `json:"positionY"`
+	Angle     float64          `json:"angle"`
+	VelocityX float64          `json:"velocityX"`
+	VelocityY float64          `json:"velocityY"`
+}
+
 type DropSprite struct {
 	Name         DropName                         `json:"name"`
 	TileSet      TileSet                          `json:"tileSet"`
