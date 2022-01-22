@@ -2,12 +2,14 @@ package models
 
 import (
 	"errors"
+	"math"
 	"rogue-like/helpers"
 	"rogue-like/settings"
 	"sort"
 	"time"
 )
 
+type ProjectileName string
 type DropName string
 type SpriteName string
 type TileSet string
@@ -116,6 +118,8 @@ type Sprite struct {
 	Animation          Animation `json:"animation"`
 	AttackTimeCooldown int       `json:"-"`
 	MoveTimeCooldown   int       `json:"-"`
+
+	ProjectileSprite ProjectileSprite `json:"projectileSprite"`
 }
 
 type Coords struct {
@@ -207,7 +211,7 @@ MakeMovement:
 			if collidedTo.Dead {
 				hub.Drops = append(hub.Drops, &Drop{
 					// TODO: drops should not be hardcoded
-					Sprite:    *hub.DropSprites[0],
+					Sprite:    hub.DropSprites[0],
 					PositionX: collidedTo.PositionX,
 					PositionY: collidedTo.PositionY,
 				})
