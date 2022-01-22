@@ -204,10 +204,16 @@ func (player *Player) HandleMove(key string, hub *Hub) {
 	if err != nil {
 		return
 	}
+	if !player.CanMove() {
+		return
+	}
+	player.LastMoveTime = time.Now()
 
 	collision, collidedTo := player.HasProjectedCollision(hub.GetAliveEnemies(0), x, y)
+	if collision && !player.CanAttack() {
+		return
+	}
 
-	player.LastMoveTime = time.Now()
 MakeMovement:
 	for m := 0; m < settings.MoveRange; m += settings.MoveStep {
 		player.Move(key)
