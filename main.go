@@ -25,7 +25,7 @@ func main() {
 			EnemySprites:      []models.Sprite{},
 			DropSprites:       []models.DropSprite{},
 			ProjectileSprites: []models.ProjectileSprite{},
-			Projectiles:       []*models.Projectile{},
+			Projectiles:       make(map[*models.Projectile]bool),
 		},
 	}
 	service.CreateSprites()
