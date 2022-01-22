@@ -31,11 +31,12 @@ func handleKeyDown(client *models.Client, message models.WSMessage) error {
 		}
 		enemy := client.Player.GetClosestPlayer(enemies)
 		p := client.Player.CreateProjectileTo(enemy)
-		client.Player.Shoot(
+		client.Hub.Projectiles[p] = true
+		go client.Player.Shoot(
 			enemy,
 			p,
+			client.Hub,
 		)
-		client.Hub.Projectiles = append(client.Hub.Projectiles, p)
 		client.Hub.Broadcast <- true
 	} else {
 		client.Player.HandleMove(key, client.Hub)
