@@ -146,6 +146,22 @@ type Player struct {
 	LastMoveTime     time.Time `json:"-"`
 }
 
+func (player *Player) CreateProjectileTo(enemy *Player) *Projectile {
+
+	p := &Projectile{
+		Sprite:    player.Sprite.ProjectileSprite,
+		PositionX: float64(player.PositionX),
+		PositionY: float64(player.PositionY),
+		Angle: math.Atan2(
+			float64(enemy.PositionY-player.PositionY),
+			float64(enemy.PositionX-player.PositionX),
+		),
+	}
+	p.VelocityX = math.Cos(p.Angle)
+	p.VelocityY = math.Sin(p.Angle)
+	return p
+}
+
 func (player *Player) HandleMove(key string, hub *Hub) {
 
 	x, y, err := player.ProjectMove(key, hub)
