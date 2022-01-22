@@ -168,6 +168,13 @@ func (player *Player) CreateProjectileTo(enemy *Player) *Projectile {
 	return p
 }
 
+func (player *Player) CanShoot() bool {
+	if player.Sprite.ProjectileSprite.Name == "" {
+		return false
+	}
+	return true
+}
+
 func (player *Player) Shoot(enemy *Player, p *Projectile, hub *Hub) {
 	// 10 frames
 	stepX := (float64(enemy.PositionX) - p.PositionX) / 10

@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"errors"
 	"log"
 	"math/rand"
 	"rogue-like/models"
@@ -24,6 +25,9 @@ func handleKeyDown(client *models.Client, message models.WSMessage) error {
 	}
 
 	if key == models.KeySpace {
+		if !client.Player.CanShoot() {
+			return errors.New("player cannot shoot")
+		}
 		enemies := client.Hub.GetAliveEnemies(0)
 		closePlayers := client.Player.GetClosePlayers(enemies, client.Player.Sprite.AttackRange*8)
 		if len(closePlayers) == 0 {
