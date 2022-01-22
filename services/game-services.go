@@ -46,18 +46,18 @@ func (s *GameService) GetProjectileSprite(name models.ProjectileName) (models.Pr
 }
 
 func (s *GameService) CreateSprites() {
-	bolt, _ := s.GetProjectileSprite(models.Bolt)
+	bolt := models.ProjectileSprite{
+		Name:         models.Bolt,
+		TileSet:      models.Sprites,
+		SpriteX:      73,
+		SpriteY:      91,
+		SpriteWidth:  6,
+		SpriteHeight: 1,
+		XOffset:      0,
+		YOffset:      0,
+	}
 	s.Hub.ProjectileSprites = []models.ProjectileSprite{
-		{
-			Name:         models.Bolt,
-			TileSet:      models.Sprites,
-			SpriteX:      73,
-			SpriteY:      91,
-			SpriteWidth:  6,
-			SpriteHeight: 1,
-			XOffset:      0,
-			YOffset:      0,
-		},
+		bolt,
 	}
 	s.Hub.DropSprites = []models.DropSprite{
 		{
