@@ -43,6 +43,7 @@ var (
 	KeyW       = "w"
 	KeyD       = "d"
 	KeyS       = "s"
+	KeySpace   = " "
 )
 
 type Animation struct {
