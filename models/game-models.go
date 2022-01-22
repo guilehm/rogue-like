@@ -162,6 +162,18 @@ func (player *Player) CreateProjectileTo(enemy *Player) *Projectile {
 	return p
 }
 
+func (player *Player) Shoot(enemy *Player, p *Projectile) {
+	// 10 frames
+	stepX := (float64(enemy.PositionX) - p.PositionX) / 10
+	stepY := (float64(enemy.PositionY) - p.PositionY) / 10
+
+	for x := 0; x < 10; x++ {
+		p.PositionX += stepX
+		p.PositionY += stepY
+	}
+	enemy.UpdateHP(-player.Sprite.Damage)
+}
+
 func (player *Player) HandleMove(key string, hub *Hub) {
 
 	x, y, err := player.ProjectMove(key, hub)
