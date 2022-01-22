@@ -430,8 +430,8 @@ func (s *GameService) RespawnEnemies() {
 
 func (s *GameService) FollowPlayers() {
 	for {
-		for _, enemy := range s.Hub.Enemies {
-			if enemy.Dead || !enemy.CanMove() {
+		for _, enemy := range s.Hub.GetAliveEnemies(0) {
+			if !enemy.CanMove() {
 				continue
 			}
 			enemy := enemy
