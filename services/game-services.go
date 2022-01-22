@@ -264,6 +264,7 @@ func (s *GameService) CreateSprites() {
 				SpriteWidth:  8,
 				SpriteHeight: 8,
 			},
+			AttackTimeCooldown: 1000,
 		},
 		{
 			Name:            models.Templar,
@@ -285,6 +286,7 @@ func (s *GameService) CreateSprites() {
 				SpriteWidth:  8,
 				SpriteHeight: 8,
 			},
+			AttackTimeCooldown: 1000,
 		},
 		{
 			Name:             models.Archer,
@@ -307,6 +309,7 @@ func (s *GameService) CreateSprites() {
 				SpriteWidth:  8,
 				SpriteHeight: 8,
 			},
+			AttackTimeCooldown: 1000,
 		},
 		{
 			Name:         models.Mage,
@@ -330,6 +333,7 @@ func (s *GameService) CreateSprites() {
 				SpriteWidth:  8,
 				SpriteHeight: 8,
 			},
+			AttackTimeCooldown: 1000,
 		},
 	}
 }
