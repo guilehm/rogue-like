@@ -43,17 +43,19 @@ type Client struct {
 }
 
 type Hub struct {
-	Clients       map[*Client]bool
-	Register      chan *Client
-	Unregister    chan *Client
-	Broadcast     chan bool
-	PlayerSprites []Sprite
-	EnemySprites  []Sprite
-	Enemies       []*Player
-	DropSprites   []*DropSprite
-	Drops         []*Drop
-	FloorLayer    Layer
-	MapArea       Area
+	Clients           map[*Client]bool
+	Register          chan *Client
+	Unregister        chan *Client
+	Broadcast         chan bool
+	PlayerSprites     []Sprite
+	EnemySprites      []Sprite
+	Enemies           []*Player
+	DropSprites       []DropSprite
+	Drops             []*Drop
+	ProjectileSprites []ProjectileSprite
+	Projectiles       []*Projectile
+	FloorLayer        Layer
+	MapArea           Area
 }
 
 func (h *Hub) GetAliveEnemies(excludeId int) []*Player {
