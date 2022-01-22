@@ -159,7 +159,7 @@ func (s *GameService) CreateSprites() {
 			YOffset:      -1,
 			HP:           80,
 			Damage:       70,
-			AttackRange:  3,
+			AttackRange:  2,
 			// TODO: mage should not shoot bolt
 			ProjectileSprite: bolt,
 			SightDistance:    4,
@@ -297,7 +297,7 @@ func (s *GameService) CreateSprites() {
 			YOffset:          0,
 			HP:               60,
 			Damage:           65,
-			AttackRange:      5,
+			AttackRange:      4,
 			ProjectileSprite: bolt,
 			SightDistance:    2,
 			AnimationPeriod:  600,
@@ -319,7 +319,7 @@ func (s *GameService) CreateSprites() {
 			YOffset:      -1,
 			HP:           70,
 			Damage:       65,
-			AttackRange:  3,
+			AttackRange:  2,
 			// TODO: mages should not shoot bolt
 			ProjectileSprite: bolt,
 			SightDistance:    2,
