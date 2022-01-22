@@ -299,7 +299,7 @@ func (s *GameService) CreateSprites() {
 			YOffset:          0,
 			HP:               60,
 			Damage:           65,
-			AttackRange:      4,
+			AttackRange:      3,
 			ProjectileSprite: bolt,
 			SightDistance:    2,
 			AnimationPeriod:  600,
