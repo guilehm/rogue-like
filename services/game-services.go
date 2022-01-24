@@ -533,6 +533,7 @@ func (s *GameService) Start() {
 		case <-s.Hub.Broadcast:
 			var players []models.Player
 			for client := range s.Hub.Clients {
+				client.Player.Level = client.Player.GetLevel()
 				players = append(players, *client.Player)
 			}
 
