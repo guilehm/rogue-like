@@ -149,6 +149,8 @@ type Player struct {
 	DeathTime        time.Time `json:"-"`
 	LastAttackTime   time.Time `json:"-"`
 	LastMoveTime     time.Time `json:"-"`
+	XP               int       `json:"xp"`
+	Level            int       `json:"level"`
 }
 
 func (player *Player) CreateProjectileTo(enemy *Player) *Projectile {
