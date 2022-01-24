@@ -61,7 +61,7 @@ type Hub struct {
 func (h *Hub) GetAliveEnemies(excludeId int) []*Player {
 	var enemies []*Player
 	for _, enemy := range h.Enemies {
-		if enemy.ID == excludeId || enemy.Dead {
+		if enemy.Dead || enemy.ID == excludeId {
 			continue
 		}
 		enemies = append(enemies, enemy)
@@ -72,7 +72,7 @@ func (h *Hub) GetAliveEnemies(excludeId int) []*Player {
 func (h *Hub) GetAlivePlayers(excludeId int) []*Player {
 	var players []*Player
 	for client := range h.Clients {
-		if client.Player.ID == excludeId || client.Player.Dead {
+		if client.Player.Dead || client.Player.ID == excludeId {
 			continue
 		}
 		players = append(players, client.Player)
