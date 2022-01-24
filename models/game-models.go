@@ -205,20 +205,40 @@ func (player *Player) Shoot(enemy *Player, p *Projectile, hub *Hub) {
 	hub.Broadcast <- true
 }
 
-func (player *Player) HandleMove(key string, hub *Hub) {
+func (player *Player) HandleShoot(hub *Hub) error {
+	if !player.CanShoot() {
+		return errors.New("player cannot shoot")
+	}
+	enemies := hub.GetAliveEnemies(0)
+	closePlayers := player.GetClosePlayers(enemies, player.Sprite.AttackRange*8)
+	if len(closePlayers) == 0 {
+		return nil
+	}
+	enemy := player.GetClosestPlayer(closePlayers)
+	p := player.CreateProjectileTo(enemy)
+	hub.Projectiles[p] = true
+	go player.Shoot(
+		enemy,
+		p,
+		hub,
+	)
+	return nil
+}
+
+func (player *Player) HandleMove(key string, hub *Hub) error {
 
 	x, y, err := player.ProjectMove(key, hub)
 	if err != nil {
-		return
+		return err
 	}
 	if !player.CanMove() {
-		return
+		return errors.New("player cannot move")
 	}
 	player.LastMoveTime = time.Now()
 
 	collision, collidedTo := player.HasProjectedCollision(hub.GetAliveEnemies(0), x, y)
 	if collision && !player.CanAttack() {
-		return
+		return errors.New("player cannot attack")
 	}
 
 MakeMovement:
@@ -259,6 +279,7 @@ MakeMovement:
 		}
 
 	}
+	return nil
 }
 
 func (player *Player) UpdateHP(value int) {
