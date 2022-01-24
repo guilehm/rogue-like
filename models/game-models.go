@@ -352,10 +352,10 @@ func (player *Player) Move(key string) {
 }
 
 func (player *Player) MoveAndAttack(enemy *Player, key string, hub *Hub) {
-	player.LastMoveTime = time.Now()
 	if player.Dead || enemy.Dead {
 		return
 	}
+	player.LastMoveTime = time.Now()
 	if key == "" {
 		key, _, _ = player.GetNextMoveKey(enemy)
 	}
