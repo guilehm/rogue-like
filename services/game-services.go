@@ -137,7 +137,7 @@ func (s *GameService) CreateSprites() {
 			HP:              120,
 			Damage:          60,
 			AttackRange:     0,
-			SightDistance:   2,
+			SightDistance:   3,
 			AnimationPeriod: 1000,
 			Animation: models.Animation{
 				SpriteX:      27,
