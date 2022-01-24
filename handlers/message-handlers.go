@@ -21,29 +21,19 @@ func handleKeyDown(client *models.Client, message models.WSMessage) error {
 	}
 
 	if client.Player.Dead {
-		return nil
+		return errors.New("player is dead")
 	}
 
 	if key == models.KeySpace {
-		if !client.Player.CanShoot() {
-			return errors.New("player cannot shoot")
+		err := client.Player.HandleShoot(client.Hub)
+		if err != nil {
+			return err
 		}
-		enemies := client.Hub.GetAliveEnemies(0)
-		closePlayers := client.Player.GetClosePlayers(enemies, client.Player.Sprite.AttackRange*8)
-		if len(closePlayers) == 0 {
-			return nil
-		}
-		enemy := client.Player.GetClosestPlayer(closePlayers)
-		p := client.Player.CreateProjectileTo(enemy)
-		client.Hub.Projectiles[p] = true
-		go client.Player.Shoot(
-			enemy,
-			p,
-			client.Hub,
-		)
-		client.Hub.Broadcast <- true
 	} else {
-		client.Player.HandleMove(key, client.Hub)
+		err := client.Player.HandleMove(key, client.Hub)
+		if err != nil {
+			return err
+		}
 	}
 	return nil
 }
