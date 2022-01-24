@@ -605,3 +605,7 @@ func (player *Player) GetLevel() int {
 	player.Level = level
 	return level
 }
+
+func (sprite Sprite) XPPointsToDrop() int {
+	return int((float32(sprite.HP) / 100) + float32(sprite.Damage)/1000*float32(sprite.AttackTimeCooldown)/10)
+}
