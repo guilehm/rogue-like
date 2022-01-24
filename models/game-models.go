@@ -182,6 +182,7 @@ func (player *Player) CanShoot() bool {
 
 func (player *Player) Shoot(enemy *Player, p *Projectile, hub *Hub) {
 	player.LastAttackTime = time.Now()
+
 	// 10 frames
 	stepX := (float64(enemy.PositionX) - p.PositionX) / 10
 	stepY := (float64(enemy.PositionY) - p.PositionY) / 10
@@ -589,4 +590,18 @@ func OppositeKey(key string) string {
 	default:
 		return ""
 	}
+}
+
+func (player *Player) GetLevel() int {
+	var level = 1
+	// var nextLevelXp float32 = 100
+	var nextLevelXp float32 = 5
+	xp := float32(player.XP)
+	for xp >= nextLevelXp {
+		xp -= nextLevelXp
+		level += 1
+		nextLevelXp *= settings.NextLevelXpIncreaseRate
+	}
+	player.Level = level
+	return level
 }
