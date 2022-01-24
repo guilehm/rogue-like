@@ -194,10 +194,15 @@ func (player *Player) Shoot(enemy *Player, p *Projectile, hub *Hub) {
 		hub.Broadcast <- true
 	}
 	enemy.UpdateHP(-player.Sprite.Damage)
+	if enemy.Dead {
+		player.XP += enemy.Sprite.XPPointsToDrop() // + enemy.XP
+		player.GetLevel()
+	}
 
 	if _, ok := hub.Projectiles[p]; ok {
 		delete(hub.Projectiles, p)
 	}
+	hub.Broadcast <- true
 }
 
 func (player *Player) HandleMove(key string, hub *Hub) {
@@ -294,6 +299,10 @@ func (player *Player) Attack(enemy *Player) {
 	}
 	player.LastAttackTime = time.Now()
 	enemy.UpdateHP(-player.Sprite.Damage)
+	if enemy.Dead {
+		player.XP += enemy.Sprite.XPPointsToDrop() // + enemy.XP
+		player.GetLevel()
+	}
 }
 
 func (player *Player) GetArea() Area {
