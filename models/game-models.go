@@ -594,8 +594,7 @@ func OppositeKey(key string) string {
 
 func (player *Player) GetLevel() int {
 	var level = 1
-	// var nextLevelXp float32 = 100
-	var nextLevelXp float32 = 5
+	var nextLevelXp float32 = 50
 	xp := float32(player.XP)
 	for xp >= nextLevelXp {
 		xp -= nextLevelXp
