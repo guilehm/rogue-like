@@ -180,7 +180,7 @@ func (s *GameService) CreateSprites() {
 			SpriteHeight:    9,
 			XOffset:         0,
 			YOffset:         -1,
-			HP:              140,
+			HP:              180,
 			Damage:          80,
 			AttackRange:     0,
 			SightDistance:   4,
@@ -203,7 +203,7 @@ func (s *GameService) CreateSprites() {
 			SpriteHeight:    9,
 			XOffset:         0,
 			YOffset:         -1,
-			HP:              160,
+			HP:              210,
 			Damage:          100,
 			AttackRange:     0,
 			SightDistance:   4,
@@ -226,7 +226,7 @@ func (s *GameService) CreateSprites() {
 			SpriteHeight:    9,
 			XOffset:         0,
 			YOffset:         -1,
-			HP:              180,
+			HP:              240,
 			Damage:          120,
 			AttackRange:     0,
 			SightDistance:   5,
@@ -462,7 +462,6 @@ func (s *GameService) CreateEnemies() {
 		s.createEnemy(models.SheepDark, 216, 664, 40),
 		s.createEnemy(models.SheepDark, 272, 664, 40),
 	)
-
 }
 
 func (s *GameService) IncreasePlayersHealth() {
