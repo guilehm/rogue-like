@@ -120,12 +120,18 @@ type Sprite struct {
 	AttackTimeCooldown int       `json:"-"`
 	MoveTimeCooldown   int       `json:"-"`
 
+	BonusByLevel BonusByLevel
+
 	ProjectileSprite ProjectileSprite `json:"projectileSprite"`
 }
 
-type Coords struct {
-	PositionX int `json:"positionX"`
-	PositionY int `json:"positionY"`
+type BonusByLevel struct {
+	HP     int
+	Damage int
+}
+
+func (sprite Sprite) XPPointsToDrop() int {
+	return int((float32(sprite.HP) / 100) + float32(sprite.Damage)/1000*float32(sprite.AttackTimeCooldown)/10)
 }
 
 type Area struct {
@@ -603,8 +609,4 @@ func (player *Player) GetLevel() int {
 	}
 	player.Level = level
 	return level
-}
-
-func (sprite Sprite) XPPointsToDrop() int {
-	return int((float32(sprite.HP) / 100) + float32(sprite.Damage)/1000*float32(sprite.AttackTimeCooldown)/10)
 }
