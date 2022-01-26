@@ -3,6 +3,7 @@ package services
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"math/rand"
@@ -353,7 +354,7 @@ func (s *GameService) CreateSprites() {
 
 func (s *GameService) createEnemy(name models.SpriteName, px, py, respDelay int) *models.Player {
 	if px%8 != 0 || py%8 != 0 {
-		log.Fatal("invalid position while creating ", name)
+		log.Fatal(fmt.Sprintf("invalid position while creating %v at x:%v y:%v\n", name, px, py))
 	}
 	sprite, _ := s.GetSprite(name, "enemy")
 	return &models.Player{
