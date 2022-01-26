@@ -418,6 +418,29 @@ func (s *GameService) CreateEnemies() {
 		s.createEnemy(models.MageDark, 160, 400, 60),
 		s.createEnemy(models.OrcKing, 144, 392, 60),
 		s.createEnemy(models.SheepWhite, 104, 376, 50),
+		s.createEnemy(models.SheepWhite, 216, 480, 50),
+		s.createEnemy(models.MageDark, 184, 488, 60),
+		s.createEnemy(models.SheepGrey, 248, 488, 50),
+		s.createEnemy(models.SheepGrey, 280, 520, 50),
+		s.createEnemy(models.MageDark, 248, 528, 60),
+		s.createEnemy(models.MageDark, 200, 520, 60),
+		s.createEnemy(models.SheepGrey, 136, 512, 50),
+		s.createEnemy(models.SheepGrey, 48, 536, 50),
+		s.createEnemy(models.SheepDark, 52, 592, 40),
+		s.createEnemy(models.Orc, 64, 624, 20),
+		s.createEnemy(models.Orc, 80, 640, 20),
+		s.createEnemy(models.Orc, 104, 664, 20),
+		s.createEnemy(models.MageDark, 56, 680, 60),
+		s.createEnemy(models.SheepDark, 88, 728, 40),
+		s.createEnemy(models.SheepDark, 192, 728, 40), // new monster here
+		s.createEnemy(models.SheepDark, 368, 728, 40), // new monster here
+		s.createEnemy(models.SheepDark, 368, 648, 40), // new monster here
+		s.createEnemy(models.MageDark, 336, 640, 60),
+		s.createEnemy(models.MageDark, 352, 608, 60),
+		s.createEnemy(models.MageDark, 408, 592, 60),
+		s.createEnemy(models.OrcRed, 416, 584, 45),
+		s.createEnemy(models.OrcRed, 432, 608, 45),
+		s.createEnemy(models.OrcKing, 408, 544, 60),
 	)
 
 }
