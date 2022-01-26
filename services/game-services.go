@@ -98,7 +98,7 @@ func (s *GameService) CreateSprites() {
 				SpriteHeight: 8,
 			},
 			AttackTimeCooldown: 1800,
-			MoveTimeCooldown:   500,
+			MoveTimeCooldown:   700,
 		},
 		{
 			Name:            models.OrcRed,
@@ -144,7 +144,7 @@ func (s *GameService) CreateSprites() {
 				SpriteHeight: 8,
 			},
 			AttackTimeCooldown: 2000,
-			MoveTimeCooldown:   700,
+			MoveTimeCooldown:   1000,
 		},
 		{
 			Name:         models.MageDark,
@@ -169,7 +169,7 @@ func (s *GameService) CreateSprites() {
 				SpriteHeight: 8,
 			},
 			AttackTimeCooldown: 1600,
-			MoveTimeCooldown:   450,
+			MoveTimeCooldown:   600,
 		},
 		{
 			Name:            models.SheepWhite,
@@ -192,7 +192,7 @@ func (s *GameService) CreateSprites() {
 				SpriteHeight: 8,
 			},
 			AttackTimeCooldown: 2100,
-			MoveTimeCooldown:   600,
+			MoveTimeCooldown:   500,
 		},
 		{
 			Name:            models.SheepGrey,
@@ -215,7 +215,7 @@ func (s *GameService) CreateSprites() {
 				SpriteHeight: 8,
 			},
 			AttackTimeCooldown: 2000,
-			MoveTimeCooldown:   600,
+			MoveTimeCooldown:   450,
 		},
 		{
 			Name:            models.SheepDark,
@@ -238,7 +238,7 @@ func (s *GameService) CreateSprites() {
 				SpriteHeight: 8,
 			},
 			AttackTimeCooldown: 1800,
-			MoveTimeCooldown:   600,
+			MoveTimeCooldown:   400,
 		},
 	}
 	s.Hub.PlayerSprites = []models.Sprite{
