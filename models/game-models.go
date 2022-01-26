@@ -601,7 +601,7 @@ func (player Player) XPPointsToDrop() int {
 
 func (player *Player) GetLevel() int {
 	var level = 1
-	var nextLevelXp float32 = 50
+	var nextLevelXp float32 = settings.BaseNextLevelXP
 	xp := float32(player.XP)
 	for xp >= nextLevelXp {
 		xp -= nextLevelXp
