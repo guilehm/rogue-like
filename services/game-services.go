@@ -414,7 +414,7 @@ func (s *GameService) IncreasePlayersHealth() {
 			if client.Player.Dead || client.Player.Health >= client.Player.GetMaxHP() {
 				continue
 			}
-			client.Player.UpdateHP(settings.IncreasePlayersHealthValue)
+			client.Player.UpdateHP(settings.IncreasePlayersHealthValue + client.Player.Sprite.BonusByLevel.HP)
 		}
 		s.Hub.Broadcast <- true
 		time.Sleep(settings.IncreasePlayersHealthCheckTime)
