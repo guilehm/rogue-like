@@ -130,10 +130,6 @@ type BonusByLevel struct {
 	Damage int
 }
 
-func (sprite Sprite) XPPointsToDrop() int {
-	return int((float32(sprite.HP) / 100) + float32(sprite.Damage)/1000*float32(sprite.AttackTimeCooldown)/10)
-}
-
 type Area struct {
 	PosStartX int
 	PosEndX   int
@@ -202,7 +198,7 @@ func (player *Player) Shoot(enemy *Player, p *Projectile, hub *Hub) {
 	}
 	enemy.UpdateHP(-player.Sprite.Damage)
 	if enemy.Dead {
-		player.XP += enemy.Sprite.XPPointsToDrop() // + enemy.XP
+		player.XP += enemy.XPPointsToDrop() // + enemy.XP
 		player.GetLevel()
 	}
 
@@ -329,7 +325,7 @@ func (player *Player) Attack(enemy *Player) {
 	player.LastAttackTime = time.Now()
 	enemy.UpdateHP(-player.Sprite.Damage)
 	if enemy.Dead {
-		player.XP += enemy.Sprite.XPPointsToDrop() // + enemy.XP
+		player.XP += enemy.XPPointsToDrop() // + enemy.XP
 		player.GetLevel()
 	}
 }
@@ -597,6 +593,10 @@ func OppositeKey(key string) string {
 	default:
 		return ""
 	}
+}
+
+func (player Player) XPPointsToDrop() int {
+	return int((float32(player.GetMaxHP()) / 100) + float32(player.GetDamage())/1000*float32(player.Sprite.AttackTimeCooldown)/10)
 }
 
 func (player *Player) GetLevel() int {
