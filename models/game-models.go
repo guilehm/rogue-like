@@ -610,3 +610,9 @@ func (player *Player) GetLevel() int {
 	player.Level = level
 	return level
 }
+
+func (player *Player) GetMaxHP() int {
+	level := player.GetLevel()
+	bonusHPByLevel := player.Sprite.BonusByLevel.HP * (level - 1)
+	return player.Sprite.HP + bonusHPByLevel
+}
