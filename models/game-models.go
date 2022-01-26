@@ -196,7 +196,7 @@ func (player *Player) Shoot(enemy *Player, p *Projectile, hub *Hub) {
 		time.Sleep(settings.ProjectileMoveTime)
 		hub.Broadcast <- true
 	}
-	enemy.UpdateHP(-player.Sprite.Damage)
+	enemy.UpdateHP(-player.GetDamage())
 	if enemy.Dead {
 		player.XP += enemy.XPPointsToDrop() // + enemy.XP
 		player.GetLevel()
@@ -319,11 +319,11 @@ func (player *Player) Attack(enemy *Player) {
 		return
 	}
 	if enemy.Health == enemy.GetMaxHP() || enemy.Health%enemy.GetMaxHP() >= settings.PercentageToAttackBack {
-		player.UpdateHP(-enemy.Sprite.Damage / 2)
+		player.UpdateHP(-enemy.GetDamage() / 2)
 		enemy.LastAttackTime = time.Now()
 	}
 	player.LastAttackTime = time.Now()
-	enemy.UpdateHP(-player.Sprite.Damage)
+	enemy.UpdateHP(-player.GetDamage())
 	if enemy.Dead {
 		player.XP += enemy.XPPointsToDrop() // + enemy.XP
 		player.GetLevel()
