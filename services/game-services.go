@@ -262,6 +262,10 @@ func (s *GameService) CreateSprites() {
 				SpriteHeight: 8,
 			},
 			AttackTimeCooldown: 1250,
+			BonusByLevel: struct {
+				HP     int
+				Damage int
+			}{HP: 12, Damage: 1},
 		},
 		{
 			Name:            models.Templar,
@@ -284,6 +288,10 @@ func (s *GameService) CreateSprites() {
 				SpriteHeight: 8,
 			},
 			AttackTimeCooldown: 1300,
+			BonusByLevel: struct {
+				HP     int
+				Damage int
+			}{HP: 10, Damage: 2},
 		},
 		{
 			Name:             models.Archer,
@@ -294,7 +302,7 @@ func (s *GameService) CreateSprites() {
 			SpriteHeight:     8,
 			XOffset:          0,
 			YOffset:          0,
-			HP:               55,
+			HP:               60,
 			Damage:           45,
 			AttackRange:      3,
 			ProjectileSprite: bolt,
@@ -307,6 +315,10 @@ func (s *GameService) CreateSprites() {
 				SpriteHeight: 8,
 			},
 			AttackTimeCooldown: 2000,
+			BonusByLevel: struct {
+				HP     int
+				Damage int
+			}{HP: 5, Damage: 5},
 		},
 		{
 			Name:         models.Mage,
@@ -317,8 +329,8 @@ func (s *GameService) CreateSprites() {
 			SpriteHeight: 9,
 			XOffset:      0,
 			YOffset:      -1,
-			HP:           70,
-			Damage:       55,
+			HP:           45,
+			Damage:       60,
 			AttackRange:  2,
 			// TODO: mages should not shoot bolt
 			ProjectileSprite: bolt,
@@ -331,6 +343,10 @@ func (s *GameService) CreateSprites() {
 				SpriteHeight: 8,
 			},
 			AttackTimeCooldown: 2000,
+			BonusByLevel: struct {
+				HP     int
+				Damage int
+			}{HP: 4, Damage: 6},
 		},
 	}
 }
