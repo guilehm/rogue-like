@@ -291,8 +291,9 @@ MakeMovement:
 
 func (player *Player) UpdateHP(value int) {
 	player.Health += value
-	if player.Health > player.Sprite.HP {
-		player.Health = player.Sprite.HP
+	maxHp := player.GetMaxHP()
+	if player.Health > maxHp {
+		player.Health = maxHp
 	}
 	if player.Health <= 0 {
 		player.Health = 0
@@ -321,7 +322,7 @@ func (player *Player) Attack(enemy *Player) {
 	if player.Dead || enemy.Dead {
 		return
 	}
-	if enemy.Health == enemy.Sprite.HP || enemy.Health%enemy.Sprite.HP >= settings.PercentageToAttackBack {
+	if enemy.Health == enemy.GetMaxHP() || enemy.Health%enemy.GetMaxHP() >= settings.PercentageToAttackBack {
 		player.UpdateHP(-enemy.Sprite.Damage / 2)
 		enemy.LastAttackTime = time.Now()
 	}

@@ -411,7 +411,7 @@ func (s *GameService) CreateEnemies() {
 func (s *GameService) IncreasePlayersHealth() {
 	for {
 		for client := range s.Hub.Clients {
-			if client.Player.Dead || client.Player.Health >= client.Player.Sprite.HP {
+			if client.Player.Dead || client.Player.Health >= client.Player.GetMaxHP() {
 				continue
 			}
 			client.Player.UpdateHP(settings.IncreasePlayersHealthValue)
