@@ -404,6 +404,20 @@ func (s *GameService) CreateEnemies() {
 		s.createEnemy(models.Orc, 264, 176, 20),
 		s.createEnemy(models.OrcKing, 296, 160, 60),
 		s.createEnemy(models.SheepGrey, 352, 24, 30),
+		s.createEnemy(models.OrcRed, 336, 72, 45),
+		s.createEnemy(models.OrcRed, 376, 88, 45),
+		s.createEnemy(models.SheepWhite, 320, 120, 50),
+		s.createEnemy(models.SheepGrey, 384, 152, 50),
+		s.createEnemy(models.SheepWhite, 256, 200, 50),
+		s.createEnemy(models.SheepWhite, 120, 312, 50),
+		s.createEnemy(models.SheepGrey, 344, 376, 50),
+		s.createEnemy(models.Orc, 384, 352, 20),
+		s.createEnemy(models.MageDark, 416, 304, 60),
+		s.createEnemy(models.MageDark, 432, 320, 60),
+		s.createEnemy(models.MageDark, 424, 336, 60),
+		s.createEnemy(models.MageDark, 160, 400, 60),
+		s.createEnemy(models.OrcKing, 144, 392, 60),
+		s.createEnemy(models.SheepWhite, 104, 376, 50),
 	)
 
 }
@@ -443,6 +457,7 @@ func (s *GameService) RespawnEnemies() {
 
 func (s *GameService) FollowPlayers() {
 	for {
+		// TODO: Only needs to follow enemies who has players close to it
 		for _, enemy := range s.Hub.GetAliveEnemies(0) {
 			if !enemy.CanMove() {
 				continue
