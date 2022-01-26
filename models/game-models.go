@@ -617,3 +617,9 @@ func (player *Player) GetMaxHP() int {
 	bonusHPByLevel := player.Sprite.BonusByLevel.HP * (level - 1)
 	return player.Sprite.HP + bonusHPByLevel
 }
+
+func (player *Player) GetDamage() int {
+	level := player.GetLevel()
+	bonusDamageByLevel := player.Sprite.BonusByLevel.Damage * (level - 1)
+	return player.Sprite.Damage + bonusDamageByLevel
+}
