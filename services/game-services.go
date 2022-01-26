@@ -71,7 +71,7 @@ func (s *GameService) CreateSprites() {
 			YOffset:      2,
 			Consume: func(drop *models.Drop, player *models.Player) {
 				drop.Consumed = true
-				player.UpdateHP(20)
+				player.UpdateHP(25)
 			},
 		},
 	}
