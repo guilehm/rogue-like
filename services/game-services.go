@@ -512,6 +512,13 @@ func (s *GameService) FollowPlayers() {
 					closestPlayer := enemy.GetClosestPlayer(closePlayers)
 					key, alternative, attack := enemy.GetNextMoveKey(closestPlayer)
 
+					if enemy.CanShoot() {
+						err := enemy.HandleShoot(s.Hub, s.Hub.GetAlivePlayers(0))
+						if err == nil {
+							return
+						}
+					}
+
 					var (
 						opposite1 string
 						opposite2 string
