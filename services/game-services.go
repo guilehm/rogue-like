@@ -490,6 +490,9 @@ func (s *GameService) RespawnEnemies() {
 				enemy.Health = enemy.Sprite.HP
 				enemy.PositionX = enemy.RespawnPositionX
 				enemy.PositionY = enemy.RespawnPositionY
+				// add a cooldown for respawned enemies
+				enemy.LastMoveTime = now.Add(settings.CooldownForRespawnedEnemies)
+				enemy.LastAttackTime = now.Add(settings.CooldownForRespawnedEnemies)
 				s.Hub.Broadcast <- true
 			}
 		}
