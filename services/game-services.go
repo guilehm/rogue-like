@@ -511,89 +511,100 @@ func (s *GameService) FollowPlayers() {
 			go func() {
 				players := s.Hub.GetAlivePlayers(0)
 				closePlayers := enemy.GetClosePlayers(players, enemy.Sprite.SightDistance*8)
-				if len(closePlayers) > 0 {
-					closestPlayer := enemy.GetClosestPlayer(closePlayers)
-					key, alternative, attack := enemy.GetNextMoveKey(closestPlayer)
+				var (
+					key           string
+					alternative   string
+					attack        bool
+					closestPlayer *models.Player
+				)
+				if len(closePlayers) == 0 {
+					if enemy.PositionX == enemy.RespawnPositionX && enemy.PositionY == enemy.RespawnPositionY {
+						return
+					}
+					key, alternative, attack = enemy.GetNextMoveKey(enemy.RespawnPositionX, enemy.RespawnPositionY)
+				} else {
+					closestPlayer = enemy.GetClosestPlayer(closePlayers)
+					key, alternative, attack = enemy.GetNextMoveKeyTo(closestPlayer)
+				}
 
-					if enemy.CanShoot() {
-						err := enemy.HandleShoot(s.Hub, s.Hub.GetAlivePlayers(0))
-						if err == nil {
-							return
+				if enemy.CanShoot() {
+					err := enemy.HandleShoot(s.Hub, s.Hub.GetAlivePlayers(0))
+					if err == nil {
+						return
+					}
+				}
+
+				var (
+					opposite1 string
+					opposite2 string
+				)
+				keys := []string{models.ArrowLeft, models.ArrowUp, models.ArrowRight, models.ArrowDown}
+				rand.Seed(time.Now().UnixNano())
+				rand.Shuffle(len(keys), func(i, j int) { keys[i], keys[j] = keys[j], keys[i] })
+				for _, k := range keys {
+					if k == key || k == alternative || k == opposite1 {
+						continue
+					}
+					if opposite1 == "" {
+						opposite1 = k
+						continue
+					}
+					opposite2 = k
+				}
+
+				nextMoveKey := key
+				if closestPlayer != nil && attack {
+					if !enemy.CanAttack() {
+						return
+					}
+					enemy.MoveAndAttack(closestPlayer, "", s.Hub)
+				} else {
+					enemies := s.Hub.GetAliveEnemies(enemy.ID)
+					x, y, err := enemy.ProjectMove(nextMoveKey, s.Hub)
+					if err == nil {
+						collision, _ := enemy.HasProjectedCollision(enemies, x, y)
+						if collision {
+							err = errors.New("collision")
 						}
 					}
-
-					var (
-						opposite1 string
-						opposite2 string
-					)
-					keys := []string{models.ArrowLeft, models.ArrowUp, models.ArrowRight, models.ArrowDown}
-					rand.Seed(time.Now().UnixNano())
-					rand.Shuffle(len(keys), func(i, j int) { keys[i], keys[j] = keys[j], keys[i] })
-					for _, k := range keys {
-						if k == key || k == alternative || k == opposite1 {
-							continue
-						}
-						if opposite1 == "" {
-							opposite1 = k
-							continue
-						}
-						opposite2 = k
-					}
-
-					nextMoveKey := key
-					if attack {
-						if !enemy.CanAttack() {
-							return
-						}
-						enemy.MoveAndAttack(closestPlayer, "", s.Hub)
-					} else {
-						enemies := s.Hub.GetAliveEnemies(enemy.ID)
-						x, y, err := enemy.ProjectMove(nextMoveKey, s.Hub)
+					if err != nil {
+						x, y, err = enemy.ProjectMove(alternative, s.Hub)
 						if err == nil {
 							collision, _ := enemy.HasProjectedCollision(enemies, x, y)
 							if collision {
 								err = errors.New("collision")
 							}
 						}
+						nextMoveKey = alternative
 						if err != nil {
-							x, y, err = enemy.ProjectMove(alternative, s.Hub)
+							x, y, err = enemy.ProjectMove(opposite1, s.Hub)
 							if err == nil {
 								collision, _ := enemy.HasProjectedCollision(enemies, x, y)
 								if collision {
 									err = errors.New("collision")
 								}
 							}
-							nextMoveKey = alternative
+							nextMoveKey = opposite1
 							if err != nil {
-								x, y, err = enemy.ProjectMove(opposite1, s.Hub)
+								x, y, err = enemy.ProjectMove(opposite2, s.Hub)
 								if err == nil {
 									collision, _ := enemy.HasProjectedCollision(enemies, x, y)
 									if collision {
 										err = errors.New("collision")
 									}
 								}
-								nextMoveKey = opposite1
+								nextMoveKey = opposite2
 								if err != nil {
-									x, y, err = enemy.ProjectMove(opposite2, s.Hub)
-									if err == nil {
-										collision, _ := enemy.HasProjectedCollision(enemies, x, y)
-										if collision {
-											err = errors.New("collision")
-										}
-									}
-									nextMoveKey = opposite2
-									if err != nil {
-										log.Println("could not find a good route")
-										return
-									}
+									log.Println("could not find a good route")
+									return
 								}
 							}
 						}
-						err = enemy.ProjectAndMove(nextMoveKey, s.Hub)
-						if err != nil {
-							log.Println("Error while moving ", err)
-							return
-						}
+					}
+					err = enemy.ProjectAndMove(nextMoveKey, s.Hub)
+					if err != nil {
+						log.Println("Error while moving ", err)
+						return
 					}
 				}
 			}()
