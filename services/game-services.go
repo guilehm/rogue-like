@@ -156,7 +156,7 @@ func (s *GameService) CreateSprites() {
 			XOffset:      0,
 			YOffset:      -1,
 			HP:           80,
-			Damage:       70,
+			Damage:       50,
 			AttackRange:  2,
 			// TODO: mage should not shoot bolt
 			ProjectileSprite: bolt,
@@ -168,8 +168,8 @@ func (s *GameService) CreateSprites() {
 				SpriteWidth:  8,
 				SpriteHeight: 8,
 			},
-			AttackTimeCooldown: 1600,
-			MoveTimeCooldown:   600,
+			AttackTimeCooldown: 4000,
+			MoveTimeCooldown:   1200,
 		},
 		{
 			Name:            models.SheepWhite,
@@ -330,7 +330,7 @@ func (s *GameService) CreateSprites() {
 			SpriteHeight: 9,
 			XOffset:      0,
 			YOffset:      -1,
-			HP:           45,
+			HP:           55,
 			Damage:       60,
 			AttackRange:  2,
 			// TODO: mages should not shoot bolt
