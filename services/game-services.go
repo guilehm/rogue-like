@@ -502,7 +502,6 @@ func (s *GameService) RespawnEnemies() {
 
 func (s *GameService) FollowPlayers() {
 	for {
-		// TODO: Only needs to follow enemies who has players close to it
 		for _, enemy := range s.Hub.GetAliveEnemies(0) {
 			if !enemy.CanMove() {
 				continue
