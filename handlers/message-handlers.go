@@ -25,7 +25,8 @@ func handleKeyDown(client *models.Client, message models.WSMessage) error {
 	}
 
 	if key == models.KeySpace {
-		err := client.Player.HandleShoot(client.Hub)
+		enemies := client.Hub.GetAliveEnemies(0)
+		err := client.Player.HandleShoot(client.Hub, enemies)
 		if err != nil {
 			return err
 		}

@@ -208,14 +208,13 @@ func (player *Player) Shoot(enemy *Player, p *Projectile, hub *Hub) {
 	hub.Broadcast <- true
 }
 
-func (player *Player) HandleShoot(hub *Hub) error {
+func (player *Player) HandleShoot(hub *Hub, enemies []*Player) error {
 	if !player.CanShoot() {
 		return errors.New("player cannot shoot")
 	}
-	enemies := hub.GetAliveEnemies(0)
 	closePlayers := player.GetClosePlayers(enemies, player.Sprite.AttackRange*8)
 	if len(closePlayers) == 0 {
-		return nil
+		return errors.New("no close players to shoot")
 	}
 	enemy := player.GetClosestPlayer(closePlayers)
 	p := player.CreateProjectileTo(enemy)
