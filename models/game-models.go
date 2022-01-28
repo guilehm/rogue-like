@@ -154,6 +154,7 @@ type Player struct {
 	XP               int       `json:"xp"`
 	Level            int       `json:"level"`
 	MaxHP            int       `json:"maxHP"`
+	XPToNextLevel    int       `json:"xpToNextLevel"`
 }
 
 func (player *Player) CreateProjectileTo(enemy *Player) *Projectile {
@@ -603,8 +604,8 @@ func (player Player) XPPointsToDrop() int {
 	return int((float32(player.GetMaxHP()) / 100) + float32(player.GetDamage())/1000*float32(player.Sprite.AttackTimeCooldown)/10)
 }
 
-func (player *Player) GetLevel() int {
-	var level = 1
+func (player *Player) GetLevel() (level int, xpToNextLevel int) {
+	level = 1
 	var nextLevelXp float32 = settings.BaseNextLevelXP
 	xp := float32(player.XP)
 	for xp >= nextLevelXp {
@@ -613,17 +614,17 @@ func (player *Player) GetLevel() int {
 		nextLevelXp *= settings.NextLevelXpIncreaseRate
 	}
 	player.Level = level
-	return level
+	return level, int(nextLevelXp - xp)
 }
 
 func (player *Player) GetMaxHP() int {
-	level := player.GetLevel()
+	level, _ := player.GetLevel()
 	bonusHPByLevel := player.Sprite.BonusByLevel.HP * (level - 1)
 	return player.Sprite.HP + bonusHPByLevel
 }
 
 func (player *Player) GetDamage() int {
-	level := player.GetLevel()
+	level, _ := player.GetLevel()
 	bonusDamageByLevel := player.Sprite.BonusByLevel.Damage * (level - 1)
 	return player.Sprite.Damage + bonusDamageByLevel
 }
