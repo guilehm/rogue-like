@@ -627,6 +627,7 @@ func (s *GameService) Start() {
 			var players []models.Player
 			for client := range s.Hub.Clients {
 				client.Player.Level = client.Player.GetLevel()
+				client.Player.MaxHP = client.Player.GetMaxHP()
 				players = append(players, *client.Player)
 			}
 
