@@ -2,6 +2,7 @@ package models
 
 import (
 	"encoding/json"
+	"sync"
 
 	"github.com/gorilla/websocket"
 )
@@ -56,6 +57,9 @@ type Hub struct {
 	Projectiles       map[*Projectile]bool
 	FloorLayer        Layer
 	MapArea           Area
+	LevelMap          map[int]float32
+
+	Mu sync.Mutex
 }
 
 func (h *Hub) GetAliveEnemies(excludeId int) []*Player {
