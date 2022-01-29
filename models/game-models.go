@@ -19,7 +19,8 @@ var (
 )
 
 var (
-	Bolt ProjectileName = "bolt"
+	Bolt     ProjectileName = "bolt"
+	Fireball ProjectileName = "fireball"
 )
 
 var (

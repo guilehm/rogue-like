@@ -57,6 +57,16 @@ func (s *GameService) CreateSprites() {
 		XOffset:      0,
 		YOffset:      0,
 	}
+	fireball := models.ProjectileSprite{
+		Name:         models.Fireball,
+		TileSet:      models.Sprites,
+		SpriteX:      58,
+		SpriteY:      88,
+		SpriteWidth:  4,
+		SpriteHeight: 4,
+		XOffset:      0,
+		YOffset:      0,
+	}
 	s.Hub.ProjectileSprites = []models.ProjectileSprite{
 		bolt,
 	}
