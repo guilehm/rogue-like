@@ -689,6 +689,20 @@ func (s *GameService) Start() {
 	}
 }
 
+func (s *GameService) ClearProjectiles() {
+	for {
+		now := time.Now()
+		s.Hub.Mu.Lock()
+		for p := range s.Hub.Projectiles {
+			if p.CreateTime.Add(settings.TimeToClearProjectiles).Before(now) {
+				delete(s.Hub.Projectiles, p)
+			}
+		}
+		s.Hub.Mu.Unlock()
+		time.Sleep(5 * time.Second)
+	}
+}
+
 func (s *GameService) CreateFloorTiles() {
 
 	endpoint := os.Getenv("TILE_MAP_DATA_ENDPOINT")
