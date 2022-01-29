@@ -243,32 +243,6 @@ func (s *GameService) CreateSprites() {
 	}
 	s.Hub.PlayerSprites = []models.Sprite{
 		{
-			Name:            models.Warrior,
-			TileSet:         models.Sprites,
-			SpriteX:         63,
-			SpriteY:         9,
-			SpriteWidth:     8,
-			SpriteHeight:    9,
-			XOffset:         0,
-			YOffset:         -1,
-			HP:              180,
-			Damage:          30,
-			AttackRange:     0,
-			SightDistance:   2,
-			AnimationPeriod: 800,
-			Animation: models.Animation{
-				SpriteX:      63,
-				SpriteY:      1,
-				SpriteWidth:  8,
-				SpriteHeight: 8,
-			},
-			AttackTimeCooldown: 1250,
-			BonusByLevel: struct {
-				HP     int
-				Damage int
-			}{HP: 12, Damage: 1},
-		},
-		{
 			Name:            models.Templar,
 			TileSet:         models.Sprites,
 			SpriteX:         54,
@@ -277,8 +251,8 @@ func (s *GameService) CreateSprites() {
 			SpriteHeight:    9,
 			XOffset:         0,
 			YOffset:         -1,
-			HP:              160,
-			Damage:          40,
+			HP:              180,
+			Damage:          30,
 			AttackRange:     0,
 			SightDistance:   2,
 			AnimationPeriod: 1000,
@@ -289,6 +263,32 @@ func (s *GameService) CreateSprites() {
 				SpriteHeight: 8,
 			},
 			AttackTimeCooldown: 1300,
+			BonusByLevel: struct {
+				HP     int
+				Damage int
+			}{HP: 12, Damage: 1},
+		},
+		{
+			Name:            models.Warrior,
+			TileSet:         models.Sprites,
+			SpriteX:         63,
+			SpriteY:         9,
+			SpriteWidth:     8,
+			SpriteHeight:    9,
+			XOffset:         0,
+			YOffset:         -1,
+			HP:              160,
+			Damage:          40,
+			AttackRange:     0,
+			SightDistance:   2,
+			AnimationPeriod: 800,
+			Animation: models.Animation{
+				SpriteX:      63,
+				SpriteY:      1,
+				SpriteWidth:  8,
+				SpriteHeight: 8,
+			},
+			AttackTimeCooldown: 1250,
 			BonusByLevel: struct {
 				HP     int
 				Damage int
