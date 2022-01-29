@@ -624,10 +624,13 @@ func (s *GameService) Start() {
 				delete(s.Hub.Clients, client)
 			}
 		case <-s.Hub.Broadcast:
+			s.Hub.Mu.Lock()
 			var players []models.Player
 			for client := range s.Hub.Clients {
-				client.Player.Level, client.Player.XPToNextLevel = client.Player.GetLevel()
+				client.Player.Level = client.Player.GetLevel()
 				client.Player.MaxHP = client.Player.GetMaxHP()
+				client.Player.XPCurrentLevel = int(s.Hub.LevelMap[client.Player.Level-1])
+				client.Player.XPNextLevel = int(s.Hub.LevelMap[client.Player.Level])
 				players = append(players, *client.Player)
 			}
 
@@ -681,6 +684,7 @@ func (s *GameService) Start() {
 					continue
 				}
 			}
+			s.Hub.Mu.Unlock()
 		}
 	}
 }
