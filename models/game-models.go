@@ -73,13 +73,14 @@ type ProjectileSprite struct {
 }
 
 type Projectile struct {
-	ID        int              `json:"id"`
-	Sprite    ProjectileSprite `json:"sprite"`
-	PositionX float64          `json:"positionX"`
-	PositionY float64          `json:"positionY"`
-	Angle     float64          `json:"angle"`
-	VelocityX float64          `json:"velocityX"`
-	VelocityY float64          `json:"velocityY"`
+	ID         int              `json:"id"`
+	Sprite     ProjectileSprite `json:"sprite"`
+	PositionX  float64          `json:"positionX"`
+	PositionY  float64          `json:"positionY"`
+	Angle      float64          `json:"angle"`
+	VelocityX  float64          `json:"velocityX"`
+	VelocityY  float64          `json:"velocityY"`
+	CreateTime time.Time        `json:"-"`
 }
 
 type DropSprite struct {
