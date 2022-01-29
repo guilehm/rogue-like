@@ -192,11 +192,11 @@ func (player *Player) CanShoot() bool {
 func (player *Player) Shoot(enemy *Player, p *Projectile, hub *Hub) {
 	player.LastAttackTime = time.Now()
 
-	// 10 frames
-	stepX := (float64(enemy.PositionX+enemy.Sprite.XOffset) - p.PositionX) / 10
-	stepY := (float64(enemy.PositionY+enemy.Sprite.YOffset+(enemy.Sprite.SpriteHeight/2)) - p.PositionY) / 10
+	frames := float64(20)
+	stepX := (float64(enemy.PositionX+enemy.Sprite.XOffset) - p.PositionX) / frames
+	stepY := (float64(enemy.PositionY+enemy.Sprite.YOffset+(enemy.Sprite.SpriteHeight/2)) - p.PositionY) / frames
 
-	for x := 0; x < 10; x++ {
+	for x := 0; x < int(frames); x++ {
 		idx := helpers.GetTileIndexByPositions(int(p.PositionX+stepX), int(p.PositionY+stepY), hub.FloorLayer.Width)
 		tile, found := hub.FloorLayer.TileMap[idx]
 		if found && tile.InterruptProjectiles {
