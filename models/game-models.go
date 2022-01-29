@@ -165,11 +165,11 @@ func (player *Player) CreateProjectileTo(enemy *Player) *Projectile {
 	p := &Projectile{
 		ID:        int(time.Now().UnixNano()),
 		Sprite:    player.Sprite.ProjectileSprite,
-		PositionX: float64(player.PositionX),
-		PositionY: float64(player.PositionY),
+		PositionX: float64(player.PositionX + player.Sprite.XOffset),
+		PositionY: float64(player.PositionY + player.Sprite.YOffset),
 		Angle: math.Atan2(
-			float64(enemy.PositionY-player.PositionY),
-			float64(enemy.PositionX-player.PositionX),
+			float64(enemy.PositionY+enemy.Sprite.YOffset-player.PositionY+player.Sprite.YOffset),
+			float64(enemy.PositionX+enemy.Sprite.XOffset-player.PositionX+player.Sprite.XOffset),
 		),
 		CreateTime: time.Now(),
 	}
@@ -192,8 +192,8 @@ func (player *Player) Shoot(enemy *Player, p *Projectile, hub *Hub) {
 	player.LastAttackTime = time.Now()
 
 	// 10 frames
-	stepX := (float64(enemy.PositionX) - p.PositionX) / 10
-	stepY := (float64(enemy.PositionY) - p.PositionY) / 10
+	stepX := (float64(enemy.PositionX+enemy.Sprite.XOffset) - p.PositionX) / 10
+	stepY := (float64(enemy.PositionY+enemy.Sprite.YOffset) - p.PositionY) / 10
 
 	for x := 0; x < 10; x++ {
 		idx := helpers.GetTileIndexByPositions(int(p.PositionX+stepX), int(p.PositionY+stepY), hub.FloorLayer.Width)
