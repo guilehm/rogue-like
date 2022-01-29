@@ -166,7 +166,7 @@ func (player *Player) CreateProjectileTo(enemy *Player) *Projectile {
 		ID:        int(time.Now().UnixNano()),
 		Sprite:    player.Sprite.ProjectileSprite,
 		PositionX: float64(player.PositionX + player.Sprite.XOffset),
-		PositionY: float64(player.PositionY + player.Sprite.YOffset),
+		PositionY: float64(player.PositionY + player.Sprite.YOffset + (player.Sprite.SpriteHeight / 2)),
 		Angle: math.Atan2(
 			float64(enemy.PositionY+enemy.Sprite.YOffset-player.PositionY+player.Sprite.YOffset),
 			float64(enemy.PositionX+enemy.Sprite.XOffset-player.PositionX+player.Sprite.XOffset),
