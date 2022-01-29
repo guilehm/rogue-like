@@ -15,3 +15,4 @@ const ProjectileMoveTime = 20 * time.Millisecond
 const NextLevelXpIncreaseRate = 1.2
 const BaseNextLevelXP = 30
 const CooldownForRespawnedEnemies = 3 * time.Second
+const TimeToClearProjectiles = 20 * time.Second
