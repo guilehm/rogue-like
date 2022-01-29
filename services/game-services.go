@@ -765,8 +765,5 @@ func (s *GameService) GenerateGameLevelsMap() map[int]float32 {
 		levelMap[i] = nextLevelXp
 		nextLevelXp += nextLevelXp * settings.NextLevelXpIncreaseRate
 	}
-	for _, v := range []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10} {
-		fmt.Println(v, levelMap[v])
-	}
 	return levelMap
 }
