@@ -755,3 +755,18 @@ func (s *GameService) CreateFloorTiles() {
 	s.Hub.FloorLayer = floor
 	s.Hub.MapArea = mapArea
 }
+
+func (s *GameService) GenerateGameLevelsMap() map[int]float32 {
+	maxLevel := 10
+	levelMap := make(map[int]float32, maxLevel)
+	levelMap[0] = 0
+	var nextLevelXp float32 = settings.BaseNextLevelXP
+	for i := 1; i <= maxLevel; i++ {
+		levelMap[i] = nextLevelXp
+		nextLevelXp += nextLevelXp * settings.NextLevelXpIncreaseRate
+	}
+	for _, v := range []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10} {
+		fmt.Println(v, levelMap[v])
+	}
+	return levelMap
+}
