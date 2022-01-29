@@ -156,6 +156,8 @@ type Player struct {
 	Level            int       `json:"level"`
 	MaxHP            int       `json:"maxHP"`
 	XPToNextLevel    int       `json:"xpToNextLevel"`
+	XPCurrentLevel   int       `json:"xpCurrentLevel"`
+	XPNextLevel      int       `json:"xpNextLevel"`
 }
 
 func (player *Player) CreateProjectileTo(enemy *Player) *Projectile {
