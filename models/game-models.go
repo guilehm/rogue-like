@@ -171,6 +171,7 @@ func (player *Player) CreateProjectileTo(enemy *Player) *Projectile {
 			float64(enemy.PositionY-player.PositionY),
 			float64(enemy.PositionX-player.PositionX),
 		),
+		CreateTime: time.Now(),
 	}
 	p.VelocityX = math.Cos(p.Angle)
 	p.VelocityY = math.Sin(p.Angle)
@@ -195,9 +196,15 @@ func (player *Player) Shoot(enemy *Player, p *Projectile, hub *Hub) {
 	stepY := (float64(enemy.PositionY) - p.PositionY) / 10
 
 	for x := 0; x < 10; x++ {
-		// TODO: check if projectile hits something and stop it
+		idx := helpers.GetTileIndexByPositions(int(p.PositionX+stepX), int(p.PositionY+stepY), hub.FloorLayer.Width)
+		tile, found := hub.FloorLayer.TileMap[idx]
+		if found && tile.InterruptProjectiles {
+			return
+		}
+
 		p.PositionX += stepX
 		p.PositionY += stepY
+
 		time.Sleep(settings.ProjectileMoveTime)
 		hub.Broadcast <- true
 	}
@@ -206,10 +213,11 @@ func (player *Player) Shoot(enemy *Player, p *Projectile, hub *Hub) {
 		player.XP += enemy.XPPointsToDrop() // + enemy.XP
 		player.GetLevel()
 	}
-
+	hub.Mu.Lock()
 	if _, ok := hub.Projectiles[p]; ok {
 		delete(hub.Projectiles, p)
 	}
+	hub.Mu.Unlock()
 	hub.Broadcast <- true
 }
 
@@ -223,12 +231,10 @@ func (player *Player) HandleShoot(hub *Hub, enemies []*Player) error {
 	}
 	enemy := player.GetClosestPlayer(closePlayers)
 	p := player.CreateProjectileTo(enemy)
+	hub.Mu.Lock()
 	hub.Projectiles[p] = true
-	go player.Shoot(
-		enemy,
-		p,
-		hub,
-	)
+	hub.Mu.Unlock()
+	go player.Shoot(enemy, p, hub)
 	return nil
 }
 
@@ -607,27 +613,27 @@ func (player Player) XPPointsToDrop() int {
 	return int((float32(player.GetMaxHP()) / 100) + float32(player.GetDamage())/1000*float32(player.Sprite.AttackTimeCooldown)/10)
 }
 
-func (player *Player) GetLevel() (level int, xpToNextLevel int) {
+func (player *Player) GetLevel() (level int) {
 	level = 1
 	var nextLevelXp float32 = settings.BaseNextLevelXP
 	xp := float32(player.XP)
 	for xp >= nextLevelXp {
 		xp -= nextLevelXp
 		level += 1
-		nextLevelXp *= settings.NextLevelXpIncreaseRate
+		nextLevelXp += nextLevelXp * settings.NextLevelXpIncreaseRate
 	}
 	player.Level = level
-	return level, int(nextLevelXp - xp)
+	return level
 }
 
 func (player *Player) GetMaxHP() int {
-	level, _ := player.GetLevel()
+	level := player.GetLevel()
 	bonusHPByLevel := player.Sprite.BonusByLevel.HP * (level - 1)
 	return player.Sprite.HP + bonusHPByLevel
 }
 
 func (player *Player) GetDamage() int {
-	level, _ := player.GetLevel()
+	level := player.GetLevel()
 	bonusDamageByLevel := player.Sprite.BonusByLevel.Damage * (level - 1)
 	return player.Sprite.Damage + bonusDamageByLevel
 }
