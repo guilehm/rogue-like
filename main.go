@@ -28,6 +28,7 @@ func main() {
 			Projectiles:       make(map[*models.Projectile]bool),
 		},
 	}
+	service.Hub.LevelMap = service.GenerateGameLevelsMap()
 	service.CreateSprites()
 	service.CreateEnemies()
 	service.CreateFloorTiles()
