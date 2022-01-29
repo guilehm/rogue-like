@@ -193,7 +193,7 @@ func (player *Player) Shoot(enemy *Player, p *Projectile, hub *Hub) {
 
 	// 10 frames
 	stepX := (float64(enemy.PositionX+enemy.Sprite.XOffset) - p.PositionX) / 10
-	stepY := (float64(enemy.PositionY+enemy.Sprite.YOffset) - p.PositionY) / 10
+	stepY := (float64(enemy.PositionY+enemy.Sprite.YOffset+(enemy.Sprite.SpriteHeight/2)) - p.PositionY) / 10
 
 	for x := 0; x < 10; x++ {
 		idx := helpers.GetTileIndexByPositions(int(p.PositionX+stepX), int(p.PositionY+stepY), hub.FloorLayer.Width)
