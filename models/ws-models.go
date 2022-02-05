@@ -25,8 +25,8 @@ type KeyDownMessage struct {
 }
 
 type UserJoinsMessage struct {
-	ID     int    `json:"id"`
-	Sprite string `json:"sprite"`
+	ID     int        `json:"id"`
+	Sprite SpriteName `json:"sprite"`
 }
 
 type BroadcastMessage struct {
