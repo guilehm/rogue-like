@@ -241,12 +241,13 @@ func (player *Player) HandleShoot(hub *Hub, enemies []*Player) error {
 
 func (player *Player) HandleMove(key string, hub *Hub) error {
 
+	if !player.CanMove() {
+		return errors.New("player cannot move")
+	}
+
 	x, y, err := player.ProjectMove(key, hub)
 	if err != nil {
 		return err
-	}
-	if !player.CanMove() {
-		return errors.New("player cannot move")
 	}
 	player.LastMoveTime = time.Now()
 
