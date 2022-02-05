@@ -9,6 +9,7 @@ import (
 	"rogue-like/services"
 
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 )
 
 func main() {
@@ -39,11 +40,18 @@ func main() {
 	go service.FollowPlayers()
 	go service.ClearProjectiles()
 
+	// TODO: do not allow all origins
+	handler := cors.New(cors.Options{
+		AllowedOrigins:   []string{"*"},
+		AllowedMethods:   []string{http.MethodGet, http.MethodPost, http.MethodOptions},
+		AllowedHeaders:   []string{"*"},
+		AllowCredentials: true,
+	}).Handler(r)
 	r.HandleFunc("/sprites/", func(w http.ResponseWriter, r *http.Request) {
 		handlers.SpriteList(service.Hub, w, r)
 	})
 	r.HandleFunc("/ws/rogue/", func(w http.ResponseWriter, r *http.Request) {
 		handlers.RogueLikeHandler(&service, w, r)
 	})
-	_ = http.ListenAndServe(":"+os.Getenv("PORT"), r)
+	_ = http.ListenAndServe(":"+os.Getenv("PORT"), handler)
 }
