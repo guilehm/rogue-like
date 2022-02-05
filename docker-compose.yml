@@ -5,11 +5,12 @@ services:
     build: .
     image: rogue-like
     container_name: rogue_like
-    command: go run -race main.go
+    command: go run main.go
     volumes:
       - .:/go/src/
     working_dir: /go/src/
     environment:
       PORT: 80
+      TILE_MAP_DATA_ENDPOINT: https://gui-static.s3.sa-east-1.amazonaws.com/rogue-like/background.json
     ports:
       - "8080:80"
