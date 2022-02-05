@@ -39,6 +39,9 @@ func main() {
 	go service.FollowPlayers()
 	go service.ClearProjectiles()
 
+	r.HandleFunc("/sprites/", func(w http.ResponseWriter, r *http.Request) {
+		handlers.SpriteList(service.Hub, w, r)
+	})
 	r.HandleFunc("/ws/rogue/", func(w http.ResponseWriter, r *http.Request) {
 		handlers.RogueLikeHandler(&service, w, r)
 	})
