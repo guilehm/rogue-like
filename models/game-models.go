@@ -122,7 +122,7 @@ type Sprite struct {
 	AttackTimeCooldown int       `json:"-"`
 	MoveTimeCooldown   int       `json:"-"`
 
-	BonusByLevel BonusByLevel
+	BonusByLevel BonusByLevel `json:"-"`
 
 	ProjectileSprite ProjectileSprite `json:"projectileSprite"`
 }
