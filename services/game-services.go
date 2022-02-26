@@ -305,7 +305,7 @@ func (s *GameService) CreateSprites() {
 			}{HP: 10, Damage: 2},
 		},
 		{
-			Name:            "Assasssin",
+			Name:            models.Assassin,
 			TileSet:         models.Sprites,
 			SpriteX:         9,
 			SpriteY:         9,

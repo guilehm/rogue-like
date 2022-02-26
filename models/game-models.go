@@ -24,6 +24,7 @@ var (
 )
 
 var (
+	Assassin   SpriteName = "assassin"
 	Warrior    SpriteName = "warrior"
 	Templar    SpriteName = "templar"
 	Archer     SpriteName = "archer"
