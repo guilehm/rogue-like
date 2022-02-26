@@ -15,7 +15,6 @@ import (
 func main() {
 	log.Println("hello")
 
-	r := mux.NewRouter()
 	service := services.GameService{
 		Hub: &models.Hub{
 			Clients:           make(map[*models.Client]bool),
@@ -40,6 +39,7 @@ func main() {
 	go service.FollowPlayers()
 	go service.ClearProjectiles()
 
+	r := mux.NewRouter()
 	// TODO: do not allow all origins
 	handler := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},
