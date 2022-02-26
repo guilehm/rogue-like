@@ -69,6 +69,7 @@ func (s *GameService) CreateSprites() {
 	}
 	s.Hub.ProjectileSprites = []models.ProjectileSprite{
 		bolt,
+		fireball,
 	}
 	s.Hub.DropSprites = []models.DropSprite{
 		{
@@ -302,6 +303,32 @@ func (s *GameService) CreateSprites() {
 				HP     int
 				Damage int
 			}{HP: 10, Damage: 2},
+		},
+		{
+			Name:            "Assasssin",
+			TileSet:         models.Sprites,
+			SpriteX:         9,
+			SpriteY:         9,
+			SpriteWidth:     8,
+			SpriteHeight:    9,
+			XOffset:         0,
+			YOffset:         -1,
+			HP:              120,
+			Damage:          45,
+			AttackRange:     0,
+			SightDistance:   4,
+			AnimationPeriod: 800,
+			Animation: models.Animation{
+				SpriteX:      9,
+				SpriteY:      1,
+				SpriteWidth:  8,
+				SpriteHeight: 8,
+			},
+			AttackTimeCooldown: 1000,
+			BonusByLevel: struct {
+				HP     int
+				Damage int
+			}{HP: 8, Damage: 3},
 		},
 		{
 			Name:             models.Archer,
