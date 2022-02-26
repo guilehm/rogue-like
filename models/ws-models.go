@@ -45,9 +45,6 @@ type Client struct {
 
 type Hub struct {
 	Clients           map[*Client]bool
-	Register          chan *Client
-	Unregister        chan *Client
-	Broadcast         chan bool
 	PlayerSprites     []Sprite
 	EnemySprites      []Sprite
 	Enemies           []*Player
@@ -55,9 +52,14 @@ type Hub struct {
 	Drops             []*Drop
 	ProjectileSprites []ProjectileSprite
 	Projectiles       map[*Projectile]bool
-	FloorLayer        Layer
-	MapArea           Area
-	LevelMap          map[int]float32
+
+	FloorLayer Layer
+	MapArea    Area
+	LevelMap   map[int]float32
+
+	Register   chan *Client
+	Unregister chan *Client
+	Broadcast  chan bool
 
 	Mu sync.Mutex
 }
